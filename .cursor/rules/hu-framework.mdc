@@ -1,0 +1,109 @@
+---
+description: Ecosistema de prompts para desarrollo con IA — Framework multiagente adaptativo y optimizado
+globs:
+alwaysApply: false
+---
+
+# Ecosistema de Prompts — Regla de Cursor
+
+## Para Historias de Usuario (HU)
+
+Cuando el usuario pida implementar, analizar o validar una HU:
+
+### 1. Estrategia adaptativa (calidad/consumo optimizado)
+
+El sistema usa **ejecución adaptativa** según complejidad de HU:
+
+- **TRIVIAL** (cambio cosmético): 1 especialista, sin validación exhaustiva → ~5-10K tokens
+- **SIMPLE** (2-4 archivos, lógica simple): V1 ligera + V2 → ~15-30K tokens
+- **MODERATE** (5-10 archivos, lógica negocio): Pipeline completa → ~40-70K tokens
+- **COMPLEX** (10+ archivos, múltiples dependencias): Validación exhaustiva → ~80-150K tokens
+
+Ver: `@.ai/core/adaptive-policies.md` para detalles completos.
+
+### 2. Uso del workflow
+
+1. **Carga políticas core:** `@.ai/core/policies.md`
+2. **Inicia con Orquestador:** `@.ai/workflows/user-story-implementation/orchestrator.md`
+3. **Orquestador clasifica:**
+   - Complejidad (TRIVIAL/SIMPLE/MODERATE/COMPLEX)
+   - Routing (FRONTEND_ONLY/BACKEND_ONLY/FULL_STACK/etc.)
+   - Políticas a cargar (solo las necesarias)
+4. **Ejecuta agentes necesarios:**
+   - TRIVIAL: 1 especialista
+   - SIMPLE: 1-2 especialistas
+   - MODERATE/COMPLEX: Backend + Frontend + Integrador
+5. **Persiste en 4 documentos incrementales:**
+   - `docs/user-stories.md` — HUs exactas
+   - `docs/code-structure.md` — Estructuras código
+   - `docs/implementation-report.md` — Resultados implementación
+   - `docs/integration-report.md` — Validación E2E (solo MODERATE/COMPLEX)
+
+### 3. Templates disponibles
+
+En `.ai/templates/user-story-implementation/`:
+- `full-stack.md` — Backend + Frontend + Integrador
+- `backend-only.md` — Solo backend
+- `frontend-only.md` — Solo frontend
+- `integration-fix.md` — Corrección integración
+
+### 4. Estándares de calidad
+
+Cargados selectivamente según complejidad y necesidad:
+
+- **ISO/IEC 25010** — Calidad software (MODERATE/COMPLEX)
+- **WCAG 2.1 AA** — Accesibilidad (si UI pública)
+- **OWASP Top 10** — Seguridad (si datos sensibles/auth)
+- **Clean Code/SOLID** — Código (SIMPLE+)
+- **Conventional Commits** — Trazabilidad
+
+Ver: `.ai/standards/quality-attributes.md`
+
+### 5. Optimización de contexto
+
+**NO cargar todo a todos los agentes:**
+- ✅ Core policies (compacto)
+- ✅ Prompt especializado del agente
+- ✅ Handoff del agente previo (no toda la HU)
+- ✅ Contrato compartido (si FULL_STACK y SIMPLE+)
+- ✅ Archivos relevantes (no todo el proyecto)
+- ❌ NO: Toda la HU repetida, todo el historial, todo el código
+
+**Política adaptativa:**
+- TRIVIAL: Contexto mínimo, validación ligera
+- SIMPLE: Contexto estándar, V1+V2
+- MODERATE: Contexto completo, V1+V2+Integrador
+- COMPLEX: Contexto exhaustivo, validación E2E completa
+
+### 6. Guías y documentación
+
+- **Guía completa:** `.ai/guides/user-story-implementation.md`
+- **Arquitectura sistema:** `docs/guides/architecture.md`
+- **Estándares calidad:** `docs/guides/quality-standards.md`
+- **Ejemplos:** `tests/ai-strategy/user-story-example/`
+- **README sistema:** `.ai/README.md`
+- **CHANGELOG:** `CHANGELOG.md` (raíz)
+
+### 7. Otros workflows
+
+Ver `.ai/workflows/` para workflows disponibles (actualmente: user-story-implementation).
+
+Cada workflow hereda `.ai/core/policies.md` y puede tener políticas específicas.
+
+---
+
+## Balance calidad/consumo
+
+| Complejidad HU | Tokens estimados | Agentes | Validación | Vale la pena |
+|---|---|---|---|---|
+| TRIVIAL | 5-10K | 1 | Ligera | Solo para cambio rápido |
+| SIMPLE | 15-30K | 1-2 | V1+V2 | Sí, para HUs simples |
+| MODERATE | 40-70K | 3 | V1+V2+E2E | Sí, calidad justifica coste |
+| COMPLEX | 80-150K | 4 | Exhaustiva | Absolutamente, crítica |
+
+**Recomendación:** Dejar que el Orquestador clasifique automáticamente; no forzar pipeline completa para cambios triviales.
+
+---
+
+**Versión:** 2.0.0  
+**Última actualización:** 2026-09-14
