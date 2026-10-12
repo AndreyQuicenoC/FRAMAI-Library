@@ -1,6 +1,6 @@
 # Ecosistema de Prompts para Desarrollo con IA
 
-> **Context engineering sobre prompt engineering**  
+> **Context engineering sobre prompt engineering**
 > Proveer el contexto preciso, en el momento adecuado, al agente correcto.
 
 Plataforma profesional y modular de prompts, workflows y guías para desarrollo de software asistido por IA.
@@ -11,87 +11,98 @@ Plataforma profesional y modular de prompts, workflows y guías para desarrollo 
 - **Políticas centralizadas** que todos los workflows heredan
 - **Carga dinámica** según la tarea (no enviar todo siempre)
 - **Trazabilidad verificable** del requisito al código
+- **Calidad ejecutable**: quality gates, pruebas por capa, integración con la pila real
+- **Seguridad por defecto**: sin secretos en el repositorio, sesiones seguras, publicación solo con todo en verde
 - **Extensibilidad** para agregar nuevos workflows sin afectar existentes
 
-## 🚀 Inicio rápido (5 minutos)
+## Inicio rápido (5 minutos)
 
-1. **Copia template:** `.ai/templates/user-story-implementation/full-stack.md`
-2. **Completa tu HU** (ID + descripción + criterios)
+1. **Copia una plantilla:** `.ai/templates/user-story-implementation/full-stack.md` (una HU) o `epic-full-stack.md` (lote de HU / épica)
+2. **Completa tus HU** (ID + descripción + criterios)
 3. **Pega en Cursor Agent** (Cmd/Ctrl+L)
-4. **Deja trabajar:** Orquestador → Backend → Frontend → Integrador
+4. **Deja trabajar:** Orquestador, Backend, Frontend, Integrador
 5. **Revisa resultado:** 4 documentos actualizados:
    - `docs/user-stories.md`
    - `docs/code-structure.md`
    - `docs/implementation-report.md`
    - `docs/integration-report.md`
 
-Ver guía detallada: [guides/user-story-implementation.md](guides/user-story-implementation.md)
+Ver guía detallada: [guides/user-story-implementation.xml](guides/user-story-implementation.xml)
 
 ## Estructura
 
 ```
 .ai/
-├── README.md                    ← Estás aquí
-├── core/                        ← Políticas globales (heredadas por todos)
-│   └── policies.md
-├── workflows/                   ← Flujos especializados por tipo de tarea
+├── README.md                     Estás aquí
+├── core/                         Políticas globales (heredadas por todos)
+│   ├── policies.xml              Reglas siempre cargadas
+│   ├── adaptive-policies.xml     Complejidad, factores de elevación, modo lote
+│   ├── engineering-standards.xml Seguridad, quality gates, pruebas, entorno, contenedores
+│   ├── git-workflow.xml          Ramas, commits por HU, puertas previas a push
+│   └── project-modes.xml         Extensión, arquetipo, productización de mockup
+├── workflows/                    Flujos especializados por tipo de tarea
 │   └── user-story-implementation/
 │       ├── README.md
-│       ├── orchestrator.md
-│       ├── backend.md
-│       ├── frontend.md
-│       └── integrator.md
-├── templates/                   ← Plantillas de mensajes reutilizables
+│       ├── orchestrator.xml
+│       ├── backend.xml
+│       ├── frontend.xml
+│       └── integrator.xml
+├── templates/                    Plantillas de mensajes reutilizables
 │   └── user-story-implementation/
 │       ├── full-stack.md
+│       ├── epic-full-stack.md
 │       ├── backend-only.md
 │       ├── frontend-only.md
 │       └── integration-fix.md
-├── guides/                      ← Guías de uso paso a paso
-│   └── user-story-implementation.md
-└── standards/                   ← Estándares de calidad y referencias
-    └── quality-attributes.md
+├── guides/                       Guías de uso paso a paso
+│   └── user-story-implementation.xml
+└── standards/                    Estándares de calidad y referencias
+    └── quality-attributes.xml
 ```
 
 ## Workflows disponibles
 
 | Workflow | Descripción | Cuándo usar |
 |---|---|---|
-| **[user-story-implementation](workflows/user-story-implementation/)** | Implementación de Historias de Usuario (HU) con arquitectura multiagente | Desarrollar nueva funcionalidad a partir de requisitos |
+| **[user-story-implementation](workflows/user-story-implementation/)** | Implementación de Historias de Usuario (HU) o épicas con arquitectura multiagente | Desarrollar nueva funcionalidad a partir de requisitos |
 
 ## Agregar nuevo workflow
 
 1. Crear carpeta en `workflows/[nombre-workflow]/`
 2. Incluir `README.md` con descripción y uso
 3. Definir agentes/etapas necesarios
-4. Cada agente hereda `core/policies.md`
+4. Cada agente hereda `core/policies.xml`
 5. Crear templates en `templates/[nombre-workflow]/`
-6. Documentar en `guides/[nombre-workflow].md`
+6. Documentar en `guides/[nombre-workflow].xml`
 
 Ejemplos de workflows futuros:
-- `code-review/` → Revisión de PR con checklist de calidad
-- `refactoring/` → Refactorización segura con tests
-- `bug-fix/` → Diagnóstico y corrección de bugs
-- `documentation/` → Generación/actualización de docs
-- `testing/` → Generación de tests unitarios/integración
-- `performance-optimization/` → Análisis y mejora de rendimiento
+- `code-review/` — Revisión de PR con checklist de calidad
+- `refactoring/` — Refactorización segura con tests
+- `bug-fix/` — Diagnóstico y corrección de bugs
+- `documentation/` — Generación/actualización de docs
+- `testing/` — Generación de tests unitarios/integración
+- `performance-optimization/` — Análisis y mejora de rendimiento
 
 ## Uso rápido
 
 ### Para implementar una HU:
 
 ```bash
-# Opción 1: Usar template
+# Opción 1: Usar plantilla
 Copiar contenido de: .ai/templates/user-story-implementation/full-stack.md
 Completar HU y pegar en Cursor Agent
 
 # Opción 2: Comando directo
-@.ai/core/policies.md @.ai/workflows/user-story-implementation/orchestrator.md
+@.ai/core/policies.xml @.ai/workflows/user-story-implementation/orchestrator.xml
 
 Implementa HU-023: [pegar HU completa]
 ```
 
-Ver guía completa: [guides/user-story-implementation.md](guides/user-story-implementation.md)
+### Para implementar una épica (varias HU, varios repositorios):
+
+Usar `.ai/templates/user-story-implementation/epic-full-stack.md`. El Orquestador ordena las HU por dependencias, genera un contrato de épica y un plan de commits; Backend y Frontend cierran cada HU con tests y commit; el Integrador valida con la pila real antes de cualquier push.
+
+Ver guía completa: [guides/user-story-implementation.xml](guides/user-story-implementation.xml)
 
 ## Documentación del proyecto
 
@@ -117,19 +128,13 @@ El ecosistema integra:
 - **Clean Code / SOLID** en generación de código
 - **Conventional Commits** en trazabilidad
 
-Ver [standards/quality-attributes.md](standards/quality-attributes.md)
-
-## Para la tesis
-
-- **Prompts originales (110 pág):** Eliminados (cumplieron propósito académico; `.ai/` es la referencia operacional)
-- **Versión operativa:** Esta estructura modular (versión 2.0)
-- **CHANGELOG:** Ver `CHANGELOG.md` en raíz para historial de versiones
+Ver [standards/quality-attributes.xml](standards/quality-attributes.xml) y [core/engineering-standards.xml](core/engineering-standards.xml)
 
 ## Contribuir
 
 Al agregar prompts, workflows o guías:
 
-1. Mantener herencia de `core/policies.md`
+1. Mantener herencia de `core/policies.xml`
 2. Documentar en README del workflow
 3. Proveer templates de uso
 4. Agregar ejemplo en `tests/ai-strategy/`
@@ -137,6 +142,6 @@ Al agregar prompts, workflows o guías:
 
 ---
 
-**Versión:** 2.1.0  
-**Última actualización:** 2026-09-14  
-**Licencia:** [Definir según proyecto]
+**Versión:** 2.2.0
+**Última actualización:** 2026-10-11
+**Licencia:** MIT

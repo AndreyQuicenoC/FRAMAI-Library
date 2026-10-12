@@ -2,9 +2,9 @@
 <prompt>
   <metadata>
     <name>Estándares de Calidad — ISO 25010, WCAG 2.1, OWASP</name>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <proposito>Define estándares de calidad que el equipo y los workflows de IA deben seguir</proposito>
-    <referencia_completa>.md.bak para especificación exhaustiva</referencia_completa>
+    <referencia_completa>.ai/core/engineering-standards.xml (quality gates, seguridad, pruebas, entorno)</referencia_completa>
   </metadata>
 
   <estandares_aplicados>
@@ -27,9 +27,12 @@
 
   <metricas_objetivo>
     <metrica name="Acceptance Score" objetivo="≥ 90%">Criterios cumplidos / verificables</metrica>
-    <metrica name="Test Coverage" objetivo="≥ 80%">Jest/Vitest</metrica>
+    <metrica name="Test Coverage" objetivo="≥ 80% global y 100% en reglas de seguridad/validación de la HU">pytest-cov, Vitest/Jest o equivalente del stack</metrica>
     <metrica name="Defect Rate" objetivo="&lt; 10%">Errores post-implementación / HUs</metrica>
-    <metrica name="Security Issues" objetivo="0 críticos">Análisis manual + workflows</metrica>
+    <metrica name="Security Issues" objetivo="0 críticos">Análisis manual + workflows + auditoría de dependencias</metrica>
+    <metrica name="Secretos en repositorio" objetivo="0">Escaneo de secretos antes de cada commit</metrica>
+    <metrica name="Quality gates" objetivo="100% en verde antes de commit y de push">format_lint, typecheck, architecture, tests, migrations, build</metrica>
+    <metrica name="Integración real" objetivo="100% de criterios E2E aprobados">Pila levantada con contenedores o procesos reales</metrica>
     <metrica name="Accessibility (WCAG AA)" objetivo="100% en funcionalidad pública">axe-core / manual</metrica>
   </metricas_objetivo>
 

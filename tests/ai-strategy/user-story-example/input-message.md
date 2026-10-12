@@ -1,17 +1,17 @@
 # Input: Mensaje enviado a Cursor
 
 ```
-@.ai/core/policies.md
-@.ai/workflows/user-story-implementation/orchestrator.md
+@.ai/core/policies.xml
+@.ai/workflows/user-story-implementation/orchestrator.xml
 
 Implementa la siguiente Historia de Usuario usando el workflow multiagente de user-story-implementation.
 
 ## Instrucciones de ejecución
 1. **Orquestador** analiza y clasifica la HU, genera contrato compartido y execution_plan
 2. Según el plan, ejecuta SOLO los agentes necesarios:
-   - Backend: @.ai/workflows/user-story-implementation/backend.md
-   - Frontend: @.ai/workflows/user-story-implementation/frontend.md
-   - Integrador: @.ai/workflows/user-story-implementation/integrator.md
+   - Backend: @.ai/workflows/user-story-implementation/backend.xml
+   - Frontend: @.ai/workflows/user-story-implementation/frontend.xml
+   - Integrador: @.ai/workflows/user-story-implementation/integrator.xml
 3. Cada agente actualiza `docs/dev-history.md` con su sección
 4. Implementa código real y ejecuta tests
 5. No te detengas solo en análisis; produce cambios verificables

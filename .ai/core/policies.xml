@@ -2,8 +2,14 @@
 <prompt>
   <metadata>
     <name>CORE — Políticas globales del framework multiagente</name>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <usage>Este archivo se carga en TODAS las etapas. Los prompts especializados heredan estas reglas; no las repitan salvo excepción justificada.</usage>
+    <modulos_core>
+      <modulo archivo="engineering-standards.xml" carga="condicional (seguridad, calidad, pruebas, entorno, contenedores)"/>
+      <modulo archivo="git-workflow.xml" carga="cuando hay ramas, commits o push"/>
+      <modulo archivo="project-modes.xml" carga="Gate inicial del Orquestador (arquetipo, mockup, extensión)"/>
+      <modulo archivo="adaptive-policies.xml" carga="clasificación de complejidad y modo lote"/>
+    </modulos_core>
   </metadata>
 
   <principio_rector>
@@ -22,6 +28,10 @@
     <prohibicion>No modificar funcionalidades ajenas al alcance acordado.</prohibicion>
     <prohibicion>No cambiar contratos silenciosamente; documentar impacto y coordinar.</prohibicion>
     <prohibicion>No declarar cumplimiento sin evidencia verificable.</prohibicion>
+    <prohibicion>No escribir credenciales, tokens ni claves en código, fixtures, documentación, UI o commits; configuración solo por entorno (engineering-standards.xml, secretos_y_configuracion).</prohibicion>
+    <prohibicion>No publicar (push) ni modificar ramas protegidas; no publicar con quality gates o integración en rojo (git-workflow.xml).</prohibicion>
+    <prohibicion>No tocar directorios o repositorios que el usuario declare intocables; verificar al final que permanecen idénticos.</prohibicion>
+    <prohibicion>No usar emojis en código, UI, documentación generada ni commits.</prohibicion>
   </prohibiciones_absolutas>
 
   <politica_cambios_minimos>
@@ -91,6 +101,8 @@
     <regla>No exponer secretos, tokens ni datos sensibles en logs, respuestas ni frontend.</regla>
     <regla>Usar consultas parametrizadas / ORM; evitar SQL injection.</regla>
     <regla>Manejo de errores sin filtrar stack traces al cliente en producción.</regla>
+    <regla>Si la HU toca autenticación, sesión, roles o datos personales, cargar la sección seguridad_aplicacion de engineering-standards.xml (obligatorio, sin excepción por complejidad).</regla>
+    <regla>Mensajes de usuario definidos por la HU se usan literalmente (engineering-standards.xml, mensajes_literales).</regla>
   </seguridad_minimo_comun>
 
   <documentacion_incremental>
@@ -255,11 +267,15 @@
       <regla>Preservar registros anteriores</regla>
       <regla>NO sobrescribir destructivamente</regla>
       <regla>Mantener orden cronológico por HU</regla>
+      <regla>Proyectos con varios repositorios (backend, frontend): cada repositorio mantiene sus 4 documentos en su propio docs/; user-stories.md es idéntico en todos, code-structure.md e implementation-report.md describen la capa propia, e integration-report.md se publica idéntico en cada repositorio.</regla>
+      <regla>El directorio docs/ preexistente del proyecto se conserva; los 4 documentos se añaden o se anexan sin borrar contenido ajeno.</regla>
+      <regla>Cada HU del implementation-report incluye: Decisiones técnicas, Matriz de trazabilidad (criterio, implementación, test, evidencia, estado) y Comandos de validación ejecutados con resultado.</regla>
     </reglas_generales>
   </documentacion_incremental>
 
   <comportamiento_ante_bloqueos>
-    <regla>Si falta proyecto base, backend, frontend o información crítica: emitir &lt;status&gt;BLOCKED&lt;/status&gt;</regla>
+    <regla>Si falta proyecto base, backend, frontend o información crítica: emitir &lt;status&gt;BLOCKED&lt;/status&gt;. Un arquetipo o mockup identificable SÍ es base válida (ver project-modes.xml).</regla>
+    <regla>Una herramienta, dependencia o servicio ausente en el entorno local NO es bloqueo: se instala o se levanta en contenedor. Solo bloquean credenciales de terceros que el usuario debe aportar o decisiones HIGH de negocio.</regla>
     <regla>Indica qué falta exactamente. No improvises para evitar el bloqueo.</regla>
   </comportamiento_ante_bloqueos>
 

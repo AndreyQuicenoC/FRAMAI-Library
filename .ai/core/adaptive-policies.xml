@@ -2,7 +2,7 @@
 <prompt>
   <metadata>
     <name>ADAPTIVE POLICIES — Estrategia de ejecución adaptativa</name>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <purpose>Optimizar el balance entre calidad y consumo de tokens según la complejidad de la HU</purpose>
   </metadata>
 
@@ -129,6 +129,10 @@
       <politica name="Files &amp; uploads" condicion="Si HU maneja subida de archivos"/>
       <politica name="Error handling exhaustivo" condicion="Si MODERATE o COMPLEX"/>
       <politica name="Backward compatibility" condicion="Si HU modifica APIs públicas"/>
+      <politica name="Git workflow" condicion="Si la solicitud menciona ramas, commits o push (git-workflow.xml)"/>
+      <politica name="Project modes" condicion="Siempre en el Gate inicial (project-modes.xml)"/>
+      <politica name="Contenedores y entorno" condicion="Si se pide ejecutar el sistema o entregarlo operable (engineering-standards.xml)"/>
+      <politica name="Scripts de validación" condicion="Si hay integración real o E2E (engineering-standards.xml, scripts)"/>
     </cargar_condicionalmente>
   </carga_selectiva_politicas>
 
@@ -149,6 +153,25 @@ Si Complejidad 16-35 → MODERATE
 Si Complejidad > 35 → COMPLEX
 ]]></formula>
   </formula_decision>
+
+  <factores_de_elevacion>
+    <descripcion>La fórmula cuantitativa es un piso, no un techo. Estos factores suben el nivel al menos un escalón y fijan mínimos de validación</descripcion>
+    <factor name="Autenticación, sesión o roles" minimo="MODERATE">Carga seguridad_aplicacion; V1/V2 completas; Integrador obligatorio; pruebas negativas de seguridad</factor>
+    <factor name="Datos personales o credenciales" minimo="MODERATE">Prohíbe valores sensibles en logs, respuestas y fixtures; escaneo de secretos obligatorio</factor>
+    <factor name="Contrato nuevo entre capas" minimo="MODERATE">Contrato compartido completo y verificación de identidad Backend-Frontend</factor>
+    <factor name="Migración de esquema" minimo="SIMPLE">Migración probada desde cero y contra el motor real</factor>
+    <factor name="Productización de mockup o arquetipo" minimo="COMPLEX">Protocolo de project-modes.xml, entorno y contenedores, validación exhaustiva</factor>
+    <factor name="Entrega operable (contenedores, entorno, scripts)" minimo="MODERATE">engineering-standards.xml: contenedores_y_entorno, scripts, documentacion_operativa</factor>
+  </factores_de_elevacion>
+
+  <modo_lote>
+    <descripcion>Cuando la solicitud contiene varias HU (épica)</descripcion>
+    <regla>Un solo análisis del proyecto y un contrato de épica; el coste de contexto se amortiza entre HU.</regla>
+    <regla>Complejidad por HU para decidir la profundidad de cada especialista; el lote hereda la más alta para el Integrador y los gates transversales.</regla>
+    <regla>Ejecución en orden de dependencias; cada HU se cierra (tests verdes + commit según git-workflow.xml) antes de iniciar la siguiente que dependa de ella.</regla>
+    <regla>El Integrador corre una vez por lote con la pila real y recorre todas las HU; los hallazgos se corrigen en conjunto.</regla>
+    <regla>Presupuesto de tokens del lote: suma por HU + sobrecoste fijo de análisis y de integración; no se reduce el nivel de validación por tamaño del lote.</regla>
+  </modo_lote>
 
   <reglas_ejecucion>
     <regla id="1">El Orquestador siempre se ejecuta (analiza HU, clasifica complejidad y routing, decide políticas, genera handoffs)</regla>

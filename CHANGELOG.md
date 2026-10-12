@@ -7,6 +7,29 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ---
 
+## [2.2.0] - 2026-10-11
+
+Auditoría de capacidad full-stack. Brechas detectadas en 2.1.1: solo una HU por ejecución, sin criterios de seguridad de autenticación/sesión ni política de secretos, quality gates sin definir, validadores y pruebas orientados a JavaScript, sin protocolo para convertir un mockup o arquetipo en un sistema operable, sin flujo Git ni publicación segura, integración sin exigir la pila real, y referencias obsoletas a archivos `.md` y `.md.bak`.
+
+### Added
+- `.ai/core/engineering-standards.xml`: secretos y configuración, mensajes literales, seguridad de autenticación y sesión (hash con sal, cookie HttpOnly, límite de intentos, anti-enumeración, CSRF/CORS), contrato de error, quality gates, estrategia de pruebas por capa, base de datos, contenedores, scripts, accesibilidad y mapeo por stack.
+- `.ai/core/git-workflow.xml`: preparación de `develop` y rama de épica, un commit por HU, puertas previas a commit y push, ramas protegidas, escaneo de secretos.
+- `.ai/core/project-modes.xml`: modos `EXTEND_EXISTING`, `ARCHETYPE_EXTENSION`, `MOCKUP_PRODUCTIONIZATION`, protocolo de productización y política de funcionalidades fuera de alcance.
+- `.ai/templates/user-story-implementation/epic-full-stack.md`: plantilla para lotes de HU con Git, entorno y seguridad.
+- Orquestador: modo lote (orden por dependencias, contrato de épica, `commit_plan`, `epic_plan`), nuevas entradas (`git_instructions`, `untouchable_paths`, `environment_instructions`), `project_mode` y `integrator_handoff`.
+- Adaptativo: factores de elevación (autenticación, datos personales, contrato nuevo, migración, mockup, entrega operable) y `modo_lote`.
+
+### Changed
+- Backend, Frontend e Integrador reescritos con línea base previa, todos los gates en V2, entregables operativos (`.env.example`, contenedor, `scripts/`), protocolo de ejecución real y puerta de publicación.
+- `policies.xml`: nuevas prohibiciones (secretos, ramas protegidas, rutas intocables), reglas de documentación multi-repositorio y aclaración de que una herramienta ausente no es bloqueo.
+- `quality-attributes.xml`: métricas de secretos, quality gates e integración real; cobertura independiente de JavaScript.
+
+### Fixed
+- `orchestrator.xml`: etiqueta de cierre mal formada (`</descrip>`) que invalidaba el XML.
+- Referencias obsoletas a `.md` y `.md.bak` en `.ai/README.md`, README del workflow, regla de Cursor, guías, ejemplo de prueba y README principal.
+
+---
+
 ## [2.1.1] - 2026-09-14
 
 ### 🏗️ Restructured (Reestructurado)

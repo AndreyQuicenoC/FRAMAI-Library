@@ -57,7 +57,7 @@ Este directorio contiene documentación de referencia para el ecosistema de prom
 | `docs/code-structure.md` | Documenta estructuras mencionadas en `architecture.md` |
 | `docs/implementation-report.md` | Aplica estándares de `quality-standards.md` |
 | `docs/integration-report.md` | Valida según `quality-standards.md` |
-| `.ai/core/adaptive-policies.md` | Justificación en `complexity-optimization-analysis.md` |
+| `.ai/core/adaptive-policies.xml` | Justificación en `complexity-optimization-analysis.md` |
 
 ---
 

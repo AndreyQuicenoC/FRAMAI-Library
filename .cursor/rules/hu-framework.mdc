@@ -1,73 +1,83 @@
 ---
-description: Ecosistema de prompts para desarrollo con IA — Framework multiagente adaptativo y optimizado
+description: Ecosistema de prompts para desarrollo con IA - Framework multiagente adaptativo y optimizado
 globs:
 alwaysApply: false
 ---
 
-# Ecosistema de Prompts — Regla de Cursor
+# Ecosistema de Prompts - Regla de Cursor
 
-## Para Historias de Usuario (HU)
+## Para Historias de Usuario (HU) y épicas
 
-Cuando el usuario pida implementar, analizar o validar una HU:
+Cuando el usuario pida implementar, analizar o validar una HU (o un lote de HU):
 
 ### 1. Estrategia adaptativa (calidad/consumo optimizado)
 
 El sistema usa **ejecución adaptativa** según complejidad de HU:
 
-- **TRIVIAL** (cambio cosmético): 1 especialista, sin validación exhaustiva → ~5-10K tokens
-- **SIMPLE** (2-4 archivos, lógica simple): V1 ligera + V2 → ~15-30K tokens
-- **MODERATE** (5-10 archivos, lógica negocio): Pipeline completa → ~40-70K tokens
-- **COMPLEX** (10+ archivos, múltiples dependencias): Validación exhaustiva → ~80-150K tokens
+- **TRIVIAL** (cambio cosmético): 1 especialista, sin validación exhaustiva, ~5-10K tokens
+- **SIMPLE** (2-4 archivos, lógica simple): V1 ligera + V2, ~15-30K tokens
+- **MODERATE** (5-10 archivos, lógica negocio): Pipeline completa, ~40-70K tokens
+- **COMPLEX** (10+ archivos, múltiples dependencias): Validación exhaustiva, ~80-150K tokens
 
-Ver: `@.ai/core/adaptive-policies.md` para detalles completos.
+Factores de elevación (autenticación, sesión, roles, datos personales, productización de mockup) suben el nivel y fijan mínimos de validación.
+
+Ver: `@.ai/core/adaptive-policies.xml` para detalles completos.
 
 ### 2. Uso del workflow
 
-1. **Carga políticas core:** `@.ai/core/policies.md`
-2. **Inicia con Orquestador:** `@.ai/workflows/user-story-implementation/orchestrator.md`
+1. **Carga políticas core:** `@.ai/core/policies.xml`
+2. **Inicia con Orquestador:** `@.ai/workflows/user-story-implementation/orchestrator.xml`
 3. **Orquestador clasifica:**
+   - Modo de proyecto (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) — `@.ai/core/project-modes.xml`
    - Complejidad (TRIVIAL/SIMPLE/MODERATE/COMPLEX)
    - Routing (FRONTEND_ONLY/BACKEND_ONLY/FULL_STACK/etc.)
    - Políticas a cargar (solo las necesarias)
+   - En lote: orden por dependencias, contrato de épica y plan de commits
 4. **Ejecuta agentes necesarios:**
    - TRIVIAL: 1 especialista
    - SIMPLE: 1-2 especialistas
    - MODERATE/COMPLEX: Backend + Frontend + Integrador
 5. **Persiste en 4 documentos incrementales:**
-   - `docs/user-stories.md` — HUs exactas
-   - `docs/code-structure.md` — Estructuras código
-   - `docs/implementation-report.md` — Resultados implementación
-   - `docs/integration-report.md` — Validación E2E (solo MODERATE/COMPLEX)
+   - `docs/user-stories.md` - HUs exactas
+   - `docs/code-structure.md` - Estructuras código
+   - `docs/implementation-report.md` - Resultados implementación
+   - `docs/integration-report.md` - Validación E2E (MODERATE/COMPLEX y lotes full-stack)
 
-### 3. Templates disponibles
+### 3. Estándares y Git
+
+- `@.ai/core/engineering-standards.xml` - seguridad, secretos, quality gates, pruebas, contenedores, scripts
+- `@.ai/core/git-workflow.xml` - develop, rama de épica, un commit por HU, push solo con todo en verde
+
+### 4. Templates disponibles
 
 En `.ai/templates/user-story-implementation/`:
-- `full-stack.md` — Backend + Frontend + Integrador
-- `backend-only.md` — Solo backend
-- `frontend-only.md` — Solo frontend
-- `integration-fix.md` — Corrección integración
+- `full-stack.md` - Backend + Frontend + Integrador
+- `epic-full-stack.md` - Lote de HU full-stack con Git, entorno y contenedores
+- `backend-only.md` - Solo backend
+- `frontend-only.md` - Solo frontend
+- `integration-fix.md` - Corrección integración
 
-### 4. Estándares de calidad
+### 5. Estándares de calidad
 
 Cargados selectivamente según complejidad y necesidad:
 
-- **ISO/IEC 25010** — Calidad software (MODERATE/COMPLEX)
-- **WCAG 2.1 AA** — Accesibilidad (si UI pública)
-- **OWASP Top 10** — Seguridad (si datos sensibles/auth)
-- **Clean Code/SOLID** — Código (SIMPLE+)
-- **Conventional Commits** — Trazabilidad
+- **ISO/IEC 25010** - Calidad software (MODERATE/COMPLEX)
+- **WCAG 2.1 AA** - Accesibilidad (si UI pública)
+- **OWASP Top 10** - Seguridad (si datos sensibles/auth)
+- **Clean Code/SOLID** - Código (SIMPLE+)
+- **Conventional Commits** - Trazabilidad
 
-Ver: `.ai/standards/quality-attributes.md`
+Ver: `.ai/standards/quality-attributes.xml`
 
-### 5. Optimización de contexto
+### 6. Optimización de contexto
 
 **NO cargar todo a todos los agentes:**
-- ✅ Core policies (compacto)
-- ✅ Prompt especializado del agente
-- ✅ Handoff del agente previo (no toda la HU)
-- ✅ Contrato compartido (si FULL_STACK y SIMPLE+)
-- ✅ Archivos relevantes (no todo el proyecto)
-- ❌ NO: Toda la HU repetida, todo el historial, todo el código
+- SI: Core policies (compacto)
+- SI: Prompt especializado del agente
+- SI: Handoff del agente previo (no toda la HU)
+- SI: Contrato compartido (si FULL_STACK y SIMPLE+)
+- SI: Archivos relevantes (no todo el proyecto)
+- NO: Toda la HU repetida, todo el historial, todo el código
 
 **Política adaptativa:**
 - TRIVIAL: Contexto mínimo, validación ligera
@@ -75,20 +85,20 @@ Ver: `.ai/standards/quality-attributes.md`
 - MODERATE: Contexto completo, V1+V2+Integrador
 - COMPLEX: Contexto exhaustivo, validación E2E completa
 
-### 6. Guías y documentación
+### 7. Guías y documentación
 
-- **Guía completa:** `.ai/guides/user-story-implementation.md`
+- **Guía completa:** `.ai/guides/user-story-implementation.xml`
 - **Arquitectura sistema:** `docs/guides/architecture.md`
 - **Estándares calidad:** `docs/guides/quality-standards.md`
 - **Ejemplos:** `tests/ai-strategy/user-story-example/`
 - **README sistema:** `.ai/README.md`
 - **CHANGELOG:** `CHANGELOG.md` (raíz)
 
-### 7. Otros workflows
+### 8. Otros workflows
 
 Ver `.ai/workflows/` para workflows disponibles (actualmente: user-story-implementation).
 
-Cada workflow hereda `.ai/core/policies.md` y puede tener políticas específicas.
+Cada workflow hereda `.ai/core/policies.xml` y puede tener políticas específicas.
 
 ---
 
@@ -105,5 +115,5 @@ Cada workflow hereda `.ai/core/policies.md` y puede tener políticas específica
 
 ---
 
-**Versión:** 2.0.0  
-**Última actualización:** 2026-09-14
+**Versión:** 2.2.0
+**Última actualización:** 2026-10-11

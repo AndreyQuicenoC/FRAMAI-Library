@@ -4,7 +4,7 @@ Este documento define los estándares de calidad que el equipo y los workflows d
 
 ## Referencia principal
 
-Ver especificación completa: **`.ai/standards/quality-attributes.md`**
+Ver especificación completa: **`.ai/standards/quality-attributes.xml`** y **`.ai/core/engineering-standards.xml`**
 
 El ecosistema de prompts utiliza como referencia:
 - **ISO/IEC 25010:2011** — Modelo de calidad del producto software
@@ -110,4 +110,4 @@ Este documento debe actualizarse cuando:
 
 **Última revisión:** 2026-09-14  
 **Responsable:** [Definir según proyecto]  
-**Referencia técnica completa:** `.ai/standards/quality-attributes.md`
+**Referencia técnica completa:** `.ai/standards/quality-attributes.xml` y `.ai/core/engineering-standards.xml`

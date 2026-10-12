@@ -1,6 +1,6 @@
 # FRAMAI-Library
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/AndreyQuicenoC/FRAMAI-Library/releases/tag/v2.1.1)
+[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-production-brightgreen.svg)](CHANGELOG.md)
 [![Format](https://img.shields.io/badge/prompts-XML-purple.svg)](.ai/)
@@ -65,6 +65,21 @@ No se trata de enviar todo siempre, sino de **cargar dinámicamente** lo necesar
 
 Ver análisis completo: `docs/guides/complexity-optimization-analysis.md`
 
+### Capacidad full-stack de producción (v2.2.0)
+
+Para que el resultado sea un sistema operable y no solo código, el framework añade módulos core que los agentes cargan de forma condicional:
+
+| Módulo | Aporte |
+|---|---|
+| `engineering-standards.xml` | Secretos y `.env`, seguridad de autenticación y sesión, contrato de error, quality gates por capa, matriz de pruebas, base de datos, contenedores, scripts, accesibilidad |
+| `git-workflow.xml` | `develop`, rama de épica, un commit por HU, escaneo de secretos, push solo con integración verde, ramas protegidas |
+| `project-modes.xml` | Extensión, arquetipo y productización de mockup (inventario, limpieza de datos sintéticos, estructura profesional, política de funcionalidades fuera de alcance) |
+| `adaptive-policies.xml` | Factores de elevación (auth, datos personales, mockup) y modo lote para épicas |
+| Orquestador | Modo lote: orden por dependencias, contrato de épica, `commit_plan`, `epic_plan` |
+| Integrador | Pila real en ejecución, E2E, scripts en `scripts/`, bucle de corrección, puerta de publicación |
+
+Plantilla para épicas: `.ai/templates/user-story-implementation/epic-full-stack.md`.
+
 ---
 
 ## Estructura completa
@@ -81,6 +96,9 @@ proyecto/
 |   +-- core/
 |   |   +-- policies.xml
 |   |   +-- adaptive-policies.xml
+|   |   +-- engineering-standards.xml
+|   |   +-- git-workflow.xml
+|   |   +-- project-modes.xml
 |   +-- workflows/user-story-implementation/
 |   |   +-- orchestrator.xml
 |   |   +-- backend.xml
@@ -762,7 +780,7 @@ Stack: Node + Express + React + Postgres
 
 ---
 
-**Versión:** 2.1.1 (modular, extensible, adaptativa)
+**Versión:** 2.2.0 (modular, extensible, adaptativa, full-stack de producción)
 **Tecnologías:** Context engineering, Prompt chaining, ISO 25010, WCAG 2.1, OWASP Top 10
 **Año:** 2026
 
