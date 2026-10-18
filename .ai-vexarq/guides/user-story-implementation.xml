@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>Guía: Implementación de Historias de Usuario</name>
+    <version>2.2.0</version>
+    <tipo>Guía de uso</tipo>
+    <referencia>README.md y docs/guides/ del repositorio FRAMAI; estándares en .ai-vexarq/core/engineering-standards.xml</referencia>
+  </metadata>
+
+  <flujo_general>
+    <paso>Preparar HU con criterios de aceptación claros</paso>
+    <paso>Abrir Cursor en Agent mode</paso>
+    <paso>Usar template según alcance (full-stack, backend-only, etc.)</paso>
+    <paso>Dejar que Orquestador clasifique y rute</paso>
+    <paso>Revisar documentación generada en docs/ (user-stories, code-structure, implementation-report, integration-report)</paso>
+    <paso>Verificar tests y código</paso>
+  </flujo_general>
+
+  <requisitos_previos>
+    <requisito>Proyecto con código base (frontend y/o backend)</requisito>
+    <requisito>HU con criterios de aceptación explícitos y verificables</requisito>
+    <requisito>Cursor IDE en Agent mode</requisito>
+  </requisitos_previos>
+
+  <templates_disponibles>
+    <template name="full-stack.md">Backend + Frontend + Integrador (FULL_STACK)</template>
+    <template name="backend-only.md">Solo backend (BACKEND_ONLY)</template>
+    <template name="frontend-only.md">Solo frontend (FRONTEND_ONLY)</template>
+    <template name="integration-fix.md">Corrección de integración</template>
+    <template name="epic-full-stack.md">Lote de HU (épica) full-stack con Git, entorno, contenedores e integración real</template>
+  </templates_disponibles>
+
+  <documentos_generados>
+    <documento>docs/user-stories.md — HUs exactas recibidas</documento>
+    <documento>docs/code-structure.md — Estructuras código</documento>
+    <documento>docs/implementation-report.md — Resultados implementación</documento>
+    <documento>docs/integration-report.md — Validación E2E</documento>
+  </documentos_generados>
+
+  <troubleshooting>
+    <problema name="BLOCKED">Verificar que existe proyecto base identificable</problema>
+    <problema name="Clasificación incorrecta">Revisar complexity_rationale del Orquestador; corregir manualmente si es necesario</problema>
+    <problema name="Backend/Frontend desalineados">Ejecutar Integrador; revisar contrato</problema>
+    <problema name="Tests fallando">V2 debe corregir; no declarar COMPLETED</problema>
+    <problema name="El agente se detiene en el análisis">Indicar en el prompt "No te detengas en análisis; produce cambios verificables" (incluido en las plantillas); un arquetipo o mockup identificable no es BLOCKED</problema>
+    <problema name="Herramienta no instalada">No es bloqueo: instalar o usar contenedor (policies.xml, comportamiento_ante_bloqueos)</problema>
+    <problema name="Push rechazado por autenticación">Detenerse e informar; nunca escribir credenciales en el repositorio (git-workflow.xml)</problema>
+    <problema name="Frontend sigue con datos de ejemplo">Verificar project_mode MOCKUP_PRODUCTIONIZATION en el plan y ejecutar su protocolo (project-modes.xml)</problema>
+  </troubleshooting>
+</prompt>

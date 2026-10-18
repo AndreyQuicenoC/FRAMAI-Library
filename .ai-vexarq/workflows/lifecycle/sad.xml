@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.sad</id>
+    <name>Fase — Documento de arquitectura</name>
+    <version>3.0.0</version>
+    <formato>formats/sad/SAD.md</formato>
+    <salida>docs/vexarq/preliminary/sad/SAD.md</salida>
+    <insumos>docs/vexarq/current/srs/SRS.md y docs/vexarq/current/base-de-datos/DATABASE_DESIGN.md</insumos>
+  </metadata>
+
+  <objetivo>Describir la arquitectura que satisface el SRS y el modelo de datos vigentes. El índice de salida es el del formato, alineado con una lectura práctica de arc42 e ISO/IEC/IEEE 42010.</objetivo>
+
+  <hacer>
+    <paso>Leer los vigentes. Si el repositorio ya tiene stack, ese stack es la base. Proponer un cambio solo como decisión pendiente, con consecuencia.</paso>
+    <paso>No convertir un sistema estático en una plataforma distribuida, ni ignorar un backend que el SRS exige. El perfil y el modelo de negocio vigente fijan el tamaño.</paso>
+    <paso>Incluir decisiones en formato contexto, decisión, consecuencia. Registrar al menos una alternativa descartada cuando la decisión sea relevante.</paso>
+    <paso>Cubrir contexto, contenedores, seguridad, datos, procesos centrales, despliegue y riesgos. Añadir componentes o código solo en perfil avanzado o crítico.</paso>
+    <paso>Los diagramas van en Mermaid. Si falta información para un diagrama fiel, describir el hueco en lugar de dibujar una topología inventada como hecho.</paso>
+    <paso>En perfil crítico, ampliar amenazas, disponibilidad y recuperación. En perfil ligero, no rellenar esas secciones con controles que el sistema no necesita.</paso>
+  </hacer>
+
+  <no_hacer>
+    <regla>No fijar modelos de IA, colas o Kubernetes porque un ejemplo anterior los usaba.</regla>
+    <regla>No contradecir el esquema de datos vigente. Si la arquitectura necesita cambiarlo, la salida es una decisión pendiente, no un esquema paralelo.</regla>
+  </no_hacer>
+</prompt>

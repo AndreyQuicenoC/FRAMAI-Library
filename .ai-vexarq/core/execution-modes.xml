@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Modos de ejecución y perfiles de rigor</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+  </metadata>
+
+  <modos>
+    <modo name="validar" default="true">
+      <cuando>El usuario no elige modo, o pide revisar cada fase.</cuando>
+      <comportamiento>
+        <regla>Generar el artefacto en docs/vexarq/preliminary/.</regla>
+        <regla>No copiarlo a current/.</regla>
+        <regla>Detener el ciclo y pedir al usuario que edite o apruebe el preliminar.</regla>
+        <regla>La fase siguiente no empieza hasta que exista el vigente correspondiente.</regla>
+        <regla>Informar qué archivo debe revisar y qué decisión bloquea el avance.</regla>
+      </comportamiento>
+    </modo>
+    <modo name="continuo">
+      <cuando>El usuario pide desarrollar el proyecto de inicio a fin, obviar las validaciones intermedias o rellenar con ejemplos estándar.</cuando>
+      <comportamiento>
+        <regla>Completar huecos con los ejemplos y estándares de la biblioteca.</regla>
+        <regla>Etiquetar cada hueco como SUPUESTO_ESTANDAR. No presentarlo como dato confirmado por el usuario.</regla>
+        <regla>Autovalidar el preliminar contra su formato. Si no hay bloqueo, promover la copia a current/ y continuar.</regla>
+        <regla>Un bloqueo real detiene el ciclo: objetivo de producto ilegible, contradicción que cambia el alcance, o riesgo crítico sin decisión.</regla>
+        <regla>Este modo autoriza documentación, código, pruebas y commits en la rama de trabajo cuando el usuario pidió construir el proyecto. No autoriza push.</regla>
+      </comportamiento>
+    </modo>
+  </modos>
+
+  <perfiles>
+    <nota>Perfiles de VEXARG, no una escala industrial universal. El consumo indicado es una previsión.</nota>
+    <perfil name="ligero">Cambio localizado, documento corto o corrección. Validación del comportamiento afectado.</perfil>
+    <perfil name="estandar">Módulo, CRUD, API, formulario o persistencia. Pruebas del alcance y contrato de errores.</perfil>
+    <perfil name="avanzado">Varios módulos, permisos, migración o integraciones. Trazabilidad y revisión de contratos.</perfil>
+    <perfil name="critico">Datos sensibles, dinero, operaciones irreversibles o alta disponibilidad. Más rigor y más puertas, no solo más texto.</perfil>
+  </perfiles>
+
+  <clasificacion>
+    <dimension>Alcance: módulos, archivos y artefactos tocados.</dimension>
+    <dimension>Incertidumbre: ambigüedades y decisiones pendientes.</dimension>
+    <dimension>Riesgo: datos, seguridad, usuarios y negocio.</dimension>
+    <dimension>Integración: sistemas y contratos externos.</dimension>
+    <dimension>Validación: qué evidencia demuestra el cierre.</dimension>
+    <regla>Si el usuario fija el perfil, se respeta, y se advierte cuando es insuficiente para el riesgo detectado.</regla>
+    <regla>Si el presupuesto no alcanza, informar qué queda sin hacer. No declarar la fase terminada.</regla>
+  </clasificacion>
+
+  <presupuesto>
+    <etapa>Comprensión del contexto vigente.</etapa>
+    <etapa>Análisis y planificación.</etapa>
+    <etapa>Generación del preliminar.</etapa>
+    <etapa>Implementación o corrección, si la fase lo pide.</etapa>
+    <etapa>Validación y reporte.</etapa>
+  </presupuesto>
+</prompt>

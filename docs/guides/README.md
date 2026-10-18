@@ -6,6 +6,10 @@ Este directorio contiene documentación de referencia para el ecosistema de prom
 
 ## Documentos disponibles
 
+La guía de uso del ciclo VEXARG está en `.ai-vexarq/guides/usar-vexarq.md`.
+
+## Documentos de este directorio
+
 ### 1. **`architecture.md`**
 **Propósito:** Arquitectura del sistema de software (proyecto real).
 
@@ -57,7 +61,7 @@ Este directorio contiene documentación de referencia para el ecosistema de prom
 | `docs/code-structure.md` | Documenta estructuras mencionadas en `architecture.md` |
 | `docs/implementation-report.md` | Aplica estándares de `quality-standards.md` |
 | `docs/integration-report.md` | Valida según `quality-standards.md` |
-| `.ai/core/adaptive-policies.xml` | Justificación en `complexity-optimization-analysis.md` |
+| `.ai-vexarq/core/adaptive-policies.xml` | Justificación en `complexity-optimization-analysis.md` |
 
 ---
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Identificación del modelo de negocio</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>Se usa en acercamiento y se relee, sin recalcular en silencio, cuando una fase posterior toma decisiones de alcance.</usage>
+  </metadata>
+
+  <catalogo>
+    <modelo id="saas">Suscripción o uso recurrente de un software alojado.</modelo>
+    <modelo id="marketplace">La plataforma intermedia entre dos o más lados que intercambian valor.</modelo>
+    <modelo id="comercio">Venta de bienes o servicios con catálogo, pedido y pago.</modelo>
+    <modelo id="interno">Herramienta para la operación de una organización, sin cliente externo como usuario principal.</modelo>
+    <modelo id="api">El producto principal es un contrato consumido por otros sistemas.</modelo>
+    <modelo id="contenido">Publicación, medios o comunidad donde el contenido es el valor.</modelo>
+    <modelo id="on-premise">El cliente opera el software en su infraestructura.</modelo>
+    <modelo id="institucional">Proceso académico, público o regulado, con actores y evidencia formal.</modelo>
+    <modelo id="otro">Ninguno anterior encaja. Describirlo en una frase, sin forzarlo a SaaS.</modelo>
+  </catalogo>
+
+  <metodo>
+    <paso>Buscar evidencia en el pedido del usuario y en documentos vigentes: quién paga, quién opera, qué se repite, qué se intercambia.</paso>
+    <paso>Elegir un modelo principal y, si hace falta, uno secundario.</paso>
+    <paso>Escribir la evidencia y lo que no se sabe. Si hay dos modelos compatibles con el texto, dejar PENDIENTE en modo validar.</paso>
+    <paso>En modo continuo, elegir el modelo con más evidencia y marcarlo SUPUESTO_ESTANDAR.</paso>
+    <paso>No derivar un plan de precios, una sociedad ni una estrategia de mercado que el usuario no pidió. El modelo solo orienta requisitos, riesgos y recomendaciones.</paso>
+  </metodo>
+
+  <consecuencias>
+    <regla>SaaS y comercio activan tenant o cuenta, facturación solo si el alcance la menciona, y cuidado con datos de clientes.</regla>
+    <regla>Marketplace exige distinguir los lados y las reglas de la transacción. No modelar un lado único.</regla>
+    <regla>Interno e institucional priorizan roles, auditoría y trazabilidad sobre adquisición de usuarios.</regla>
+    <regla>API prioriza contrato, versión y compatibilidad. La interfaz humana es secundaria salvo que el SRS la pida.</regla>
+  </consecuencias>
+</prompt>

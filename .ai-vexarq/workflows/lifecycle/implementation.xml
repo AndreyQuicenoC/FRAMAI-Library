@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.implementation</id>
+    <name>Fase — Implementación</name>
+    <version>3.0.0</version>
+    <delega>workflows/user-story-implementation/orchestrator.xml</delega>
+  </metadata>
+
+  <objetivo>Implementar sobre el arquetipo aprobado o sobre el código existente, usando el motor de historias de VEXARG. No rehacer SRS, datos ni SAD.</objetivo>
+
+  <entrada>
+    <opcion>Una HU vigente.</opcion>
+    <opcion>Una épica, en una rama de trabajo.</opcion>
+    <opcion>Un módulo, respetando los límites del SAD vigente.</opcion>
+    <opcion>El backlog vigente, secuenciado por dependencias. No todas las HU en un único cambio.</opcion>
+    <opcion>Un fix o una corrección puntual. Reproducir, corregir y verificar solo ese comportamiento. Usar templates/targeted-fix/ cuando el pedido sea una corrección local.</opcion>
+  </entrada>
+
+  <reglas>
+    <regla>La fuente funcional es current/backlog/ o, si existe, current/extendido/backlog-extendido.csv. No implementar desde el preliminar.</regla>
+    <regla>Cargar policies, engineering-standards y design-system según la capa tocada. El workflow de HU conserva su routing y su complejidad adaptativa.</regla>
+    <regla>Antes de cambiar comportamiento existente, identificar el flujo y las pruebas que lo cubren. Si el cambio lo rompe fuera de alcance, detenerse.</regla>
+    <regla>Frontend, backend, persistencia y pruebas se implementan en la medida en que la HU y el SAD lo piden. Una página estática no recibe un backend nuevo.</regla>
+    <regla>Actualizar el bloque de estructura del tablero: frontend, backend, datos, pruebas y documentación, con enlace a la carpeta real.</regla>
+    <regla>Commits según git-workflow.xml y formats/delivery/COMMIT_CONVENTIONS.md, solo si el usuario pidió control de versiones. Push solo con autorización explícita.</regla>
+  </reglas>
+</prompt>

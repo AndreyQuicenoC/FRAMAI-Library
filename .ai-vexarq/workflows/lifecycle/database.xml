@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.database</id>
+    <name>Fase — Diseño de datos</name>
+    <version>3.0.0</version>
+    <formato>formats/database/DATABASE_DESIGN.md</formato>
+    <salida>docs/vexarq/preliminary/base-de-datos/DATABASE_DESIGN.md</salida>
+    <insumo>docs/vexarq/current/srs/SRS.md</insumo>
+  </metadata>
+
+  <objetivo>Diseñar la persistencia que el SRS vigente necesita. Relacional o documental, según el problema y el stack ya decidido.</objetivo>
+
+  <hacer>
+    <paso>Extraer entidades, documentos o eventos desde los requisitos vigentes. No añadir agregados que ningún requisito usa.</paso>
+    <paso>Si el proyecto ya tiene esquema, partir de ese esquema y marcar cambios. No reemplazarlo por un modelo ideal desconectado.</paso>
+    <paso>Entregar modelo conceptual, lógico y físico. En relacional: claves, cardinalidades, unicidad, integridad, índices justificados y política de borrado. En documental: colecciones, claves, índices, validaciones y patrones de acceso.</paso>
+    <paso>Incluir un diagrama Mermaid y un diccionario breve en el mismo documento, con enlace a formats/database/DATA_DICTIONARY.md si el diccionario crece.</paso>
+    <paso>Proponer migraciones versionadas solo como diseño. No ejecutarlas en esta fase.</paso>
+    <paso>Datos personales, retención y acceso mínimo quedan explícitos cuando el SRS los implica.</paso>
+  </hacer>
+
+  <no_hacer>
+    <regla>No forzar PostgreSQL, ni forzar MongoDB, si el vigente ya eligió motor.</regla>
+    <regla>No normalizar o desnormalizar sin decir qué consulta o qué integridad lo justifica.</regla>
+    <regla>No inventar tablas de facturación, auditoría o multi-tenant si el modelo de negocio vigente no las requiere.</regla>
+  </no_hacer>
+</prompt>

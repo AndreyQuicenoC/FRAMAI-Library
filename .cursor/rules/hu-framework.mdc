@@ -4,7 +4,9 @@ globs:
 alwaysApply: false
 ---
 
-# Ecosistema de Prompts - Regla de Cursor
+# Implementación de historias
+
+Esta regla cubre historias y épicas. El ciclo de producto de VEXARG está en `.cursor/rules/vexarq.mdc`.
 
 ## Para Historias de Usuario (HU) y épicas
 
@@ -21,14 +23,14 @@ El sistema usa **ejecución adaptativa** según complejidad de HU:
 
 Factores de elevación (autenticación, sesión, roles, datos personales, productización de mockup) suben el nivel y fijan mínimos de validación.
 
-Ver: `@.ai/core/adaptive-policies.xml` para detalles completos.
+Ver: `@.ai-vexarq/core/adaptive-policies.xml` para detalles completos.
 
 ### 2. Uso del workflow
 
-1. **Carga políticas core:** `@.ai/core/policies.xml`
-2. **Inicia con Orquestador:** `@.ai/workflows/user-story-implementation/orchestrator.xml`
+1. **Carga políticas core:** `@.ai-vexarq/core/policies.xml`
+2. **Inicia con Orquestador:** `@.ai-vexarq/workflows/user-story-implementation/orchestrator.xml`
 3. **Orquestador clasifica:**
-   - Modo de proyecto (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) — `@.ai/core/project-modes.xml`
+   - Modo de proyecto (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) — `@.ai-vexarq/core/project-modes.xml`
    - Complejidad (TRIVIAL/SIMPLE/MODERATE/COMPLEX)
    - Routing (FRONTEND_ONLY/BACKEND_ONLY/FULL_STACK/etc.)
    - Políticas a cargar (solo las necesarias)
@@ -45,12 +47,12 @@ Ver: `@.ai/core/adaptive-policies.xml` para detalles completos.
 
 ### 3. Estándares y Git
 
-- `@.ai/core/engineering-standards.xml` - seguridad, secretos, quality gates, pruebas, contenedores, scripts
-- `@.ai/core/git-workflow.xml` - develop, rama de épica, un commit por HU, push solo con todo en verde
+- `@.ai-vexarq/core/engineering-standards.xml` - seguridad, secretos, quality gates, pruebas, contenedores, scripts
+- `@.ai-vexarq/core/git-workflow.xml` - develop, rama de épica, un commit por HU, push solo con todo en verde
 
 ### 4. Templates disponibles
 
-En `.ai/templates/user-story-implementation/`:
+En `.ai-vexarq/templates/user-story-implementation/`:
 - `full-stack.md` - Backend + Frontend + Integrador
 - `epic-full-stack.md` - Lote de HU full-stack con Git, entorno y contenedores
 - `backend-only.md` - Solo backend
@@ -67,7 +69,7 @@ Cargados selectivamente según complejidad y necesidad:
 - **Clean Code/SOLID** - Código (SIMPLE+)
 - **Conventional Commits** - Trazabilidad
 
-Ver: `.ai/standards/quality-attributes.xml`
+Ver: `.ai-vexarq/standards/quality-attributes.xml`
 
 ### 6. Optimización de contexto
 
@@ -87,18 +89,18 @@ Ver: `.ai/standards/quality-attributes.xml`
 
 ### 7. Guías y documentación
 
-- **Guía completa:** `.ai/guides/user-story-implementation.xml`
+- **Guía completa:** `.ai-vexarq/guides/user-story-implementation.xml`
 - **Arquitectura sistema:** `docs/guides/architecture.md`
 - **Estándares calidad:** `docs/guides/quality-standards.md`
 - **Ejemplos:** `tests/ai-strategy/user-story-example/`
-- **README sistema:** `.ai/README.md`
+- **README sistema:** `.ai-vexarq/README.md`
 - **CHANGELOG:** `CHANGELOG.md` (raíz)
 
 ### 8. Otros workflows
 
-Ver `.ai/workflows/` para workflows disponibles (actualmente: user-story-implementation).
+Ver `.ai-vexarq/workflows/` para workflows disponibles (actualmente: user-story-implementation).
 
-Cada workflow hereda `.ai/core/policies.xml` y puede tener políticas específicas.
+Cada workflow hereda `.ai-vexarq/core/policies.xml` y puede tener políticas específicas.
 
 ---
 

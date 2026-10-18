@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.srs</id>
+    <name>Fase — Especificación de requisitos</name>
+    <version>3.0.0</version>
+    <formato>formats/srs/SRS.md</formato>
+    <salida>docs/vexarq/preliminary/srs/SRS.md</salida>
+    <insumo>docs/vexarq/current/acercamiento/proyecto.md</insumo>
+  </metadata>
+
+  <objetivo>Producir un SRS verificable a partir del proyecto vigente. Las decisiones abiertas permanecen abiertas.</objetivo>
+
+  <hacer>
+    <paso>Leer solo el documento de proyecto vigente y lo que el usuario añada en la solicitud. Si el vigente contradice al usuario, registrar CONTRADICCION y preguntar en modo validar.</paso>
+    <paso>Seguir el índice de formats/srs/SRS.md. Cada requisito funcional tiene identificador, enunciado, fuente y criterio de verificación.</paso>
+    <paso>Separar reglas de negocio, restricciones, supuestos y requisitos no funcionales. Los no funcionales salen de ISO/IEC 25010 solo en las características que el producto necesita.</paso>
+    <paso>Nombrar actores reales. No duplicar el mismo comportamiento una vez por rol.</paso>
+    <paso>Cuando falte un mensaje, un límite o una regla, escribir PENDIENTE. En modo continuo, rellenar con SUPUESTO_ESTANDAR explícito y conservador.</paso>
+    <paso>Cerrar con matriz de trazabilidad inicial: regla, requisito, verificación. Las historias aún no existen; la columna HU queda vacía.</paso>
+  </hacer>
+
+  <calidad>
+    <regla>Un requisito se puede probar con sí o no.</regla>
+    <regla>No ocultar una decisión de diseño dentro de un requisito funcional.</regla>
+    <regla>No afirmar que el usuario aprobó un supuesto.</regla>
+  </calidad>
+</prompt>

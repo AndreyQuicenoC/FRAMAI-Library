@@ -1,0 +1,18 @@
+---
+description: Reglas de VEXARG al trabajar en un proyecto que incluye esta biblioteca
+globs:
+alwaysApply: true
+---
+
+# VEXARG
+
+El sistema portable está en `.ai-vexarq/`. Evoluciona FRAMAI; no borres el workflow de historias de usuario.
+
+- Punto de entrada del ciclo: `.ai-vexarq/workflows/lifecycle/orchestrator.xml`.
+- Modo por defecto: `validar`. `continuo` solo si el usuario lo pide.
+- Escribe artefactos de fase en `docs/vexarq/preliminary/`. La fase siguiente lee solo `docs/vexarq/current/`.
+- No modifiques `.ai-vexarq/sources/canon/`.
+- No hagas push sin remoto, rama y autorización explícitos.
+- No edites archivos ajenos al alcance ni rompas lógica existente para completar una tarea.
+- Al cerrar una solicitud de ciclo, actualiza `docs/vexarq/status.html` desde la plantilla del tracker si aún no existe. Poco texto: fase, estado y enlace.
+- Una corrección o una HU sobre código existente usa `.ai-vexarq/workflows/user-story-implementation/`, no todo el ciclo.

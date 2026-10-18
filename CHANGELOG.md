@@ -5,7 +5,24 @@ Todas las modificaciones notables a este ecosistema de prompts multiagente será
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
----
+## [3.0.0] - 2026-10-18
+
+VEXARG sustituye el nombre FRAMAI y la carpeta portable pasa de `.ai/` a `.ai-vexarq/`. El motor de historias de la 2.2.0 se conserva.
+
+### Added
+
+- Ciclo de vida con orquestador general y una plantilla por fase: acercamiento, SRS, datos, backlog, backlog extendido, SAD, arquetipo, implementación, entrega y recomendaciones.
+- Modos `validar` (por defecto) y `continuo`, con linaje preliminar frente a vigente.
+- Tablero HTML estático y contrato de actualización.
+- Identificación de modelo de negocio y documento de recomendaciones de cierre.
+- Generadores canónicos de backlog y arquetipo incorporados sin modificación. El backlog extendido se generaliza a partir del ejemplo de un proyecto externo.
+- Guías de uso y plantillas listas para pegar en el agente.
+- Catálogo de estándares con nivel obligatoria, condicional u orientativa.
+
+### Changed
+
+- El push exige autorización explícita de remoto y rama, además de los checks en verde.
+- La generación de un arquetipo nuevo queda reservada a su fase. El workflow de historias ya no la inicia por su cuenta.
 
 ## [2.2.0] - 2026-10-11
 

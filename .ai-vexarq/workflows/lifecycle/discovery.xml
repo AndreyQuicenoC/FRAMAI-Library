@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.discovery</id>
+    <name>Fase — Acercamiento al proyecto</name>
+    <version>3.0.0</version>
+    <formato>formats/project/PROJECT_DOCUMENT.md</formato>
+    <salida>docs/vexarq/preliminary/acercamiento/proyecto.md</salida>
+  </metadata>
+
+  <objetivo>Dejar un documento de proyecto evaluable: problema, usuarios, modelo de negocio, alcance inicial y decisiones abiertas. No es el SRS.</objetivo>
+
+  <cargar>
+    <archivo>core/business-model.xml</archivo>
+    <archivo>formats/project/PROJECT_DOCUMENT.md</archivo>
+  </cargar>
+
+  <hacer>
+    <paso>Leer el pedido y el repositorio. Separar CONFIRMADO, REPOSITORIO, INFERENCIA, SUPUESTO_ESTANDAR y PENDIENTE.</paso>
+    <paso>Identificar el modelo de negocio con business-model.xml. No asumir SaaS.</paso>
+    <paso>Decidir si hay MVP. Si el usuario no definió MVP y no lo pidió, no crear documentos de MVP.</paso>
+    <paso>Redactar el documento con el formato. Incluir qué queda fuera y qué impediría pasar al SRS.</paso>
+    <paso>En modo validar, no promover. En modo continuo, promover si el objetivo y los actores son identificables.</paso>
+  </hacer>
+
+  <no_hacer>
+    <regla>No escribir requisitos numerados exhaustivos: eso es la fase SRS.</regla>
+    <regla>No elegir stack definitivo si el usuario no lo fijó y el repositorio no lo tiene. Proponer opciones y marcar la decisión.</regla>
+    <regla>No copiar el alcance de otro proyecto de ejemplo.</regla>
+  </no_hacer>
+</prompt>

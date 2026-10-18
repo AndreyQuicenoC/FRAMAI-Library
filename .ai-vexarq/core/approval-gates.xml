@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Puertas de aprobación</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+  </metadata>
+
+  <puertas>
+    <puerta id="G1" despues="acercamiento y SRS">El usuario acepta el problema, el alcance y los requisitos vigentes antes de diseñar datos o backlog.</puerta>
+    <puerta id="G2" despues="base de datos y backlog">El usuario acepta el modelo de datos y las historias antes de extender el backlog o cerrar arquitectura.</puerta>
+    <puerta id="G3" despues="backlog extendido y SAD">El usuario acepta tareas, prioridades y arquitectura antes de proponer el arquetipo.</puerta>
+    <puerta id="G4" despues="propuesta de arquetipo">El canon del arquetipo exige confirmación del blueprint. En modo validar se espera. En modo continuo se promueve solo si el informe previo no tiene bloqueos.</puerta>
+    <puerta id="G5" antes="push">Remoto, rama y autorización explícitos, con checks aplicables en verde. Ningún modo la abre por defecto.</puerta>
+  </puertas>
+
+  <modo_validar>Cada puerta detiene el ciclo. El tablero queda en preliminar para las fases recién generadas.</modo_validar>
+  <modo_continuo>G1 a G4 se consideran concedidas solo para continuar dentro del repositorio, con supuestos visibles. G5 permanece cerrada.</modo_continuo>
+
+  <acciones_que_siempre_piden_autorizacion>
+    <accion>Push, force push, rebase publicado o borrado de rama.</accion>
+    <accion>Migración destructiva, borrado de datos o rotación de secretos.</accion>
+    <accion>Cambio de una estructura crítica fuera del alcance pedido.</accion>
+    <accion>Reemplazar un documento vigente ya editado por el usuario.</accion>
+  </acciones_que_siempre_piden_autorizacion>
+</prompt>

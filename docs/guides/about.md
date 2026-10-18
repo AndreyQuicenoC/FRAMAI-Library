@@ -1,3 +1,7 @@
+# Motor de historias de usuario
+
+Este documento describe el motor de implementación que VEXARG conserva de FRAMAI. El ciclo de producto completo está en `.ai-vexarq/guides/usar-vexarq.md`.
+
 # Framework Multiagente Adaptativo para Implementación de HUs con IA
 
 ## 🎯 Descripción
@@ -87,22 +91,22 @@ HU + Proyecto existente
 ## 🚀 Cómo Usarlo
 
 ### Instalación
-1. Copiar carpeta `.ai/` en la raíz de tu proyecto (o dentro de un microservicio específico)
+1. Copiar carpeta `.ai-vexarq/` en la raíz de tu proyecto (o dentro de un microservicio específico)
 2. Asegurar que existe código base identificable (backend/ o frontend/ o ambos)
 3. Abrir Cursor en Agent mode
 
 ### Uso Básico
 1. Preparar HU con criterios de aceptación claros y verificables
 2. En Cursor, abrir template según alcance:
-   - `.ai/templates/user-story-implementation/full-stack.md` (recomendado por defecto)
-   - `.ai/templates/user-story-implementation/backend-only.md`
-   - `.ai/templates/user-story-implementation/frontend-only.md`
+   - `.ai-vexarq/templates/user-story-implementation/full-stack.md` (recomendado por defecto)
+   - `.ai-vexarq/templates/user-story-implementation/backend-only.md`
+   - `.ai-vexarq/templates/user-story-implementation/frontend-only.md`
 3. Completar plantilla con tu HU
 4. Ejecutar; dejar que Orquestador clasifique y rute automáticamente
 5. Revisar código + tests + docs generadas
 
 ### Proyectos con Múltiples Microservicios
-- Copiar `.ai/` a cada microservicio O usar una vez con `project_path` apuntando al servicio específico
+- Copiar `.ai-vexarq/` a cada microservicio O usar una vez con `project_path` apuntando al servicio específico
 - Usar restricciones adicionales si es necesario: "Solo modificar auth-service"
 
 ---
@@ -148,7 +152,7 @@ Sistema sin clasificación aplicaría ~120K tokens/HU promedio → ~2.4M tokens/
 5. **Especialización:** Cada agente experto en su dominio (backend, frontend, integración)
 6. **Reutilización:** Prompts modulares; políticas cargadas solo cuando aplican
 7. **No inventivo:** Respeta arquitectura, stack y código existente; cambio mínimo
-8. **Portable:** Copiar `.ai/` y usar; no requiere configuración compleja
+8. **Portable:** Copiar `.ai-vexarq/` y usar; no requiere configuración compleja
 
 ---
 
@@ -181,7 +185,7 @@ Sistema sin clasificación aplicaría ~120K tokens/HU promedio → ~2.4M tokens/
 ## 📦 Estructura del Repositorio
 
 ```
-.ai/
+.ai-vexarq/
 ├── core/
 │   ├── policies.xml              # Políticas globales (heredadas por todos)
 │   └── adaptive-policies.xml     # Estrategia de clasificación y carga selectiva
@@ -204,7 +208,7 @@ Sistema sin clasificación aplicaría ~120K tokens/HU promedio → ~2.4M tokens/
 └── README.md                     # Descripción del framework
 ```
 
-**Para usar:** Copiar `.ai/` completo a tu proyecto. No requiere `docs/` ni `tests/` (se crean automáticamente).
+**Para usar:** Copiar `.ai-vexarq/` completo a tu proyecto. No requiere `docs/` ni `tests/` (se crean automáticamente).
 
 ---
 

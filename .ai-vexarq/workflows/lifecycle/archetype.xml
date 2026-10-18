@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.archetype</id>
+    <name>Fase — Arquetipo</name>
+    <version>3.0.0</version>
+    <canon>sources/canon/archetype-prompt.xml</canon>
+    <insumo>docs/vexarq/current/sad/SAD.md</insumo>
+    <salida>docs/vexarq/preliminary/arquetipo/</salida>
+  </metadata>
+
+  <objetivo>Ejecutar el generador canónico de arquetipo sobre el SAD vigente, sin alterar el canon.</objetivo>
+
+  <ejecucion>
+    <paso>Leer sources/canon/archetype-prompt.xml completo y aplicar sus principios, restricciones, fases, reglas R1 a R7 y checklist.</paso>
+    <paso>El SAD vigente reemplaza la petición inicial de "adjuntar el SAD". No pedir de nuevo el documento si current/sad/SAD.md existe y está completo según el formato. Si le faltan decisiones, stack o atributos de calidad, listar los huecos y detenerse: eso es un bloqueo del propio canon.</paso>
+    <paso>Escribir el informe previo y el blueprint en preliminary/arquetipo/. No generar archivos de código hasta la confirmación del blueprint.</paso>
+    <paso>En modo validar, obedecer la espera del canon. En modo continuo, la elección de ese modo cuenta como confirmación solo cuando el informe no tiene bloqueos. Los supuestos quedan escritos en el blueprint promovido.</paso>
+    <paso>Después de la confirmación, generar el arquetipo en el árbol del proyecto y dejar en current/arquetipo/BLUEPRINT.md la estructura aprobada, para poder comprobar que el código coincide.</paso>
+  </ejecucion>
+
+  <prohibido>
+    <regla>No modificar el archivo canónico.</regla>
+    <regla>No usar imágenes Docker latest ni secretos reales.</regla>
+    <regla>No generar código que contradiga el SAD vigente.</regla>
+    <regla>No tomar el preliminar del SAD si el vigente existe.</regla>
+  </prohibido>
+</prompt>

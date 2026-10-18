@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Modos de proyecto y protocolos de preparación</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>El Orquestador determina el modo en el Gate inicial y lo propaga en los handoffs. Resuelve la tensión entre "no construir desde cero" y "convertir un mockup o arquetipo en sistema operable".</usage>
+  </metadata>
+
+  <modos>
+    <modo name="GREENFIELD_LIFECYCLE">
+      <detecta>No hay producto identificable, o el usuario pidió iniciar el ciclo de VEXARG (acercamiento, SRS, datos, backlog, SAD, arquetipo).</detecta>
+      <regla>No implementar el producto dentro del workflow de HU. Ejecutar .ai-vexarq/workflows/lifecycle/orchestrator.xml.</regla>
+      <regla>El arquetipo se genera solo en su fase, con el prompt canónico intacto, y solo lee documentos vigentes.</regla>
+    </modo>
+
+    <modo name="EXTEND_EXISTING">
+      <detecta>Código funcional con tests y despliegue identificables</detecta>
+      <regla>Aplicar cambio mínimo y patrones existentes (comportamiento por defecto de policies.xml).</regla>
+    </modo>
+
+    <modo name="ARCHETYPE_EXTENSION">
+      <detecta>Backend o frontend con estructura de capas/módulos definida pero cobertura funcional parcial (esqueleto, módulos Tier A, ejemplos)</detecta>
+      <regla>Respetar arquitectura, convenciones y contratos de arquitectura del arquetipo; implementar la HU dentro de los módulos existentes.</regla>
+      <regla>Si el arquetipo contradice un criterio de la HU (ej. JWT sin estado vs. sesión revocable exigida): la HU prevalece; aplicar el cambio mínimo que la satisface, adaptar los consumidores afectados, actualizar sus tests y documentar la decisión y el impacto.</regla>
+      <regla>Credenciales, secretos o valores por defecto inseguros del arquetipo se corrigen aunque no sean el foco de la HU (impacto de seguridad), con registro explícito.</regla>
+    </modo>
+
+    <modo name="MOCKUP_PRODUCTIONIZATION">
+      <detecta>Prototipo generado por herramienta de diseño/IA (estado local, datos sintéticos, sin cliente HTTP, artefactos de la herramienta)</detecta>
+      <autoriza>Reestructurar el proyecto a un frontend profesional. El prototipo es referencia visual y de UX, no arquitectura.</autoriza>
+      <protocolo>
+        <paso numero="1">Inventario: páginas, componentes, tema/estilos, datos sintéticos, dependencias, artefactos de la herramienta de diseño, documentación existente (docs/ se conserva).</paso>
+        <paso numero="2">Clasificar cada pieza: ALCANCE (cubre HU del lote), FUERA_DE_ALCANCE (funcionalidad de otras HU), SINTÉTICO (datos de ejemplo), ARTEFACTO (config/plugins de la herramienta).</paso>
+        <paso numero="3">Eliminar SINTÉTICO y ARTEFACTO, incluyendo credenciales de demostración y su visualización en la UI. Conservar docs/.</paso>
+        <paso numero="4">Estructura profesional por dominio: app/ (proveedores, rutas), features/&lt;dominio&gt;/ (api, componentes, hooks, páginas, pruebas), shared/ (ui, layout, lib/http, config, tipos). Rutas reales con enrutador, guardas y 404.</paso>
+        <paso numero="5">Sustituir el estado local simulado por cliente HTTP único con configuración por entorno y manejo uniforme de errores del contrato.</paso>
+        <paso numero="6">Reproducir fielmente el sistema de diseño (colores, tipografía, espaciado, componentes) de las piezas ALCANCE antes de mejorar nada.</paso>
+        <paso numero="7">Piezas FUERA_DE_ALCANCE visibles en la navegación se conservan como puntos de entrada inertes (ver politica_fuera_de_alcance); no se implementa su lógica.</paso>
+        <paso numero="8">Completar la base operable: package.json con scripts (dev, build, preview, lint, typecheck, test, test:e2e), configuración de linter/formatter/tests, .env.example, contenedor, README.</paso>
+      </protocolo>
+      <politica_fuera_de_alcance>
+        <regla>Cada acción de UI ligada a funcionalidad de otra HU (botón, enlace, ítem de menú, tarjeta) ejecuta un único manejador compartido que registra en el log del cliente exactamente el mensaje definido por el usuario (por defecto: "Funcionalidad en desarrollo, no disponible") y no navega ni modifica estado.</regla>
+        <regla>El manejador es un módulo único reutilizable con test; no se duplica el mensaje en cada componente.</regla>
+        <regla>Este marcado se entrega en un commit separado de las HU, para poder revertirlo cuando cada funcionalidad se implemente.</regla>
+        <regla>Los mensajes de log no incluyen datos de usuario. No se muestran datos sintéticos como relleno.</regla>
+      </politica_fuera_de_alcance>
+    </modo>
+  </modos>
+
+  <regla_de_gate>
+    <regla>Si el modo es MOCKUP_PRODUCTIONIZATION o ARCHETYPE_EXTENSION, el Gate inicial NO es BLOCKED: existe base identificable. Documentar la clasificación y el protocolo aplicado en implementation-report.md.</regla>
+    <regla>Directorios que el usuario declare intocables (ej. copias de demostración) se excluyen explícitamente en hard_constraints y se verifica al final (git status / hash) que no cambiaron.</regla>
+  </regla_de_gate>
+</prompt>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CATÁLOGO — Estándares y obligación</name>
+    <version>3.0.0</version>
+    <uso>Referencia de selección. No cargar el catálogo entero en una corrección local.</uso>
+  </metadata>
+
+  <niveles>
+    <nivel id="obligatoria">Condición interna de VEXARG. Ejemplo: no inventar un resultado de prueba.</nivel>
+    <nivel id="condicional">Se activa por stack, riesgo, tipo de sistema o pedido del usuario.</nivel>
+    <nivel id="orientativa">Puede adaptarse o descartarse con una justificación escrita.</nivel>
+  </niveles>
+
+  <entradas>
+    <entrada nombre="No inventar evidencia" dominio="transversal" nivel="obligatoria" validacion="El reporte distingue ejecutado, no ejecutado y supuesto."/>
+    <entrada nombre="Secretos fuera del repositorio" dominio="seguridad" nivel="obligatoria" validacion="No hay credenciales en código, docs, fixtures ni commits."/>
+    <entrada nombre="ISO/IEC/IEEE 29148" dominio="requisitos" nivel="condicional" validacion="El SRS separa requisito, fuente y criterio de verificación cuando el perfil es estándar o superior."/>
+    <entrada nombre="ISO/IEC 25010:2023" dominio="calidad" nivel="orientativa" validacion="Se nombran las características que el producto realmente exige."/>
+    <entrada nombre="ISO/IEC/IEEE 42010 y arc42" dominio="arquitectura" nivel="condicional" validacion="El SAD cubre el índice de formats/sad/SAD.md. Un CRUD no hereda el paquete de un sistema distribuido."/>
+    <entrada nombre="Scrum Guide 2020" dominio="trabajo" nivel="orientativa" validacion="Si el proyecto usa Scrum, roles, eventos y artefactos siguen la guía. DoR es política del equipo, no artefacto oficial."/>
+    <entrada nombre="INVEST, SMART, MoSCoW, WSJF" dominio="trabajo" nivel="orientativa" validacion="Se nombran como técnicas. No se presentan como normas ISO."/>
+    <entrada nombre="WCAG 2.2 AA y WAI-ARIA" dominio="interfaz" nivel="condicional" validacion="Aplica a UI web. Otro nivel solo si el usuario lo fija."/>
+    <entrada nombre="OWASP Top 10, ASVS y NIST SSDF" dominio="seguridad" nivel="condicional" validacion="ASVS se usa para requisitos verificables cuando hay autenticación, datos personales o perfil crítico."/>
+    <entrada nombre="OpenAPI" dominio="API" nivel="condicional" validacion="Las APIs HTTP del alcance tienen contrato si el perfil es estándar o superior."/>
+    <entrada nombre="Conventional Commits, SemVer, Keep a Changelog" dominio="entrega" nivel="condicional" validacion="Se aplican cuando hay historial de cambios. El cuerpo en viñetas es política de VEXARG, no exigencia de la especificación."/>
+    <entrada nombre="C4" dominio="arquitectura" nivel="orientativa" validacion="Contexto y contenedores en perfil estándar. Componentes y código solo si aportan."/>
+    <entrada nombre="Twelve-Factor y SLSA" dominio="operacion" nivel="orientativa" validacion="Se aplican a servicios desplegados o a cadenas de suministro que el usuario quiera endurecer."/>
+  </entradas>
+
+  <autoridad>
+    <regla>Una técnica de priorización no tiene la misma autoridad que una norma citada por su identificador y año.</regla>
+    <regla>Si el repositorio ya fijó una convención, esa convención prevalece sobre la recomendación orientativa.</regla>
+  </autoridad>
+</prompt>
