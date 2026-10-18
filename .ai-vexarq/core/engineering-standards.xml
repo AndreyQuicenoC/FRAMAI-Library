@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Full-stack engineering standards (security, quality, testing, environment)</name>
+    <version>2.2.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>
+      Conditional load. Backend, Frontend, and Integrator consult only the sections that the Orchestrator lists in policies_to_load.
+      Defines the WHAT (verifiable outcome). The HOW comes from the project's real stack (see stack_mapping).
+    </usage>
+    <principio>An agent is a "full-stack expert" when its deliverables run, are tested, and can be operated by another person without its help.</principio>
+  </metadata>
+
+  <definicion_de_terminado>
+    <descripcion>A user story is COMPLETED only if ALL applicable points are met with executed evidence</descripcion>
+    <item>Acceptance criteria mapped to code and test (traceability matrix)</item>
+    <item>User messages literally identical to the user-story text (see mensajes_literales)</item>
+    <item>Layer quality gates green (see quality_gates)</item>
+    <item>System starts from scratch with documented instructions (environment, migrations, containers)</item>
+    <item>No secrets in the repository or in logs (see secretos_y_configuracion)</item>
+    <item>Incremental documentation updated (4 documents from policies.xml)</item>
+  </definicion_de_terminado>
+
+  <mensajes_literales>
+    <regla>When the user story defines an exact text (error, success, label, button), it is used character by character: accents, signs, and punctuation included.</regla>
+    <regla>Each literal message lives in a single place per layer (constants/catalog) and has at least one test that compares the exact text.</regla>
+    <regla>If the server defines the message, the client displays it as-is; the client only defines the pre-submit validation messages.</regla>
+    <regla>If the user story does not define a necessary text (e.g. length limit), a coherent one is created and recorded as "derived" in implementation-report.md.</regla>
+  </mensajes_literales>
+
+  <secretos_y_configuracion>
+    <regla id="S1">Zero secrets in the repository: passwords, tokens, keys, connection strings with real credentials, database dumps.</regla>
+    <regla id="S2">All configuration comes from environment variables validated at startup (fail-fast if a required one is missing or is insecure in production).</regla>
+    <regla id="S3">Only `.env.example` is versioned, with the same structure as `.env`, non-functional example values, and comments per variable. The real `.env` is in .gitignore and .dockerignore.</regla>
+    <regla id="S4">Local secrets are generated randomly (not reusable values such as "admin", "password", "secret") with a script documented in scripts/.</regla>
+    <regla id="S5">Variables exposed to the browser (the bundler's public prefix) never contain secrets; only URLs and flags.</regla>
+    <regla id="S6">Test/seed credentials are read from the environment; never literals in code, published fixtures, README, or UI.</regla>
+    <regla id="S7">Before each commit, secret scanning runs (project script or gitleaks/detect-secrets) on the staged files; a finding = commit blocked.</regla>
+    <regla id="S8">Logs, errors, and responses never include passwords, hashes, session tokens, or request bodies with credentials.</regla>
+    <regla id="S9">Email/SMTP/third parties: variables present in .env.example with placeholders; the code works (degraded and documented) without them while the user story does not use them.</regla>
+  </secretos_y_configuracion>
+
+  <seguridad_aplicacion cargar_si="user story touches AuthN, AuthZ, session, personal data, or user input">
+    <autenticacion>
+      <regla>Passwords only as a salted hash (Argon2id or bcrypt); constant-time verification; the hash never leaves the persistence layer.</regla>
+      <regla>Same message and same HTTP code for "user does not exist" and "incorrect password"; equalize timing (dummy hash) to prevent enumeration.</regla>
+      <regla>Attempt limit per account with a sliding window according to the user story; blocked attempts do not extend the lockout; success resets the counter; it also applies to nonexistent accounts.</regla>
+      <regla>Deactivated account: the state is revealed only after correct credentials.</regla>
+    </autenticacion>
+    <sesiones>
+      <regla>Server-side session with a random opaque token (CSPRNG, 256 bits); in the DB only its hash (SHA-256 or higher).</regla>
+      <regla>Cookie: HttpOnly, SameSite=Lax (or Strict), Secure in production, scoped Path, Max-Age equal to the server expiration. The token never goes in the body, the URL, localStorage, or sessionStorage.</regla>
+      <regla>Expiration is validated on the server on every request; logout revokes the session on the server and clears the cookie; reusing the revoked token returns 401.</regla>
+      <regla>Distinguish internally "no session" from "session expired" so the message the user story requires can be shown.</regla>
+      <regla>Rotate the identifier on authentication (never accept a session id provided by the client).</regla>
+    </sesiones>
+    <csrf_cors>
+      <regla>With session cookies, unsafe methods require CSRF defense: SameSite + Origin/Referer verification against an allowlist (or an anti-CSRF token).</regla>
+      <regla>CORS with an explicit origin allowlist, credentials only if needed, never a wildcard together with credentials.</regla>
+      <regla>Prefer same origin via a reverse proxy (dev server or nginx) to avoid cross-site surfaces.</regla>
+    </csrf_cors>
+    <autorizacion>
+      <regla>Roles are assigned on the server; no field of the public request can elevate privileges (mass assignment). Tampered requests are rejected with the user story's message and do not create or modify data.</regla>
+      <regla>Each protected endpoint declares its authentication dependency; public ones are listed explicitly and tested.</regla>
+    </autorizacion>
+    <entrada_salida>
+      <regla>Validation and normalization on the server, ALWAYS repeating the client's. Parameterized queries/ORM. No SQL concatenation.</regla>
+      <regla>Framework validation errors must not reflect the received value (avoids echoing passwords); use a custom handler with a stable error contract.</regla>
+      <regla>Unexpected errors: 500 with a generic message defined by the user story, transaction rollback, detail only in the internal log without sensitive data.</regla>
+      <regla>Security headers (X-Content-Type-Options, X-Frame-Options/frame-ancestors, Referrer-Policy, a reasonable CSP on the frontend web server); Cache-Control: no-store on authenticated responses.</regla>
+      <regla>Frontend: dangerouslySetInnerHTML/innerHTML with untrusted content is forbidden; validate URL schemes on redirects (anti open-redirect).</regla>
+    </entrada_salida>
+    <dependencias>
+      <regla>Audit dependencies (pip-audit, npm audit, or equivalent) and record the result; unmitigated high/critical vulnerabilities block COMPLETED.</regla>
+    </dependencias>
+  </seguridad_aplicacion>
+
+  <contrato_de_error>
+    <regla>Every API defines a single, stable error contract (e.g. {"error": {"code", "message", "fields"}}), documented and consumed by the client without parsing free text.</regla>
+    <regla>Coherent HTTP codes: 400 validation, 401 no session/credentials, 403 forbidden, 404, 409 conflict/uniqueness, 429 limit, 500 unexpected.</regla>
+    <regla>The `code` is machine-readable and stable; `message` is the user story's literal; `fields` maps field to message when applicable.</regla>
+  </contrato_de_error>
+
+  <quality_gates>
+    <descripcion>Each layer runs ALL applicable gates; a missing tool is resolved by installing it, not by omitting it</descripcion>
+    <gate name="format_lint">Project linter + formatter with no errors and no new warnings</gate>
+    <gate name="typecheck">Strict static typing when the project declares it (mypy strict, tsc strict)</gate>
+    <gate name="architecture">Project architecture contracts (import-linter, dependency-cruiser, ESLint boundary rules)</gate>
+    <gate name="unit_application">Unit and use-case tests with minimum coverage of 80% global and 100% on the user story's security and validation rules</gate>
+    <gate name="api_component">API tests (in-process HTTP client) or component tests (Testing Library) with happy, error, and edge cases</gate>
+    <gate name="integration_real_db">Tests against the real production engine (container) including migrations from scratch</gate>
+    <gate name="migrations">Migrations apply cleanly, are reversible when viable, and the model matches the migrated schema (autogenerate with no differences)</gate>
+    <gate name="accessibility">Automatic verification (axe/jest-axe or equivalent) on public screens and forms + manual keyboard and focus review</gate>
+    <gate name="e2e">Full flow with real client and server (automated browser or HTTP scripts with a cookie jar)</gate>
+    <gate name="security_scan">Secret scanning + dependency audit + linter SAST rules (e.g. ruff S, eslint-plugin-security)</gate>
+    <gate name="build">Successful production build and container image build</gate>
+    <regla>The exact commands live in Makefile/package.json/scripts and are recorded in implementation-report.md with their summarized output.</regla>
+    <regla>Never lower thresholds, disable rules, or add ignores to pass a gate without written justification and minimal scope.</regla>
+  </quality_gates>
+
+  <estrategia_de_pruebas>
+    <matriz>
+      <capa name="Domain/unit">Pure rules, validators, value objects. Boundary-case tables (lengths, characters, empty, unicode, spaces).</capa>
+      <capa name="Use cases">Fake ports; success branches, each business error, atomicity (does not persist on failure).</capa>
+      <capa name="API">Status + body + headers (Set-Cookie flags) + error contract + authentication required on every protected route.</capa>
+      <capa name="Security">Tampered request, enumeration, attempt limit, reuse of a revoked/expired session, absence of secrets in responses and logs.</capa>
+      <capa name="Persistence">Uniqueness, constraints, clean migration, stored hash different from the plaintext.</capa>
+      <capa name="Frontend components">Render, states (loading/error/success/disabled/empty), inline validation, keyboard, literal messages.</capa>
+      <capa name="Frontend services/routes">HTTP client with simulated responses; route guards; redirects; session restoration.</capa>
+      <capa name="E2E">Happy path and failures of each user story against the real stack brought up.</capa>
+    </matriz>
+    <regla>Name tests with the user-story ID and criterion (e.g. test_hu02_c2_2_email_duplicado) for automatic traceability.</regla>
+    <regla>Control time and randomness through injectable ports (clock, generators) to test expirations without sleeping.</regla>
+    <regla>A mandatory negative test for each security restriction of the user story.</regla>
+    <regla>A test that cannot fail does not count as evidence (no trivial asserts or mocks that replace what is being tested).</regla>
+  </estrategia_de_pruebas>
+
+  <base_de_datos cargar_si="user story modifies persistence">
+    <regla>Every schema change goes in a versioned migration; never edit migrations already published.</regla>
+    <regla>Database constraints (unique, FK, NOT NULL) in addition to application validation.</regla>
+    <regla>Indexes for each query by an introduced search key (e.g. session hash, email).</regla>
+    <regla>Time zone: store UTC with zone; injectable clock.</regla>
+    <regla>Development/seed data only through an explicit, idempotent script, with credentials read from the environment and blocked in production.</regla>
+    <regla>Multi-write operations in one transaction with rollback on any error.</regla>
+  </base_de_datos>
+
+  <contenedores_y_entorno cargar_si="user story or plan require running the system or an operable delivery">
+    <regla>Each service has a multi-stage Dockerfile, a non-root user, a functional healthcheck with tools present in the image, and a .dockerignore that excludes .env, .git, node_modules, caches, and tests if they are not used.</regla>
+    <regla>docker-compose declares services, network, volumes, dependencies with healthcheck, and reads ALL configuration from variables (no literal credentials or insecure default values).</regla>
+    <regla>Published ports are parameterizable (common ports may be in use); compose project with its own name so it does not interfere with the team's other containers.</regla>
+    <regla>The API container applies migrations on startup (or an explicit documented step) before accepting traffic.</regla>
+    <regla>Frontend in a container: static build served by a web server with SPA fallback, proxy /api to the backend (same origin), and security headers.</regla>
+    <regla>README documents: requirements, .env creation, local startup without a container, startup with containers, test execution, and common troubleshooting.</regla>
+  </contenedores_y_entorno>
+
+  <scripts>
+    <regla>Every script used to validate (smoke, E2E, secret generation, scanning, seed) is kept in the `scripts/` of the repository it belongs to, with its purpose in the header, without secrets, and with a non-zero exit code on failure.</regla>
+    <regla>Integration scripts read the URL and credentials from the environment; they do not include them.</regla>
+    <regla>Prefer cross-platform scripts (Python/Node); if there is PowerShell or Bash, offer both or document the requirement.</regla>
+  </scripts>
+
+  <accesibilidad cargar_si="user story creates or modifies UI">
+    <regla>Labels associated with each control; errors linked with aria-describedby and announced (role=alert / aria-live).</regla>
+    <regla>Do not rely on color alone: an icon or text accompanies error/success states. Visible focus. Logical tab order. Skip links on public pages.</regla>
+    <regla>Show/hide password button with aria-pressed and an accessible name; the field does not lose focus when toggled.</regla>
+    <regla>AA contrast, minimum 44px touch targets on mobile, a single h1 per screen, landmarks (header/main/nav/footer).</regla>
+  </accesibilidad>
+
+  <stack_mapping>
+    <descripcion>Equivalences for applying the standards without assuming technology; use the row of the real stack detected by the Orchestrator</descripcion>
+    <stack name="Python (FastAPI/Django/Flask)">
+      <herramienta gate="format_lint">ruff check + ruff format</herramienta>
+      <herramienta gate="typecheck">mypy --strict</herramienta>
+      <herramienta gate="architecture">import-linter</herramienta>
+      <herramienta gate="unit_application">pytest + pytest-cov (+ hypothesis for validators)</herramienta>
+      <herramienta gate="migrations">alembic upgrade head (+ autogenerate check with no differences)</herramienta>
+      <herramienta gate="security_scan">ruff S, pip-audit, secret scanning</herramienta>
+    </stack>
+    <stack name="Node/TypeScript (React/Vue/Express/Nest)">
+      <herramienta gate="format_lint">eslint + prettier</herramienta>
+      <herramienta gate="typecheck">tsc --noEmit (strict)</herramienta>
+      <herramienta gate="unit_application">vitest/jest + v8/istanbul coverage</herramienta>
+      <herramienta gate="api_component">Testing Library + user-event; MSW for the network</herramienta>
+      <herramienta gate="accessibility">jest-axe/vitest-axe, Playwright + axe</herramienta>
+      <herramienta gate="e2e">Playwright (or Cypress)</herramienta>
+      <herramienta gate="security_scan">npm audit, eslint-plugin-security, secret scanning</herramienta>
+    </stack>
+    <stack name="Java/.NET/Go/others">
+      <herramienta gate="*">Use the idiomatic equivalent already present in the project; if none exists, propose the community's minimum standard and record it as a decision</herramienta>
+    </stack>
+  </stack_mapping>
+
+  <documentacion_operativa>
+    <regla>README per repository: brief architecture, folder structure, environment variables (table), commands, endpoints/routes, tests, and troubleshooting.</regla>
+    <regla>Document the API contract (generated OpenAPI or a table) with response codes and messages.</regla>
+    <regla>Record relevant technical decisions and deviations from the user story with justification (Decisions section in implementation-report.md).</regla>
+  </documentacion_operativa>
+</prompt>

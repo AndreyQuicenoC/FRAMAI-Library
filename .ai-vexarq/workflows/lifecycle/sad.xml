@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.sad</id>
+    <name>Phase — Software architecture</name>
+    <version>3.0.0</version>
+    <formato>formats/sad/SAD.md</formato>
+    <salida>docs/vexarq/preliminary/sad/SAD.md</salida>
+    <insumos>current/srs/SRS.md, current/base-de-datos/DATABASE_DESIGN.md, current/backlog/BACKLOG.md when it exists</insumos>
+  </metadata>
+
+  <objetivo>Describe the architecture that satisfies the current requirements. The depth matches the product, not the length of a template.</objetivo>
+
+  <hacer>
+    <paso>Start from the current stack. If it does not exist, propose one option and one alternative, with the reason and the decision left open in validar mode.</paso>
+    <paso>Follow the index in formats/sad/SAD.md. Use C4 context and containers. Components only when there is more than one module with a different responsibility.</paso>
+    <paso>Document the decisions that are hard to reverse: style, persistence, boundaries, authentication, errors, and deployment. Each decision has context, options, and consequences.</paso>
+    <paso>Bind quality characteristics to measurable scenarios. Do not copy all of ISO/IEC 25010:2023.</paso>
+    <paso>Define the folder and module structure the archetype will have to respect. If the repository already has one, that structure is the base.</paso>
+    <paso>Risks and technical debt are concrete. A generic risk does not count.</paso>
+  </hacer>
+
+  <no_hacer>
+    <regla>Do not design microservices, a message broker, or a cache because a sample document had them.</regla>
+    <regla>Do not contradict the current data model. If the architecture needs to change it, write the change as a proposal and do not edit the current document.</regla>
+    <regla>Do not declare the architecture validated without a review.</regla>
+  </no_hacer>
+</prompt>

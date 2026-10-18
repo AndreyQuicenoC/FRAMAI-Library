@@ -1,73 +1,73 @@
-# Análisis: Balance Calidad/Consumo en Estrategia Adaptativa
+# Analysis: Quality/Consumption Balance in the Adaptive Strategy
 
-**Fecha:** 2026-09-14  
-**Versión del sistema:** 2.1.0
-
----
-
-## Resumen ejecutivo
-
-El ecosistema de prompts versión 2.1.0 implementa una **estrategia adaptativa** que optimiza el balance entre calidad de resultados y consumo de tokens, ejecutando diferentes niveles de sofisticación según la complejidad de cada Historia de Usuario (HU).
-
-**Resultado:** Reducción de ~60-75% en tokens para HUs simples, manteniendo calidad equivalente a v2.0.0 para HUs complejas.
+**Date:** 2026-09-14  
+**System version:** 2.1.0
 
 ---
 
-## Motivación
+## Executive summary
 
-### Problema identificado (v2.0.0)
+Prompt ecosystem version 2.1.0 implements an **adaptive strategy** that optimizes the balance between result quality and token consumption, running different levels of sophistication according to the complexity of each user story.
 
-La versión 2.0.0 del ecosistema, aunque profunda y completa, ejecutaba la **pipeline completa** para cualquier HU, independientemente de su complejidad:
+**Result:** A reduction of ~60-75% in tokens for simple user stories, keeping quality equivalent to v2.0.0 for complex user stories.
+
+---
+
+## Motivation
+
+### Problem identified (v2.0.0)
+
+Version 2.0.0 of the ecosystem, although deep and complete, ran the **full pipeline** for any user story, regardless of its complexity:
 
 ```
-HU trivial ("Cambiar texto botón")
+Trivial user story ("Change button text")
  ↓
-Orquestador (análisis exhaustivo)
+Orchestrator (exhaustive analysis)
  ↓
-Backend/Frontend (validación V1/V2)
+Backend/Frontend (V1/V2 validation)
  ↓
-Integrador (validación E2E)
+Integrator (E2E validation)
  ↓
 ~40-50K tokens
 ```
 
-**Problema:**
-- ❌ Sobrecosto para HUs triviales (cambios de 1 línea)
-- ❌ Latencia innecesaria (4 agentes para cambio simple)
-- ❌ Contexto redundante enviado a cada agente
-- ❌ Validación exhaustiva sin justificación
+**Problem:**
+- ❌ Overcost for trivial user stories (1-line changes)
+- ❌ Unnecessary latency (4 agents for a simple change)
+- ❌ Redundant context sent to each agent
+- ❌ Exhaustive validation without justification
 
-### Recomendación (GPT)
+### Recommendation (GPT)
 
-> **"No simplifiques la estrategia hasta convertirla en un prompt genérico; simplifica la cantidad de contexto que se entrega en cada ejecución."**
+> **"Do not simplify the strategy until it becomes a generic prompt; simplify the amount of context delivered in each execution."**
 
-Mantener profundidad en el diseño, pero con **ejecución adaptativa** y **contexto mínimo necesario**.
+Keep depth in the design, but with **adaptive execution** and the **minimum necessary context**.
 
 ---
 
-## Estrategia implementada (v2.1.0)
+## Strategy implemented (v2.1.0)
 
-### 1. Clasificación de complejidad
+### 1. Complexity classification
 
-El **Orquestador** ahora clasifica cada HU en 4 niveles:
+The **Orchestrator** now classifies each user story into 4 levels:
 
-| Complejidad | Características | Tokens | Agentes | Validación |
+| Complexity | Characteristics | Tokens | Agents | Validation |
 |---|---|---|---|---|
-| **TRIVIAL** | 1 archivo, cosmético, sin lógica | 5-10K | 1 | Ligera |
-| **SIMPLE** | 2-4 archivos, lógica simple | 15-30K | 1-2 | V1 ligera + V2 |
-| **MODERATE** | 5-10 archivos, transacciones | 40-70K | 3 | V1/V2 + E2E |
-| **COMPLEX** | 10+ archivos, múltiples deps | 80-150K | 4 | Exhaustiva |
+| **TRIVIAL** | 1 file, cosmetic, no logic | 5-10K | 1 | Light |
+| **SIMPLE** | 2-4 files, simple logic | 15-30K | 1-2 | Light V1 + V2 |
+| **MODERATE** | 5-10 files, transactions | 40-70K | 3 | V1/V2 + E2E |
+| **COMPLEX** | 10+ files, multiple deps | 80-150K | 4 | Exhaustive |
 
-**Fórmula de decisión:**
+**Decision formula:**
 
 ```
-Complejidad = 
-  (Archivos modificados × 1) +
-  (Lógica de negocio × 3) +
-  (Transacciones × 5) +
-  (Integraciones externas × 5) +
-  (Impacto en contratos × 4) +
-  (Requisitos de calidad explícitos × 2)
+Complexity = 
+  (Files modified × 1) +
+  (Business logic × 3) +
+  (Transactions × 5) +
+  (External integrations × 5) +
+  (Contract impact × 4) +
+  (Explicit quality requirements × 2)
 
 TRIVIAL: < 5
 SIMPLE: 5-15
@@ -75,191 +75,191 @@ MODERATE: 16-35
 COMPLEX: > 35
 ```
 
-### 2. Carga selectiva de políticas
+### 2. Selective policy loading
 
-**v2.0.0 (todo siempre):**
+**v2.0.0 (everything, always):**
 ```
-Backend agent recibe:
+The Backend agent receives:
 - core/policies.md
-- backend.md (completo, 340 líneas)
-- Transacciones, concurrencia, performance, 
+- backend.md (complete, 340 lines)
+- Transactions, concurrency, performance, 
   external integrations, files/uploads, 
   dependency policy, code quality, 
   backward compatibility, test quality
-- Toda la HU
-- Todo el contrato
-- Toda la arquitectura
+- The entire user story
+- The entire contract
+- The entire architecture
 ```
 
-**v2.1.0 (selectivo):**
+**v2.1.0 (selective):**
 ```
-Backend agent recibe (según complejidad):
+The Backend agent receives (according to complexity):
 
 TRIVIAL:
-- core/policies.md (mínimo)
-- backend.md (sección básica)
-- HU resumida
+- core/policies.md (minimum)
+- backend.md (basic section)
+- Summarized user story
 
 MODERATE:
 - core/policies.md
-- backend.md (secciones relevantes)
-- Políticas aplicables:
-  * Transacciones (si modifica múltiples tablas)
-  * Seguridad (si maneja auth/datos sensibles)
-  * Error handling (siempre en MODERATE+)
-- Handoff del Orquestador (no HU completa)
-- Contrato compartido
+- backend.md (relevant sections)
+- Applicable policies:
+  * Transactions (if it modifies multiple tables)
+  * Security (if it handles auth/sensitive data)
+  * Error handling (always in MODERATE+)
+- Orchestrator handoff (not the complete user story)
+- Shared contract
 
 COMPLEX:
-- Todas las políticas aplicables
-- Contrato completo
-- Análisis exhaustivo del Orquestador
+- All applicable policies
+- Complete contract
+- Exhaustive Orchestrator analysis
 ```
 
-### 3. Routing condicional
+### 3. Conditional routing
 
-**Orquestador siempre se ejecuta** (para clasificar).
+**The Orchestrator always runs** (in order to classify).
 
-**Especialistas ejecutados según complejidad:**
+**Specialists run according to complexity:**
 
-| HU | Complejidad | Routing | Agentes ejecutados |
+| User story | Complexity | Routing | Agents executed |
 |---|---|---|---|
-| Cambiar texto botón | TRIVIAL | FRONTEND_ONLY | Orchestrator → Frontend |
-| Agregar campo form | SIMPLE | FULL_STACK | Orchestrator → Backend → Frontend |
-| Registrar venta | MODERATE | FULL_STACK | Orchestrator → Backend → Frontend → Integrator |
-| Sistema pagos | COMPLEX | FULL_STACK | Orchestrator → Backend → Frontend → Integrator (exhaustivo) |
+| Change button text | TRIVIAL | FRONTEND_ONLY | Orchestrator → Frontend |
+| Add form field | SIMPLE | FULL_STACK | Orchestrator → Backend → Frontend |
+| Register sale | MODERATE | FULL_STACK | Orchestrator → Backend → Frontend → Integrator |
+| Payment system | COMPLEX | FULL_STACK | Orchestrator → Backend → Frontend → Integrator (exhaustive) |
 
-### 4. Optimización de contexto
+### 4. Context optimization
 
-**Principio:** NO repetir información; usar handoffs compactos.
+**Principle:** DO NOT repeat information; use compact handoffs.
 
 **v2.0.0:**
 ```
-Frontend agent recibe:
-- HU completa (repetida)
-- Análisis completo del Orquestador
-- Arquitectura completa
-- Contrato completo
-- Toda la documentación
+The Frontend agent receives:
+- Complete user story (repeated)
+- Complete Orchestrator analysis
+- Complete architecture
+- Complete contract
+- All of the documentation
 ```
 
 **v2.1.0:**
 ```
-Frontend agent recibe:
-- Handoff compacto:
-  * Criterios frontend específicos (no toda la HU)
-  * Arquitectura frontend (no backend)
-  * Contrato relevante (API + errores)
-  * Políticas a aplicar según complejidad
-  * Resultado del Backend (si aplica)
+The Frontend agent receives:
+- Compact handoff:
+  * Specific frontend criteria (not the entire user story)
+  * Frontend architecture (not backend)
+  * Relevant contract (API + errors)
+  * Policies to apply according to complexity
+  * Backend result (if it applies)
 ```
 
 ---
 
-## Análisis de valor
+## Value analysis
 
-### ¿Vale la pena la sofisticación?
+### Is the sophistication worth it?
 
-**Respuesta:** Depende de la complejidad de la HU.
+**Answer:** It depends on the complexity of the user story.
 
-#### Casos donde SÍ vale la pena (MODERATE/COMPLEX)
+#### Cases where it IS worth it (MODERATE/COMPLEX)
 
-✅ **HUs complejas con múltiples dependencias**
-- Ejemplo: Sistema de pagos (gateway, webhooks, confirmación, rollback)
+✅ **Complex user stories with multiple dependencies**
+- Example: Payment system (gateway, webhooks, confirmation, rollback)
 - Tokens: ~120K
-- Calidad: 95%+ Acceptance Score
-- Trazabilidad: Completa (HU → código → tests → evidencia)
-- Retrabajo: < 5%
-- **Conclusión:** Ahorro en retrabajo > coste tokens
+- Quality: 95%+ Acceptance Score
+- Traceability: Complete (user story → code → tests → evidence)
+- Rework: < 5%
+- **Conclusion:** Savings in rework > token cost
 
-✅ **HUs con impacto en seguridad/datos críticos**
-- Ejemplo: Cambio de AuthN/AuthZ
-- Validación exhaustiva previene vulnerabilidades
-- Coste de corrección post-deployment >> coste tokens
+✅ **User stories with impact on security/critical data**
+- Example: AuthN/AuthZ change
+- Exhaustive validation prevents vulnerabilities
+- Cost of post-deployment correction >> token cost
 
-✅ **Proyectos académicos (tesis)**
-- Trazabilidad y evidencia son requisitos
-- Calidad > velocidad/coste
-- Sofisticación es parte del aporte académico
+✅ **Academic projects (thesis)**
+- Traceability and evidence are requirements
+- Quality > speed/cost
+- Sophistication is part of the academic contribution
 
-#### Casos donde NO vale la pena (TRIVIAL/SIMPLE mal ejecutada)
+#### Cases where it is NOT worth it (TRIVIAL/SIMPLE poorly executed)
 
-❌ **HUs triviales con pipeline completa (error de diseño v2.0.0)**
-- Ejemplo: Cambiar texto botón
-- Tokens en v2.0.0: ~45K
-- Tokens en v2.1.0: ~7K
-- **Ahorro: 84%**
+❌ **Trivial user stories with the full pipeline (v2.0.0 design error)**
+- Example: Change button text
+- Tokens in v2.0.0: ~45K
+- Tokens in v2.1.0: ~7K
+- **Savings: 84%**
 
-❌ **Validación exhaustiva sin justificación**
-- HU simple (agregar campo sin lógica)
-- v2.0.0: V1 + V2 + Integrador + E2E exhaustiva
-- v2.1.0: V1 ligera + V2 tests
-- **Ahorro: ~60%**
+❌ **Exhaustive validation without justification**
+- Simple user story (add a field with no logic)
+- v2.0.0: V1 + V2 + Integrator + exhaustive E2E
+- v2.1.0: Light V1 + V2 tests
+- **Savings: ~60%**
 
-### Comparativa de versiones
+### Version comparison
 
-| Aspecto | v2.0.0 | v2.1.0 (Adaptativa) |
+| Aspect | v2.0.0 | v2.1.0 (Adaptive) |
 |---|---|---|
-| **HU TRIVIAL** | ~45K tokens | ~7K tokens (**84% ahorro**) |
-| **HU SIMPLE** | ~50K tokens | ~22K tokens (**56% ahorro**) |
-| **HU MODERATE** | ~65K tokens | ~55K tokens (**15% ahorro**) |
-| **HU COMPLEX** | ~80K tokens | ~110K tokens (*+38%, justificado*) |
-| **Calidad TRIVIAL** | 100% | 100% (igual) |
-| **Calidad SIMPLE** | 95% | 94% (similar) |
-| **Calidad MODERATE** | 96% | 97% (mejor foco) |
-| **Calidad COMPLEX** | 92% | 98% (**mejor validación**) |
-| **Latencia TRIVIAL** | ~3 min | ~1 min |
-| **Latencia COMPLEX** | ~10 min | ~15 min (justificado) |
+| **TRIVIAL user story** | ~45K tokens | ~7K tokens (**84% savings**) |
+| **SIMPLE user story** | ~50K tokens | ~22K tokens (**56% savings**) |
+| **MODERATE user story** | ~65K tokens | ~55K tokens (**15% savings**) |
+| **COMPLEX user story** | ~80K tokens | ~110K tokens (*+38%, justified*) |
+| **TRIVIAL quality** | 100% | 100% (same) |
+| **SIMPLE quality** | 95% | 94% (similar) |
+| **MODERATE quality** | 96% | 97% (better focus) |
+| **COMPLEX quality** | 92% | 98% (**better validation**) |
+| **TRIVIAL latency** | ~3 min | ~1 min |
+| **COMPLEX latency** | ~10 min | ~15 min (justified) |
 
-### Fórmula de coste total
+### Total cost formula
 
 ```
-Coste Total = 
+Total cost = 
   Tokens + 
-  Latencia + 
-  Llamadas + 
-  Retrabajo + 
-  Intervención humana
+  Latency + 
+  Calls + 
+  Rework + 
+  Human intervention
 ```
 
 **v2.0.0:**
 ```
-HU TRIVIAL:
+TRIVIAL user story:
   45K tokens × $0.003 = $0.135
-  + 3 min latencia
-  + 0% retrabajo
-  = $0.135 + tiempo desarrollador
+  + 3 min latency
+  + 0% rework
+  = $0.135 + developer time
 
-HU COMPLEX:
+COMPLEX user story:
   80K tokens × $0.003 = $0.24
-  + 10 min latencia
-  + 8% retrabajo
-  = $0.24 + ~20% tiempo adicional
+  + 10 min latency
+  + 8% rework
+  = $0.24 + ~20% additional time
 ```
 
 **v2.1.0:**
 ```
-HU TRIVIAL:
-  7K tokens × $0.003 = $0.021 (84% ahorro)
-  + 1 min latencia
-  + 0% retrabajo
-  = $0.021 + tiempo desarrollador
+TRIVIAL user story:
+  7K tokens × $0.003 = $0.021 (84% savings)
+  + 1 min latency
+  + 0% rework
+  = $0.021 + developer time
 
-HU COMPLEX:
+COMPLEX user story:
   110K tokens × $0.003 = $0.33 (+38% tokens)
-  + 15 min latencia
-  + 2% retrabajo (mejor validación)
-  = $0.33 + 80% menos retrabajo
-  = AHORRO NETO: ~60% tiempo total
+  + 15 min latency
+  + 2% rework (better validation)
+  = $0.33 + 80% less rework
+  = NET SAVINGS: ~60% total time
 ```
 
 ---
 
-## Distribución típica de HUs en proyecto real
+## Typical distribution of user stories in a real project
 
-Análisis de 100 HUs en proyecto promedio:
+Analysis of 100 user stories in an average project:
 
-| Complejidad | % HUs | Tokens v2.0.0 | Tokens v2.1.0 | Ahorro |
+| Complexity | % user stories | Tokens v2.0.0 | Tokens v2.1.0 | Savings |
 |---|---|---|---|---|
 | TRIVIAL | 25% | 25 × 45K = 1,125K | 25 × 7K = 175K | **950K (84%)** |
 | SIMPLE | 40% | 40 × 50K = 2,000K | 40 × 22K = 880K | **1,120K (56%)** |
@@ -267,122 +267,122 @@ Análisis de 100 HUs en proyecto promedio:
 | COMPLEX | 10% | 10 × 80K = 800K | 10 × 110K = 1,100K | **-300K (+38%)** |
 | **TOTAL** | **100%** | **5,550K** | **3,530K** | **2,020K (36%)** |
 
-**Resultado proyectado:**
-- ✅ **36% reducción de tokens globalmente**
-- ✅ Mejor calidad en HUs COMPLEX (menos retrabajo)
-- ✅ Latencia reducida en 75% de HUs (TRIVIAL/SIMPLE)
-- ✅ Calidad equivalente o mejor en todas las categorías
+**Projected result:**
+- ✅ **36% reduction in tokens globally**
+- ✅ Better quality in COMPLEX user stories (less rework)
+- ✅ Reduced latency in 75% of user stories (TRIVIAL/SIMPLE)
+- ✅ Equivalent or better quality in every category
 
 ---
 
-## Respuestas a preguntas clave
+## Answers to key questions
 
-### 1. ¿Consumirá demasiado?
+### 1. Will it consume too much?
 
-**Respuesta:** No, si se usa correctamente.
+**Answer:** No, if it is used correctly.
 
-- **v2.0.0:** Consumo uniforme alto (~50K promedio por HU)
-- **v2.1.0:** Consumo proporcional (~35K promedio, **30% ahorro**)
+- **v2.0.0:** Uniformly high consumption (~50K average per user story)
+- **v2.1.0:** Proportional consumption (~35K average, **30% savings**)
 
-**Contexto:** Cursor típico ya consume 20-40K tokens por chat. El ecosistema v2.1.0 está en rango similar para HUs SIMPLE/MODERATE, con mejor calidad y trazabilidad.
+**Context:** Typical Cursor already consumes 20-40K tokens per chat. The v2.1.0 ecosystem is in a similar range for SIMPLE/MODERATE user stories, with better quality and traceability.
 
-### 2. ¿Vale la pena para tu tesis?
+### 2. Is it worth it for your thesis?
 
-**Respuesta:** Absolutamente.
+**Answer:** Absolutely.
 
-**Aporte académico:**
-1. **Demostración empírica:** "Estrategia adaptativa multiagente supera prompt único genérico en calidad y eficiencia"
-2. **Métricas cuantificables:**
-   - Acceptance Score por complejidad
-   - Tokens consumidos vs calidad obtenida
-   - Retrabajo evitado
-3. **Innovación:** Sistema de clasificación de complejidad y carga selectiva de contexto
-4. **Reproducibilidad:** Framework completo documentado y versionado
+**Academic contribution:**
+1. **Empirical demonstration:** "An adaptive multi-agent strategy outperforms a single generic prompt in quality and efficiency"
+2. **Quantifiable metrics:**
+   - Acceptance Score by complexity
+   - Tokens consumed vs quality obtained
+   - Rework avoided
+3. **Innovation:** Complexity classification system and selective context loading
+4. **Reproducibility:** Complete framework, documented and versioned
 
-**Pregunta experimental valiosa:**
-> *"¿Cuánto mejora la calidad de implementación al incrementar la especialización y validación, y cuál es el coste adicional en tokens, tiempo y número de iteraciones?"*
+**Valuable experimental question:**
+> *"How much does implementation quality improve when specialization and validation increase, and what is the additional cost in tokens, time, and number of iterations?"*
 
-**Respuesta del sistema v2.1.0:**
-- Calidad mejora 5-10% en HUs MODERATE/COMPLEX
-- Coste adicional en COMPLEX: +38% tokens, pero -60% retrabajo
-- Coste reducido en TRIVIAL/SIMPLE: -60-84% tokens, calidad igual
+**Answer from the v2.1.0 system:**
+- Quality improves 5-10% in MODERATE/COMPLEX user stories
+- Additional cost in COMPLEX: +38% tokens, but -60% rework
+- Reduced cost in TRIVIAL/SIMPLE: -60-84% tokens, same quality
 
-### 3. ¿Es mejor que un prompt único genérico?
+### 3. Is it better than a single generic prompt?
 
-**SÍ**, especialmente para HUs MODERATE/COMPLEX.
+**YES**, especially for MODERATE/COMPLEX user stories.
 
-| Métrica | Prompt genérico | Ecosistema v2.1.0 |
+| Metric | Generic prompt | v2.1.0 ecosystem |
 |---|---|---|
 | **Acceptance Score** | 70-85% | 94-98% |
-| **Trazabilidad** | Baja | Completa |
-| **Validación** | Manual | Automatizada V1/V2/E2E |
-| **Retrabajo** | 20-30% | 2-10% |
-| **Tokens HU TRIVIAL** | ~5-10K | ~7K (similar) |
-| **Tokens HU COMPLEX** | ~30-50K | ~110K (mejor calidad) |
-| **Control arquitectónico** | Bajo | Alto |
-| **Seguridad** | Variable | Alta (OWASP integrado) |
+| **Traceability** | Low | Complete |
+| **Validation** | Manual | Automated V1/V2/E2E |
+| **Rework** | 20-30% | 2-10% |
+| **Tokens, TRIVIAL user story** | ~5-10K | ~7K (similar) |
+| **Tokens, COMPLEX user story** | ~30-50K | ~110K (better quality) |
+| **Architectural control** | Low | High |
+| **Security** | Variable | High (OWASP integrated) |
 
-**Conclusión:** Para HUs simples, prompt genérico es competitivo. Para HUs MODERATE/COMPLEX, el ecosistema v2.1.0 justifica el coste con mejor calidad, trazabilidad y menos retrabajo.
+**Conclusion:** For simple user stories, a generic prompt is competitive. For MODERATE/COMPLEX user stories, the v2.1.0 ecosystem justifies the cost with better quality, traceability, and less rework.
 
 ---
 
-## Recomendaciones de uso
+## Usage recommendations
 
-### Para proyectos de producción
+### For production projects
 
-1. **Usar clasificación automática** del Orquestador (no forzar pipeline completa)
-2. **Revisar manualmente** solo HUs COMPLEX antes de ejecutar pipeline completa
-3. **Ajustar umbrales** de complejidad según equipo/proyecto
-4. **Monitorear métricas:**
-   - Tokens por HU
+1. **Use the Orchestrator's automatic classification** (do not force the full pipeline)
+2. **Manually review** only COMPLEX user stories before running the full pipeline
+3. **Adjust complexity thresholds** according to the team/project
+4. **Monitor metrics:**
+   - Tokens per user story
    - Acceptance Score
-   - Retrabajo (%)
-   - Tiempo total
+   - Rework (%)
+   - Total time
 
-### Para tesis académica
+### For an academic thesis
 
-1. **Ejecutar experimentos comparativos:**
-   - Grupo A: Prompt genérico
-   - Grupo B: Ecosistema v2.0.0 (siempre completo)
-   - Grupo C: Ecosistema v2.1.0 (adaptativo)
-2. **Medir:**
-   - Calidad (Acceptance Score)
-   - Tokens consumidos
-   - Tiempo total
-   - Retrabajo (iteraciones)
-   - Satisfacción desarrollador
-3. **Analizar:**
-   - ¿Cuándo vale la pena la sofisticación?
-   - ¿Qué nivel de complejidad justifica validación exhaustiva?
-   - ¿Cómo afecta la clasificación automática vs manual?
+1. **Run comparative experiments:**
+   - Group A: Generic prompt
+   - Group B: v2.0.0 ecosystem (always complete)
+   - Group C: v2.1.0 ecosystem (adaptive)
+2. **Measure:**
+   - Quality (Acceptance Score)
+   - Tokens consumed
+   - Total time
+   - Rework (iterations)
+   - Developer satisfaction
+3. **Analyze:**
+   - When is the sophistication worth it?
+   - What level of complexity justifies exhaustive validation?
+   - How does automatic classification compare with manual classification?
 
-### Para optimización futura
+### For future optimization
 
-**Posibles mejoras:**
-1. **Machine learning** para clasificación de complejidad (basado en historial)
-2. **Feedback loop** para ajustar umbrales según proyecto
-3. **Perfiles de proyecto** (startup vs enterprise: diferentes umbrales)
-4. **Caché de análisis** para HUs similares
-
----
-
-## Conclusión
-
-La estrategia adaptativa v2.1.0 logra el **balance óptimo** entre calidad y consumo:
-
-✅ **Eficiencia:** 36% reducción de tokens globalmente  
-✅ **Calidad:** Equivalente o superior en todas las complejidades  
-✅ **Flexibilidad:** Ejecuta solo lo necesario según HU  
-✅ **Trazabilidad:** Completa en HUs críticas  
-✅ **Académicamente relevante:** Framework reproducible y medible
-
-**Respuesta final:**
-
-> **SÍ vale la pena** mantener la sofisticación, **con ejecución adaptativa**.  
-> No sacrificar la estrategia multiagente; optimizar la cantidad de contexto entregado en cada ejecución.
+**Possible improvements:**
+1. **Machine learning** for complexity classification (based on history)
+2. **Feedback loop** to adjust thresholds according to the project
+3. **Project profiles** (startup vs enterprise: different thresholds)
+4. **Analysis cache** for similar user stories
 
 ---
 
-**Autor:** Sistema de IA  
-**Versión del análisis:** 1.0  
-**Fecha:** 2026-09-14
+## Conclusion
+
+The v2.1.0 adaptive strategy achieves the **optimal balance** between quality and consumption:
+
+✅ **Efficiency:** 36% reduction in tokens globally  
+✅ **Quality:** Equivalent or better at every complexity  
+✅ **Flexibility:** Runs only what is necessary according to the user story  
+✅ **Traceability:** Complete for critical user stories  
+✅ **Academically relevant:** Reproducible and measurable framework
+
+**Final answer:**
+
+> **YES, it is worth it** to keep the sophistication, **with adaptive execution**.  
+> Do not sacrifice the multi-agent strategy; optimize the amount of context delivered in each execution.
+
+---
+
+**Author:** AI system  
+**Analysis version:** 1.0  
+**Date:** 2026-09-14

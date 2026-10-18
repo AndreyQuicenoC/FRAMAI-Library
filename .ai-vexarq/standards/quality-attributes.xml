@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>Quality Standards — ISO 25010, WCAG 2.1, OWASP</name>
+    <version>2.2.0</version>
+    <proposito>Defines quality standards that the team and the AI workflows must follow</proposito>
+    <referencia_completa>.ai-vexarq/core/engineering-standards.xml (quality gates, security, testing, environment)</referencia_completa>
+  </metadata>
+
+  <estandares_aplicados>
+    <estandar name="ISO/IEC 25010:2011">Software product quality model</estandar>
+    <estandar name="WCAG 2.1">Web accessibility (target level AA)</estandar>
+    <estandar name="OWASP Top 10">Security</estandar>
+    <estandar name="Clean Code / SOLID">Design principles</estandar>
+    <estandar name="Conventional Commits">Traceability</estandar>
+  </estandares_aplicados>
+
+  <atributos_calidad>
+    <atributo name="Functional Suitability">Explicit criteria, V1/V2 validation, verifiable evidence</atributo>
+    <atributo name="Security">Input validation, AuthN/AuthZ, do not expose secrets, parameterized queries, HTTPS</atributo>
+    <atributo name="Usability">Clear states (loading/success/error/empty), immediate feedback, specific errors, WCAG 2.1 AA when applicable, responsive</atributo>
+    <atributo name="Performance Efficiency">Optimized queries, lazy loading, reasonable bundle; optimize only if necessary</atributo>
+    <atributo name="Maintainability">Minimal change, reuse, no unnecessary refactor, tests, incremental documentation</atributo>
+    <atributo name="Reliability">Robust error handling, transactions, E2E tests, error-case validation</atributo>
+    <atributo name="Compatibility">Do not break existing functionality, contracts respected, backward compatibility</atributo>
+  </atributos_calidad>
+
+  <metricas_objetivo>
+    <metrica name="Acceptance Score" objetivo="≥ 90%">Criteria met / verifiable</metrica>
+    <metrica name="Test Coverage" objetivo="≥ 80% global and 100% on the user story's security/validation rules">pytest-cov, Vitest/Jest, or the stack equivalent</metrica>
+    <metrica name="Defect Rate" objetivo="&lt; 10%">Post-implementation errors / user stories</metrica>
+    <metrica name="Security Issues" objetivo="0 critical">Manual analysis + workflows + dependency audit</metrica>
+    <metrica name="Secrets in repository" objetivo="0">Secret scanning before each commit</metrica>
+    <metrica name="Quality gates" objetivo="100% green before commit and before push">format_lint, typecheck, architecture, tests, migrations, build</metrica>
+    <metrica name="Real integration" objetivo="100% of E2E criteria approved">Stack brought up with containers or real processes</metrica>
+    <metrica name="Accessibility (WCAG AA)" objetivo="100% on public functionality">axe-core / manual</metrica>
+  </metricas_objetivo>
+
+  <validacion_hu>
+    <fase>V1 (specialists): Validation against acceptance criteria</fase>
+    <fase>V2 (specialists): Tests executed + correction of V1 noncompliance</fase>
+    <fase>Integrator: E2E validation with evidence</fase>
+  </validacion_hu>
+</prompt>

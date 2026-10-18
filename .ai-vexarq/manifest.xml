@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vexarq-library version="3.0.0">
+  <identity>
+    <name>VEXARQ</name>
+    <predecessor>FRAMAI</predecessor>
+    <portable-root>.ai-vexarq</portable-root>
+    <entry>.ai-vexarq/workflows/lifecycle/orchestrator.xml</entry>
+  </identity>
+
+  <formats>
+    <rule>Execution prompts live in XML.</rule>
+    <rule>Output contracts live in Markdown, except the extended backlog, which is CSV.</rule>
+    <rule>The phase board is static HTML.</rule>
+  </formats>
+
+  <lineage>
+    <preliminary>docs/vexarq/preliminary/</preliminary>
+    <current>docs/vexarq/current/</current>
+    <tracker>docs/vexarq/status.html</tracker>
+    <rule>A later phase reads only docs/vexarq/current/.</rule>
+  </lineage>
+
+  <phases>
+    <phase id="acercamiento" prompt="workflows/lifecycle/discovery.xml" format="formats/project/PROJECT_DOCUMENT.md" current="docs/vexarq/current/acercamiento/proyecto.md"/>
+    <phase id="srs" prompt="workflows/lifecycle/srs.xml" format="formats/srs/SRS.md" current="docs/vexarq/current/srs/SRS.md"/>
+    <phase id="base-de-datos" prompt="workflows/lifecycle/database.xml" format="formats/database/DATABASE_DESIGN.md" current="docs/vexarq/current/base-de-datos/DATABASE_DESIGN.md"/>
+    <phase id="backlog" prompt="workflows/lifecycle/backlog.xml" canon="sources/canon/backlog-hu-generator.md" format="formats/backlog/BACKLOG.md" current="docs/vexarq/current/backlog/BACKLOG.md"/>
+    <phase id="extendido" prompt="workflows/lifecycle/backlog-extended.xml" format="formats/backlog/EXTENDED_BACKLOG.md" current="docs/vexarq/current/extendido/backlog-extendido.csv"/>
+    <phase id="sad" prompt="workflows/lifecycle/sad.xml" format="formats/sad/SAD.md" current="docs/vexarq/current/sad/SAD.md"/>
+    <phase id="arquetipo" prompt="workflows/lifecycle/archetype.xml" canon="sources/canon/archetype-prompt.xml" current="docs/vexarq/current/arquetipo/BLUEPRINT.md"/>
+    <phase id="implementacion" prompt="workflows/lifecycle/implementation.xml" delegates="workflows/user-story-implementation/orchestrator.xml"/>
+    <phase id="entrega" prompt="workflows/lifecycle/delivery.xml" format="formats/reports/REQUEST_REPORT.md"/>
+    <phase id="recomendaciones" prompt="workflows/lifecycle/recommendations.xml" format="formats/reports/RECOMMENDATIONS.md" current="docs/vexarq/current/recomendaciones/RECOMENDACIONES.md"/>
+  </phases>
+</vexarq-library>

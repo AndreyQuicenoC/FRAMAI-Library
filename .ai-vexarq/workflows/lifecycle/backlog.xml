@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.backlog</id>
+    <name>Phase — Backlog</name>
+    <version>3.0.0</version>
+    <canon>sources/canon/backlog-hu-generator.md</canon>
+    <formato>formats/backlog/BACKLOG.md</formato>
+    <salida>docs/vexarq/preliminary/backlog/BACKLOG.md</salida>
+    <insumo>docs/vexarq/current/srs/SRS.md</insumo>
+  </metadata>
+
+  <objetivo>Generate and validate the product backlog with the canonical generator, without modifying that file.</objetivo>
+
+  <ejecucion>
+    <paso>Read sources/canon/backlog-hu-generator.md from start to end and obey its rules, modes, checklist, and examples.</paso>
+    <paso>The input is the current SRS, wrapped as requirements_document. Do not use preliminaries or another project's example.</paso>
+    <paso>Ask for the project acronym if the canon requires it and the current document does not contain it. In continuo mode, use the acronym already written in the current project document, or stop if it does not exist.</paso>
+    <paso>Write the result in the preliminary using the structure of formats/backlog/BACKLOG.md. Keep each story's text. Write narrative labels in the language selected by language.xml. Keep required literal messages in the language of the source.</paso>
+    <paso>Canon export mode 3 is materialized in current/backlog/ only when the user approves, or when continuo mode promotes stories whose status is Ready. Stories that are still pending travel marked as such and are not disguised as approved.</paso>
+  </ejecucion>
+
+  <prohibido>
+    <regla>Do not rewrite, summarize, or "improve" the canon.</regla>
+    <regla>Do not assign priority or points as if they were the team's decision, except for the treatment the canon itself allows.</regla>
+    <regla>Do not split or merge stories against the canon's rules.</regla>
+  </prohibido>
+</prompt>

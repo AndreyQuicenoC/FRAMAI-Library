@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.implementation</id>
+    <name>Phase — Implementation</name>
+    <version>3.0.0</version>
+    <delega>workflows/user-story-implementation/orchestrator.xml</delega>
+  </metadata>
+
+  <objetivo>Build or correct the product from current artifacts and the existing code. This phase does not redesign earlier phases.</objetivo>
+
+  <alcance>
+    <opcion>The increment or story the user names.</opcion>
+    <opcion>The current backlog, sequenced by dependencies. Not every story in one change.</opcion>
+    <opcion>A fix or a targeted correction. Reproduce, correct, and verify only that behavior. Use templates/targeted-fix/ when the request is a local correction.</opcion>
+  </alcance>
+
+  <hacer>
+    <paso>The functional source is current/backlog/, or current/extendido/backlog-extendido.csv when it exists. Do not implement from the preliminary.</paso>
+    <paso>Load policies, engineering-standards, and design-system for the layer being touched. The user-story workflow keeps its routing and its adaptive complexity.</paso>
+    <paso>Write code, tests, and the minimum documentation for the change. Update the four incremental documents when the change justifies it.</paso>
+    <paso>The report says what was verified and what was not. A test that was not run is not listed as passing.</paso>
+    <paso>Commits follow git-workflow.xml and formats/delivery/COMMIT_CONVENTIONS.md, only when the user asked for version control. A push requires explicit authorization.</paso>
+  </hacer>
+
+  <bloqueo>
+    <regla>If the story depends on another story that is not implemented, implement the dependency first or stop and say so.</regla>
+    <regla>If the current SAD and the code disagree, do not "fix" the architecture in silence. Record the divergence and ask, unless the request is precisely that correction.</regla>
+  </bloqueo>
+</prompt>

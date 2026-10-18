@@ -1,4 +1,4 @@
-# Contributing to FRAMAI-Library
+# Contributing to VEXARQ
 
 Thank you for your interest in contributing.
 

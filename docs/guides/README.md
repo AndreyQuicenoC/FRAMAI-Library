@@ -1,87 +1,91 @@
-# Guías de referencia
+# Reference guides
 
-Este directorio contiene documentación de referencia para el ecosistema de prompts.
+This directory contains reference documentation for the prompt ecosystem.
 
 ---
 
-## Documentos disponibles
+## Available documents
+
+The VEXARQ cycle usage guide is in `.ai-vexarq/guides/usar-vexarq.md`.
+
+## Documents in this directory
 
 ### 1. **`architecture.md`**
-**Propósito:** Arquitectura del sistema de software (proyecto real).
+**Purpose:** Architecture of the software system (real project).
 
-**Contenido:**
-- Stack tecnológico (backend, frontend, DB, infraestructura)
-- Estructura de carpetas
-- Patrones de diseño aplicados
-- Convenciones del proyecto
-- Estructuras críticas protegidas
+**Contents:**
+- Technology stack (backend, frontend, DB, infrastructure)
+- Folder structure
+- Design patterns applied
+- Project conventions
+- Protected critical structures
 
-**Actualización:** Manual cuando cambie arquitectura o tecnología.
+**Update:** Manual when the architecture or technology changes.
 
 ---
 
 ### 2. **`quality-standards.md`**
-**Propósito:** Estándares de calidad aplicados al proyecto.
+**Purpose:** Quality standards applied to the project.
 
-**Contenido:**
-- Referencia a ISO/IEC 25010, WCAG 2.1, OWASP Top 10
-- Aplicación concreta en el proyecto
-- Métricas objetivo
-- Procesos de validación
-- Evolución de estándares
+**Contents:**
+- Reference to ISO/IEC 25010, WCAG 2.1, OWASP Top 10
+- Concrete application in the project
+- Target metrics
+- Validation processes
+- Evolution of standards
 
-**Actualización:** Manual cuando se adopten nuevos estándares o cambien métricas.
+**Update:** Manual when new standards are adopted or metrics change.
 
 ---
 
 ### 3. **`complexity-optimization-analysis.md`** ✨ v2.1.0
-**Propósito:** Análisis del balance calidad/consumo en estrategia adaptativa.
+**Purpose:** Analysis of the quality/consumption balance in the adaptive strategy.
 
-**Contenido:**
-- Motivación para estrategia adaptativa
-- Comparativa v2.0.0 vs v2.1.0
-- Análisis de valor (¿vale la pena la sofisticación?)
-- Distribución típica de HUs en proyecto real
-- Respuestas a preguntas clave
-- Recomendaciones de uso
+**Contents:**
+- Motivation for the adaptive strategy
+- Comparison of v2.0.0 vs v2.1.0
+- Value analysis (is the sophistication worth it?)
+- Typical distribution of user stories in a real project
+- Answers to key questions
+- Usage recommendations
 
-**Actualización:** Manual cuando cambien métricas o estrategia.
+**Update:** Manual when metrics or the strategy change.
 
 ---
 
-## Relación con otros documentos
+## Relationship with other documents
 
-| Documento | Relación con `guides/` |
+| Document | Relationship with `guides/` |
 |---|---|
-| `docs/user-stories.md` | Consume arquitectura de `architecture.md` |
-| `docs/code-structure.md` | Documenta estructuras mencionadas en `architecture.md` |
-| `docs/implementation-report.md` | Aplica estándares de `quality-standards.md` |
-| `docs/integration-report.md` | Valida según `quality-standards.md` |
-| `.ai/core/adaptive-policies.md` | Justificación en `complexity-optimization-analysis.md` |
+| `docs/user-stories.md` | Consumes the architecture from `architecture.md` |
+| `docs/code-structure.md` | Documents structures mentioned in `architecture.md` |
+| `docs/implementation-report.md` | Applies the standards from `quality-standards.md` |
+| `docs/integration-report.md` | Validates according to `quality-standards.md` |
+| `.ai-vexarq/core/adaptive-policies.xml` | Justification in `complexity-optimization-analysis.md` |
 
 ---
 
-## Cuándo actualizar
+## When to update
 
 ### `architecture.md`
-- ✅ Cambio de framework/lenguaje/tecnología mayor
-- ✅ Cambio de patrón arquitectónico
-- ✅ Identificación de nuevas estructuras críticas
-- ✅ Desviación detectada entre doc y realidad
+- ✅ Major framework/language/technology change
+- ✅ Architectural pattern change
+- ✅ Identification of new critical structures
+- ✅ Deviation detected between the doc and reality
 
 ### `quality-standards.md`
-- ✅ Adopción de nuevos estándares (ej. ASVS, GDPR)
-- ✅ Cambio de métricas objetivo
-- ✅ Nuevas validaciones CI/CD
-- ✅ Definición de convenciones por equipo
+- ✅ Adoption of new standards (e.g. ASVS, GDPR)
+- ✅ Change of target metrics
+- ✅ New CI/CD validations
+- ✅ Definition of team conventions
 
 ### `complexity-optimization-analysis.md`
-- ✅ Cambio en estrategia adaptativa
-- ✅ Nuevas métricas medidas
-- ✅ Ajuste de umbrales de complejidad
-- ✅ Resultados de experimentos académicos
+- ✅ Change in the adaptive strategy
+- ✅ New metrics measured
+- ✅ Adjustment of complexity thresholds
+- ✅ Results of academic experiments
 
 ---
 
-**Versión:** 2.1.0  
-**Última actualización:** 2026-09-14
+**Version:** 2.1.0  
+**Last updated:** 2026-09-14

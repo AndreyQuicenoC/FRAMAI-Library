@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.orchestrator</id>
+    <name>VEXARQ — Lifecycle orchestrator</name>
+    <version>3.0.0</version>
+    <hereda>../../core/policies.xml</hereda>
+    <uso>Single entry point. It covers one phase or the full cycle. It does not replace the backlog canon or the archetype canon.</uso>
+  </metadata>
+
+  <cargar>
+    <siempre>core/policies.xml, core/language.xml, core/execution-modes.xml, core/artifact-lineage.xml, core/approval-gates.xml, manifest.xml</siempre>
+    <fase>Only the XML of the active phase, its Markdown format, and the current documents that phase depends on.</fase>
+    <no_cargar>The rest of the library, preliminaries from earlier phases, or the external backlog example as if it were the current project.</no_cargar>
+  </cargar>
+
+  <entrada>
+    <campo>The user's request.</campo>
+    <campo opcional="true">Declared phase.</campo>
+    <campo opcional="true">Mode: validar or continuo. If missing, validar.</campo>
+    <campo opcional="true">Profile: ligero, estandar, avanzado, or critico. If missing, classify it.</campo>
+  </entrada>
+
+  <deteccion>
+    <paso>Read docs/vexarq/status.html and docs/vexarq/current/ when they exist. The most advanced phase that has its current artifact marks the starting point.</paso>
+    <paso>If the user names a phase, that is the working phase, provided its current inputs exist. If they are missing, stop and say which one is missing. Do not skip ahead by using preliminaries.</paso>
+    <paso>If there is no docs/vexarq folder and the request is to build or define a product, start at acercamiento.</paso>
+    <paso>If the request is a correction, a user story, or a local change on existing code, do not walk the cycle. Delegate to workflows/user-story-implementation/ or to templates/targeted-fix/, according to the scope.</paso>
+    <paso>Apply language.xml to every generated document, interface string, and comment meant for a person.</paso>
+  </deteccion>
+
+  <fases orden="acercamiento, srs, base-de-datos, backlog, extendido, sad, arquetipo, implementacion, entrega, recomendaciones">
+    <fase id="acercamiento" prompt="discovery.xml" requiere="none"/>
+    <fase id="srs" prompt="srs.xml" requiere="current/acercamiento/proyecto.md"/>
+    <fase id="base-de-datos" prompt="database.xml" requiere="current/srs/SRS.md"/>
+    <fase id="backlog" prompt="backlog.xml" requiere="current/srs/SRS.md"/>
+    <fase id="extendido" prompt="backlog-extended.xml" requiere="current/backlog/BACKLOG.md"/>
+    <fase id="sad" prompt="sad.xml" requiere="current/srs/SRS.md and current/base-de-datos/DATABASE_DESIGN.md"/>
+    <fase id="arquetipo" prompt="archetype.xml" requiere="current/sad/SAD.md"/>
+    <fase id="implementacion" prompt="implementation.xml" requiere="a current archetype or existing code"/>
+    <fase id="entrega" prompt="delivery.xml" requiere="evidence of the requested implementation"/>
+    <fase id="recomendaciones" prompt="recommendations.xml" requiere="the earlier phases current, or the explicit close the user asks for"/>
+  </fases>
+
+  <agrupacion_en_modo_validar>
+    <grupo puerta="G1">Discovery and, when the user already gave the problem in enough detail, the SRS in the same request, each as its own preliminary. Stop before data and the backlog.</grupo>
+    <grupo puerta="G2">Database and backlog, each in its preliminary. Stop before the extended backlog and the SAD.</grupo>
+    <grupo puerta="G3">Extended backlog and SAD. Stop before the archetype.</grupo>
+    <grupo puerta="G4">Archetype proposal, without generating the definitive code.</grupo>
+  </agrupacion_en_modo_validar>
+
+  <modo_continuo>
+    <regla>Walk the phases in order while there is no blocker.</regla>
+    <regla>Promote each self-checked preliminary to current/ before opening the next phase.</regla>
+    <regla>Include the documentation, frontend, backend, and tests that the current SAD and backlog require.</regla>
+    <regla>At the end, generate recommendations.</regla>
+    <regla>Do not push.</regla>
+  </modo_continuo>
+
+  <cierre_de_solicitud>
+    <regla>Update docs/vexarq/status.html using the tracker format. Little text: phase, state, link, and next action.</regla>
+    <regla>Write a request report from formats/reports/REQUEST_REPORT.md under docs/vexarq/reports/, with a request identifier.</regla>
+    <regla>Do not declare a check finished when it was not run.</regla>
+    <regla>Do not edit files outside the scope, and do not edit the canon.</regla>
+  </cierre_de_solicitud>
+
+  <salida>
+    <bloque>Detected phase, mode, profile, and a short reason.</bloque>
+    <bloque>Current inputs used, with their paths.</bloque>
+    <bloque>Artifact written, and whether it stayed preliminary or became current.</bloque>
+    <bloque>Pending decisions and assumptions.</bloque>
+    <bloque>The concrete next action for the user.</bloque>
+  </salida>
+</prompt>

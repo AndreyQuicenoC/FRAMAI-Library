@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CATALOG — Standards and obligation</name>
+    <version>3.0.0</version>
+    <uso>Selection reference. Do not load the whole catalog for a local correction.</uso>
+  </metadata>
+
+  <niveles>
+    <nivel id="obligatoria">An internal VEXARQ condition. Example: do not invent a test result.</nivel>
+    <nivel id="condicional">Activated by the stack, the risk, the kind of system, or the user's request.</nivel>
+    <nivel id="orientativa">It may be adapted or set aside with a written justification.</nivel>
+  </niveles>
+
+  <entradas>
+    <entrada nombre="Do not invent evidence" dominio="cross-cutting" nivel="obligatoria" validacion="The report distinguishes executed, not executed, and assumption."/>
+    <entrada nombre="Secrets stay out of the repository" dominio="security" nivel="obligatoria" validacion="No credentials in code, docs, fixtures, or commits."/>
+    <entrada nombre="ISO/IEC/IEEE 29148:2018" dominio="requirements" nivel="condicional" validacion="The SRS separates requirement, source, and verification criterion when the profile is standard or higher."/>
+    <entrada nombre="ISO/IEC 25010:2023" dominio="quality" nivel="orientativa" validacion="Name the characteristics the product actually needs."/>
+    <entrada nombre="ISO/IEC/IEEE 42010 and arc42" dominio="architecture" nivel="condicional" validacion="The SAD covers the index in formats/sad/SAD.md. A CRUD does not inherit the package of a distributed system."/>
+    <entrada nombre="Scrum Guide, November 2020" dominio="work" nivel="orientativa" validacion="If the project uses Scrum, roles, events, and artifacts follow the guide. A definition of ready is a team policy, not an official Scrum artifact."/>
+    <entrada nombre="INVEST, SMART, MoSCoW, WSJF" dominio="work" nivel="orientativa" validacion="Name them as techniques. Do not present them as ISO standards."/>
+    <entrada nombre="WCAG 2.2 AA and WAI-ARIA" dominio="interface" nivel="condicional" validacion="Applies to a web UI. Another level only when the user sets it."/>
+    <entrada nombre="OWASP Top 10:2025, ASVS 5.0.0, and NIST SP 800-218" dominio="security" nivel="condicional" validacion="ASVS becomes verifiable requirements when there is authentication, personal data, or a critical profile."/>
+    <entrada nombre="OpenAPI" dominio="API" nivel="condicional" validacion="HTTP APIs in scope have a contract when the profile is standard or higher."/>
+    <entrada nombre="Conventional Commits, SemVer, Keep a Changelog" dominio="delivery" nivel="condicional" validacion="Apply them when there is a change history. A bulleted body is a VEXARQ policy, not a requirement of the specification."/>
+    <entrada nombre="C4" dominio="architecture" nivel="orientativa" validacion="Context and containers at the standard profile. Components and code only when they add something."/>
+    <entrada nombre="Twelve-Factor and SLSA" dominio="operations" nivel="orientativa" validacion="Apply them to deployed services or to a supply chain the user wants to harden."/>
+  </entradas>
+
+  <autoridad>
+    <regla>A prioritization technique does not have the same authority as a standard cited by its identifier and year.</regla>
+    <regla>If the repository already fixed a convention, that convention prevails over an orientative recommendation.</regla>
+  </autoridad>
+</prompt>

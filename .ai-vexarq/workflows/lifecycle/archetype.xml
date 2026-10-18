@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.archetype</id>
+    <name>Phase — Archetype</name>
+    <version>3.0.0</version>
+    <canon>sources/canon/archetype-prompt.xml</canon>
+    <insumo>docs/vexarq/current/sad/SAD.md</insumo>
+  </metadata>
+
+  <objetivo>Run the archetype canon with the current SAD as the attached document. Do not rewrite the canon.</objetivo>
+
+  <hacer>
+    <paso>Read sources/canon/archetype-prompt.xml and obey its analysis, its pre-generation report, its stop, and its structure.</paso>
+    <paso>The current SAD replaces the initial request to "attach the SAD". Do not ask for the document again when current/sad/SAD.md exists and is complete against the format. If it is missing decisions, a stack, or quality attributes, list the gaps and stop: that is a blocker of the canon itself.</paso>
+    <paso>Adapt the blueprint to the structure already written in the SAD and to the stack present in the repository. The canon's base structure is the starting point, not a reason to discard the project.</paso>
+    <paso>In validar mode, obey the canon's wait. In continuo mode, choosing that mode counts as confirmation only when the report has no blockers. Assumptions stay written in the promoted blueprint.</paso>
+    <paso>After confirmation, generate the archetype in the project tree and leave the approved structure in current/arquetipo/BLUEPRINT.md, so the code can be checked against it later.</paso>
+  </hacer>
+
+  <prohibido>
+    <regla>Do not modify the canon.</regla>
+    <regla>Do not generate the full project before the confirmation the canon requires, except for the explicit condition of continuo mode.</regla>
+    <regla>Do not add dependencies outside the current SAD without marking them as a proposal.</regla>
+  </prohibido>
+</prompt>

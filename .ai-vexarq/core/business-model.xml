@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Business model identification</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>Used in discovery and reread, without a silent recalculation, when a later phase makes scope decisions.</usage>
+  </metadata>
+
+  <catalogo>
+    <modelo id="saas">Recurring use of hosted software.</modelo>
+    <modelo id="marketplace">The platform sits between two or more sides that exchange value.</modelo>
+    <modelo id="comercio">Sale of goods or services with a catalog, an order, and payment.</modelo>
+    <modelo id="interno">A tool for an organization's own operation, without an external customer as the main user.</modelo>
+    <modelo id="api">The main product is a contract consumed by other systems.</modelo>
+    <modelo id="contenido">Publishing, media, or a community where content is the value.</modelo>
+    <modelo id="on-premise">The customer runs the software on their own infrastructure.</modelo>
+    <modelo id="institucional">An academic, public, or regulated process, with formal actors and evidence.</modelo>
+    <modelo id="otro">None of the above fits. Describe it in one sentence. Do not force it into SaaS.</modelo>
+  </catalogo>
+
+  <metodo>
+    <paso>Look for evidence in the user's request and in current documents: who pays, who operates, what repeats, and what is exchanged.</paso>
+    <paso>Choose one primary model and, if needed, one secondary model.</paso>
+    <paso>Write the evidence and what is still unknown. If two models fit the text, leave PENDING in validar mode.</paso>
+    <paso>In continuo mode, choose the model with the most evidence and mark it STANDARD_ASSUMPTION.</paso>
+    <paso>Do not derive a pricing plan, a company, or a market strategy the user did not ask for. The model only guides requirements, risks, and recommendations.</paso>
+  </metodo>
+
+  <consecuencias>
+    <regla>SaaS and commerce activate a tenant or account, billing only when the scope mentions it, and care with customer data.</regla>
+    <regla>A marketplace must distinguish the sides and the rules of the transaction. Do not model a single side.</regla>
+    <regla>Internal and institutional products prioritize roles, audit, and traceability over user acquisition.</regla>
+    <regla>An API prioritizes the contract, versioning, and compatibility. A human interface is secondary unless the SRS asks for it.</regla>
+  </consecuencias>
+</prompt>

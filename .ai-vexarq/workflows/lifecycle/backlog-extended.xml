@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.backlog-extended</id>
+    <name>Phase — Extended backlog</name>
+    <version>3.0.0</version>
+    <formato>formats/backlog/EXTENDED_BACKLOG.md</formato>
+    <salida_csv>docs/vexarq/preliminary/extendido/backlog-extendido.csv</salida_csv>
+    <salida_informe>docs/vexarq/preliminary/extendido/validacion.md</salida_informe>
+    <insumo>docs/vexarq/current/backlog/BACKLOG.md</insumo>
+    <calibracion>sources/examples/backlog-extendido-proyecto-externo.md is an example from another project. Study its discipline. Do not copy its scope.</calibracion>
+  </metadata>
+
+  <rol>Senior agile analyst. Turn current stories into executable work without inventing product and without losing the original text.</rol>
+
+  <fuente>
+    <regla>The only source is the current backlog. Ignore preliminaries, sheets named Generated, and any story remembered from another project.</regla>
+    <regla>If the current backlog does not exist, stop.</regla>
+    <regla>Count the stories that are actually present. Do not demand the example's count of 44 or its sprints.</regla>
+    <regla>If the current backlog declares an MVP, process the MVP the user names. If there is no MVP, leave the column empty and do not create one.</regla>
+  </fuente>
+
+  <conservacion>
+    <regla>Copy the identifier, epic, MVP, sprint, role, feature, reason, criteria, status, and observation literally. Do not paraphrase, merge, or renumber.</regla>
+    <regla>Validation status is plain text: Ready, With remarks, or Pending clarification. No emoji.</regla>
+    <regla>Inside a CSV field wrapped in double quotes, the quotes of literal messages become single quotes. The message text does not change.</regla>
+    <regla>The only new material is the task, task type, definition of ready, definition of done, estimate, priority, dependencies, risk, and notes.</regla>
+  </conservacion>
+
+  <tareas>
+    <regla>Each task comes from an acceptance criterion. It covers at least one of the six categories when that category exists in the story: where, fields, validation, restriction, success, and failure.</regla>
+    <regla>Include database, backend, frontend, tests, security, documentation, or devops only when the story touches that layer.</regla>
+    <regla>Between 3 and 10 tasks. If more than 10 are needed, do not split the story: note it in Analyst Notes.</regla>
+    <regla>Task identifier: TK_ plus the rest of the story id without the HU_ prefix, plus _ and a sequence number. HU_ACME_01_04 produces TK_ACME_01_04_1. If the id does not start with HU_, prefix TK_ to the original id.</regla>
+    <regla>The task title starts with an infinitive verb and cites the criterion numbers it covers. Write the title in the language selected by language.xml. Do not translate a literal message.</regla>
+  </tareas>
+
+  <dor_dod>
+    <regla>The definition of ready and the definition of done distinguish general team conditions from conditions specific to the story.</regla>
+    <regla>General definition of ready: role, feature, and reason; complete criteria; defined messages; a blocking dependency resolved; a design available only when the story has an interface and the project works with design.</regla>
+    <regla>General definition of done: criteria verified, tests for the scope passing, literal messages, server-side validation when there is a server, no secrets, and affected documentation updated.</regla>
+    <regla>Do not present the definition of ready as an official Scrum artifact. It is this library's preparation policy.</regla>
+  </dor_dod>
+
+  <estimacion_y_prioridad>
+    <escala>1, 2, 3, 5, 8, 13, 21. The estimate belongs to the story, not to the task, and it is the analyst's preliminary estimate.</escala>
+    <calibracion>1 is a minimal change; 3 is a moderate form or query; 5 is several rules or roles; 8 is coordinated logic; 13 is high risk; 21 is a signal to split, suggested only in the notes.</calibracion>
+    <moscow>Must have, Should have, Could have, Won't have. Decision order: priority already written in the backlog or the SRS, dependencies that block the flow, value of the increment, and an explicit user rule.</moscow>
+    <heuristica>Inside an MVP, Must above about 60 percent is a warning, not a quota used to downgrade priorities the SRS marked as critical.</heuristica>
+  </estimacion_y_prioridad>
+
+  <columnas version="1.0.0">
+    <columna>Type</columna>
+    <columna>Story ID</columna>
+    <columna>Task ID</columna>
+    <columna>Epic</columna>
+    <columna>MVP</columna>
+    <columna>Sprint</columna>
+    <columna>Role</columna>
+    <columna>Feature</columna>
+    <columna>Reason</columna>
+    <columna>Acceptance Criteria</columna>
+    <columna>Validation Status</columna>
+    <columna>Observation</columna>
+    <columna>Task Type</columna>
+    <columna>Definition of Ready</columna>
+    <columna>Definition of Done</columna>
+    <columna>Estimate (Fibonacci SP)</columna>
+    <columna>Estimate Justification</columna>
+    <columna>MoSCoW Priority</columna>
+    <columna>Priority Justification</columna>
+    <columna>Dependencies</columna>
+    <columna>Risk</columna>
+    <columna>Analyst Notes</columna>
+  </columnas>
+
+  <csv>
+    <regla>UTF-8, RFC 4180, comma as the separator. The first row uses exactly the names above.</regla>
+    <regla>One story occupies a row Type=Story and then its Type=Task rows. On the story row, Feature keeps the original text. On the task row, that column carries the task title.</regla>
+    <regla>Acceptance Criteria, Definition of Ready, and Definition of Done are wrapped in double quotes, with real line breaks. Definitions of ready and done use the bullet •. Do not use | or / as a substitute for the line break.</regla>
+    <regla>An empty cell means empty. Do not write N/A.</regla>
+    <regla>Dependencies lists story ids or decision ids, separated by spaces. Risk is low, medium, or high, followed by a short sentence in the same cell. That sentence follows language.xml. Literal story text does not.</regla>
+    <regla>Write the file in the repository. In the chat, deliver the validation report, not the full CSV, unless the user asks to paste it into a sheet. In that case, also emit TSV.</regla>
+    <regla>If the response does not fit, cut only after a complete story and continue the same file. Never cut in the middle of a story.</regla>
+  </csv>
+
+  <informe>
+    <chequeo>Stories read against stories written, with the list of ids.</chequeo>
+    <chequeo>Literal integrity of the ten preserved elements.</chequeo>
+    <chequeo>Each category present in the story has at least one task.</chequeo>
+    <chequeo>Estimates are inside the scale and priorities are inside MoSCoW.</chequeo>
+    <chequeo>Alerts: story points of 13 or more, dependencies across increments, ambiguities, and the Must percentage when there is an MVP.</chequeo>
+    <chequeo>Confirm that no acronym, role, or sprint was imported from the external example.</chequeo>
+  </informe>
+
+  <restricciones>
+    <regla>Do not invent fields, messages, rules, or stories.</regla>
+    <regla>Do not assign people or dates.</regla>
+    <regla>Do not modify the current backlog from this phase.</regla>
+    <regla>An ambiguity is noted or asked. It is not resolved in silence.</regla>
+  </restricciones>
+</prompt>

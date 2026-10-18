@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>Guide: User Story Implementation</name>
+    <version>2.2.0</version>
+    <tipo>Usage guide</tipo>
+    <referencia>README.md and docs/guides/ of the FRAMAI repository; standards in .ai-vexarq/core/engineering-standards.xml</referencia>
+  </metadata>
+
+  <flujo_general>
+    <paso>Prepare the user story with clear acceptance criteria</paso>
+    <paso>Open Cursor in Agent mode</paso>
+    <paso>Use the template according to scope (full-stack, backend-only, etc.)</paso>
+    <paso>Let the Orchestrator classify and route</paso>
+    <paso>Review the documentation generated in docs/ (user-stories, code-structure, implementation-report, integration-report)</paso>
+    <paso>Verify tests and code</paso>
+  </flujo_general>
+
+  <requisitos_previos>
+    <requisito>Project with a code base (frontend and/or backend)</requisito>
+    <requisito>User story with explicit and verifiable acceptance criteria</requisito>
+    <requisito>Cursor IDE in Agent mode</requisito>
+  </requisitos_previos>
+
+  <templates_disponibles>
+    <template name="full-stack.md">Backend + Frontend + Integrator (FULL_STACK)</template>
+    <template name="backend-only.md">Backend only (BACKEND_ONLY)</template>
+    <template name="frontend-only.md">Frontend only (FRONTEND_ONLY)</template>
+    <template name="integration-fix.md">Integration correction</template>
+    <template name="epic-full-stack.md">User-story batch (epic) full-stack with Git, environment, containers, and real integration</template>
+  </templates_disponibles>
+
+  <documentos_generados>
+    <documento>docs/user-stories.md — Exact user stories received</documento>
+    <documento>docs/code-structure.md — Code structures</documento>
+    <documento>docs/implementation-report.md — Implementation results</documento>
+    <documento>docs/integration-report.md — E2E validation</documento>
+  </documentos_generados>
+
+  <troubleshooting>
+    <problema name="BLOCKED">Verify that an identifiable base project exists</problema>
+    <problema name="Incorrect classification">Review the Orchestrator's complexity_rationale; correct manually if necessary</problema>
+    <problema name="Backend/Frontend misaligned">Run the Integrator; review the contract</problema>
+    <problema name="Tests failing">V2 must correct them; do not declare COMPLETED</problema>
+    <problema name="The agent stops at analysis">State in the prompt "Do not stop at analysis; produce verifiable changes" (included in the templates); an identifiable archetype or mockup is not BLOCKED</problema>
+    <problema name="Tool not installed">It is not a blocker: install it or use a container (policies.xml, comportamiento_ante_bloqueos)</problema>
+    <problema name="Push rejected by authentication">Stop and report; never write credentials in the repository (git-workflow.xml)</problema>
+    <problema name="Frontend still has example data">Verify project_mode MOCKUP_PRODUCTIONIZATION in the plan and run its protocol (project-modes.xml)</problema>
+  </troubleshooting>
+</prompt>

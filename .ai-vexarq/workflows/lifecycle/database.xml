@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.database</id>
+    <name>Phase — Data design</name>
+    <version>3.0.0</version>
+    <formato>formats/database/DATABASE_DESIGN.md</formato>
+    <salida>docs/vexarq/preliminary/base-de-datos/DATABASE_DESIGN.md</salida>
+    <insumo>docs/vexarq/current/srs/SRS.md</insumo>
+  </metadata>
+
+  <objetivo>Design the persistence the current SRS needs. Relational or document, according to the problem and the stack already chosen.</objetivo>
+
+  <hacer>
+    <paso>Extract entities, documents, or events from the current requirements. Do not add aggregates that no requirement uses.</paso>
+    <paso>If the project already has a schema, start from that schema and mark the changes. Do not replace it with an ideal model disconnected from it.</paso>
+    <paso>Deliver a conceptual, logical, and physical model. Relational: keys, cardinalities, uniqueness, integrity, justified indexes, and a deletion policy. Document: collections, keys, indexes, validations, and access patterns.</paso>
+    <paso>Include a Mermaid diagram and a short dictionary in the same document, with a link to formats/database/DATA_DICTIONARY.md if the dictionary grows.</paso>
+    <paso>Propose versioned migrations only as a design. Do not execute them in this phase.</paso>
+    <paso>Personal data, retention, and least privilege are explicit when the SRS implies them.</paso>
+  </hacer>
+
+  <no_hacer>
+    <regla>Do not force PostgreSQL, and do not force MongoDB, if the current document already chose an engine.</regla>
+    <regla>Do not normalize or denormalize without saying which query or which integrity rule justifies it.</regla>
+    <regla>Do not invent billing, audit, or multi-tenant tables if the current business model does not require them.</regla>
+  </no_hacer>
+</prompt>

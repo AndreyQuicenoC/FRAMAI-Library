@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Git flow, branches, commits, and safe publication</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>Loaded when the request includes version control (branches, commits, push) or when the project mode requires it. If the user sets their own flow, the user's flow prevails over this file.</usage>
+  </metadata>
+
+  <principios>
+    <regla>No push without explicit authorization from the user naming the remote and the destination branch. The continuo mode authorizes generating and, if the user requested version control, committing on the working branch. It does not authorize push, force push, or branch deletion.</regla>
+    <regla>Publish only what works: no push with quality gates in the red or with the integration unvalidated.</regla>
+    <regla>Protected branches (main, develop, and any other the user declares) are NOT modified by the agent after their initial preparation; merges into them are done by the user through a PR.</regla>
+    <regla>One commit = one verifiable unit (one user story, one foundation, one cross-cutting change). Never mix different user stories in one commit.</regla>
+    <regla>Never force (force push), rewrite published history, or delete remote branches without an express request.</regla>
+    <regla>No credential, real .env file, database dump, private key, or token enters a commit. See S7 in engineering-standards.xml.</regla>
+  </principios>
+
+  <preparacion_de_ramas>
+    <paso numero="1">Inspect state: local/remote branches, existing commits, remotes, uncommitted changes. Do not touch others' work.</paso>
+    <paso numero="2">If the integration base branch (develop) does not exist: create it from the current main branch (main) and publish it. If it exists: verify that it contains main (git merge-base --is-ancestor main develop); if not, inform the user instead of merging onto it.</paso>
+    <paso numero="3">Create ONE working branch per epic from develop with a semantic name: feature/ep-XX-short-description (e.g. feature/ep-01-auth-sessions). If the repository has no commits, first create the initial commit on main with the received state (without secrets) and then develop.</paso>
+    <paso numero="4">Work exclusively on the epic branch. Do not merge into develop or main.</paso>
+    <paso numero="5">Multiple repositories (backend, frontend, framework): apply the flow in each one independently and record in the report which branch was used in each repository.</paso>
+  </preparacion_de_ramas>
+
+  <commits>
+    <formato>Conventional Commits with user-story ID: type(HU_ID): imperative summary in lowercase (max. 72 characters)</formato>
+    <cuerpo>
+      What changed (key files/modules), criteria covered, tests run with their result, and relevant decisions. No secrets, no emojis.
+    </cuerpo>
+    <tipos>feat, fix, test, docs, refactor, chore, ci, build</tipos>
+    <plan_por_lote>
+      <regla>Foundation commit (configuration, error contract, environment, tooling) before the user stories, if it does not belong to a specific user story.</regla>
+      <regla>One commit per successfully completed user story (code + tests + that user story's documentation), in the dependency order defined by the Orchestrator.</regla>
+      <regla>Cross-cutting changes requested separately (e.g. marking out-of-scope functionality, containerization) go in separate commits with their own message.</regla>
+      <regla>A user story that does not affect a layer (e.g. a static page with no backend) may have no commit in that repository; it is documented in the plan.</regla>
+    </plan_por_lote>
+  </commits>
+
+  <puertas_previas_a_commit>
+    <paso>Run the quality gates applicable to the changed files (format_lint, typecheck, architecture, relevant tests).</paso>
+    <paso>Run secret scanning on what is staged and review `git status` and `git diff --cached --stat` for .env, binaries, .venv, node_modules, dumps.</paso>
+    <paso>Confirm that .gitignore covers .env*, caches, virtual environments, build artifacts, and local data.</paso>
+  </puertas_previas_a_commit>
+
+  <puertas_previas_a_push>
+    <paso>Confirm that the user authorized the push and named the remote and the branch. If that authorization is not present, stop here.</paso>
+    <paso>Full layer suite green (not only the tests of the last user story).</paso>
+    <paso>If the batch is full-stack: real BE-FE integration validated by the Integrator; cross corrections already applied and re-validated.</paso>
+    <paso>Final review of the history to publish: `git log --stat` of the epic branch; no secrets in any commit.</paso>
+    <paso>Push only the epic branch with upstream (git push -u origin branch). If authentication fails, stop and report; never ask for or write credentials in the repo.</paso>
+  </puertas_previas_a_push>
+
+  <fallos_y_recuperacion>
+    <regla>If a gate fails after a commit, correct it with a new commit (or amend only if it has not been published and the change belongs to the same commit).</regla>
+    <regla>If a secret already committed locally and not published is detected: rewrite that commit and rotate the secret; if it was already published: notify the user immediately for rotation.</regla>
+  </fallos_y_recuperacion>
+</prompt>

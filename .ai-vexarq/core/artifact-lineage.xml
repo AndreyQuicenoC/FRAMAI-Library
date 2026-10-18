@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Preliminary and current artifacts</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+  </metadata>
+
+  <regla_de_oro>
+    Phase N+1 reads docs/vexarq/current/. It does not read docs/vexarq/preliminary/, even when the preliminary is newer.
+  </regla_de_oro>
+
+  <directorios>
+    <directorio path="docs/vexarq/preliminary/">Output of the model, waiting for human review.</directorio>
+    <directorio path="docs/vexarq/current/">The document the user edited, or that continuo mode promoted after it checked itself. It is the only source for the next phase.</directorio>
+    <directorio path="docs/vexarq/status.html">Static board. Update it at the end of each request.</directorio>
+  </directorios>
+
+  <escritura>
+    <regla>Create the new preliminary without deleting the current document.</regla>
+    <regla>Do not edit a current document to "improve" it during generation. Model corrections go to the preliminary.</regla>
+    <regla>In validar mode, the user copies or edits the preliminary and leaves the result in current/. The model may create an empty working current/ only when the user asks for a file ready to edit, and it must start from the preliminary without adding new decisions.</regla>
+    <regla>In continuo mode, promotion means copying the checked preliminary to current/ and recording which assumptions traveled with it.</regla>
+    <regla>If current/ already exists, do not overwrite it. Write a new preliminary version and ask before replacing the current document.</regla>
+  </escritura>
+
+  <provenance>
+    <etiqueta>CONFIRMED: the user said it, or it is in an approved current document.</etiqueta>
+    <etiqueta>REPOSITORY: found in existing code or documentation.</etiqueta>
+    <etiqueta>INFERENCE: a conclusion of the model, distinct from a fact.</etiqueta>
+    <etiqueta>STANDARD_ASSUMPTION: a gap filled in continuo mode from a library example.</etiqueta>
+    <etiqueta>PENDING: a decision is missing and the phase must not pretend it exists.</etiqueta>
+    <etiqueta>CONTRADICTION: two current sources do not agree.</etiqueta>
+  </provenance>
+
+  <actualizacion_del_tablero>
+    <regla>When the request ends, copy .ai-vexarq/tracker/project-status.template.html to docs/vexarq/status.html if it does not exist yet.</regla>
+    <regla>Update only data-vexarq fields. Do not add panels, a long history, or prompt text.</regla>
+    <regla>Link each phase to its current document. If only a preliminary exists, the link text is Preliminary and it points at that file. If neither exists, the state is pending and there is no broken link.</regla>
+    <regla>Allowed state tokens: pending, in progress, preliminary, current, blocked, not applicable.</regla>
+  </actualizacion_del_tablero>
+</prompt>

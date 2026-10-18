@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <id>lifecycle.delivery</id>
+    <name>Phase — Delivery of the request</name>
+    <version>3.0.0</version>
+    <formato>formats/reports/REQUEST_REPORT.md</formato>
+  </metadata>
+
+  <objetivo>Close the request with verifiable evidence. The report is part of the work, not an appendix.</objetivo>
+
+  <hacer>
+    <paso>Write docs/vexarq/reports/&lt;request-id&gt;.md using the format.</paso>
+    <paso>List files created or modified and the reason.</paso>
+    <paso>Separate checks that were executed, checks that were not executed, and assumptions.</paso>
+    <paso>Update docs/vexarq/status.html. The current phase, its state, and the link to the current artifact.</paso>
+    <paso>If the change is versioned, propose the commit from the delivery format. Create it only when the user asked for it.</paso>
+  </hacer>
+
+  <push>
+    <regla>Do not push, force-push, or publish without an explicit request that names the remote and the branch.</regla>
+    <regla>Before an authorized push, run the applicable checks. If one fails, there is no push.</regla>
+  </push>
+</prompt>

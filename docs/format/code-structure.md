@@ -1,55 +1,55 @@
-# Estructura del código
+# Code structure
 
-Este documento registra las estructuras de código relevantes que han sido analizadas o modificadas.
+This document records the relevant code structures that have been analyzed or modified.
 
-**Actualización:** Incremental (NO sobrescribir registros anteriores)
+**Update:** Incremental (DO NOT overwrite previous records)
 
 ---
 
 ## Backend
 
 ### API Endpoints
-_Se registrarán endpoints conforme se implementen_
+_Endpoints will be recorded as they are implemented_
 
-### Servicios
-_Se registrarán servicios conforme se creen/modifiquen_
+### Services
+_Services will be recorded as they are created/modified_
 
-### Modelos
-_Se registrarán modelos conforme se definan_
+### Models
+_Models will be recorded as they are defined_
 
 ### Middleware
-_Se registrará middleware relevante_
+_Relevant middleware will be recorded_
 
 ---
 
 ## Frontend
 
-### Páginas
-_Se registrarán páginas/rutas conforme se implementen_
+### Pages
+_Pages/routes will be recorded as they are implemented_
 
-### Componentes
-_Se registrarán componentes conforme se creen_
+### Components
+_Components will be recorded as they are created_
 
 ### Hooks
-_Se registrarán hooks personalizados_
+_Custom hooks will be recorded_
 
-### Servicios
-_Se registrarán servicios/clientes API_
-
----
-
-## Estructuras críticas
-
-Estructuras que deben protegerse y requieren justificación para modificar:
-
-_Se identificarán durante análisis de proyecto_
+### Services
+_API services/clients will be recorded_
 
 ---
 
-## Convenciones del proyecto
+## Critical structures
 
-_Se documentarán convenciones detectadas:_
+Structures that must be protected and require justification to modify:
+
+_They will be identified during project analysis_
+
+---
+
+## Project conventions
+
+_Detected conventions will be documented:_
 - Naming conventions
-- Patrones arquitectónicos
-- Organización de archivos
+- Architectural patterns
+- File organization
 - etc.

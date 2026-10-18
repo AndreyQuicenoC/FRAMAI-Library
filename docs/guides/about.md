@@ -1,223 +1,227 @@
-# Framework Multiagente Adaptativo para Implementación de HUs con IA
+# User story engine
 
-## 🎯 Descripción
+This document describes the implementation engine that VEXARQ keeps from FRAMAI. The full product cycle is in `.ai-vexarq/guides/usar-vexarq.md`.
 
-**FRAMAI** (Framework Multiagente Adaptativo para IA) es un sistema de prompts especializados que optimiza el balance entre **calidad** y **consumo de tokens** para implementar Historias de Usuario (HU) en proyectos de software reales.
+# Adaptive Multi-Agent Framework for Implementing User Stories with AI
 
-**Problema que resuelve:**  
-Las HUs varían dramáticamente en complejidad (desde cambiar un color CSS hasta implementar un sistema de pagos completo). Aplicar la misma maquinaria exhaustiva a todas consume tokens innecesariamente, mientras que simplificar demasiado sacrifica calidad en casos complejos.
+## 🎯 Description
 
-**Solución:**  
-Clasificación automática de complejidad (TRIVIAL→SIMPLE→MODERATE→COMPLEX) que ajusta dinámicamente qué agentes ejecutar, qué políticas cargar y cuánta validación aplicar.
+**FRAMAI** (Adaptive Multi-Agent Framework for AI) is a system of specialized prompts that optimizes the balance between **quality** and **token consumption** to implement user stories in real software projects.
+
+**Problem it solves:**  
+User stories vary dramatically in complexity (from changing a CSS color to implementing a complete payment system). Applying the same exhaustive machinery to all of them consumes tokens unnecessarily, while simplifying too much sacrifices quality in complex cases.
+
+**Solution:**  
+Automatic complexity classification (TRIVIAL→SIMPLE→MODERATE→COMPLEX) that dynamically adjusts which agents to run, which policies to load, and how much validation to apply.
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
-HU + Proyecto existente
+HU + Existing project
        ↓
-  ORQUESTADOR (siempre)
-   ├─ Clasifica complejidad (4 niveles)
-   ├─ Routing técnico (FULL_STACK|BACKEND_ONLY|FRONTEND_ONLY...)
-   ├─ Decide políticas a cargar
-   └─ Genera contratos + handoffs
+  ORCHESTRATOR (always)
+   ├─ Classifies complexity (4 levels)
+   ├─ Technical routing (FULL_STACK|BACKEND_ONLY|FRONTEND_ONLY...)
+   ├─ Decides which policies to load
+   └─ Generates contracts + handoffs
        ↓
-  ESPECIALISTAS (según routing y complejidad)
-   ├─ BACKEND (API, lógica, DB, seguridad, transacciones)
+  SPECIALISTS (according to routing and complexity)
+   ├─ BACKEND (API, logic, DB, security, transactions)
    ├─ FRONTEND (UI, UX, a11y, responsive, SEO)
-   └─ INTEGRADOR (validación E2E, contrato, flujo completo)
+   └─ INTEGRATOR (E2E validation, contract, full flow)
        ↓
-  DOCUMENTACIÓN INCREMENTAL
+  INCREMENTAL DOCUMENTATION
    ├─ docs/user-stories.md
    ├─ docs/code-structure.md
    ├─ docs/implementation-report.md
    └─ docs/integration-report.md
 ```
 
-**Agentes:**
-- **Orquestador:** Analiza HU, clasifica complejidad, detecta alcance técnico, genera contrato compartido, decide qué ejecutar
-- **Backend:** Implementa API, lógica de negocio, DB, validaciones, transacciones, seguridad
-- **Frontend:** Implementa UI/UX, estados, formularios, integración API, a11y, responsive, SEO
-- **Integrador:** Valida flujo E2E, compatibilidad Backend↔Frontend, criterios de aceptación, evidencia
+**Agents:**
+- **Orchestrator:** Analyzes the user story, classifies complexity, detects technical scope, generates the shared contract, and decides what to run
+- **Backend:** Implements the API, business logic, DB, validations, transactions, and security
+- **Frontend:** Implements UI/UX, states, forms, API integration, a11y, responsive design, and SEO
+- **Integrator:** Validates the E2E flow, Backend↔Frontend compatibility, acceptance criteria, and evidence
 
 ---
 
-## 🔄 Flujos
+## 🔄 Flows
 
-### Flujo Típico (FULL_STACK | MODERATE)
-1. Usuario provee HU con criterios de aceptación
-2. Orquestador → clasifica MODERATE → routing FULL_STACK → contrato detallado
-3. Backend → implementa API + lógica + tests → V1 + V2
-4. Frontend → implementa UI + integración → V1 + V2
-5. Integrador → valida E2E + contrato + criterios → documenta evidencia
-6. Resultado: Código + tests + docs actualizadas incrementalmente
+### Typical flow (FULL_STACK | MODERATE)
+1. The user provides a user story with acceptance criteria
+2. Orchestrator → classifies MODERATE → FULL_STACK routing → detailed contract
+3. Backend → implements API + logic + tests → V1 + V2
+4. Frontend → implements UI + integration → V1 + V2
+5. Integrator → validates E2E + contract + criteria → documents evidence
+6. Result: Code + tests + docs updated incrementally
 
-### Flujo Simplificado (TRIVIAL)
-1. HU → Orquestador → TRIVIAL
-2. Un solo especialista (ej. Frontend para cambiar texto de botón)
-3. Sin contrato, sin Integrador, sin validación exhaustiva
-4. Documentación mínima
+### Simplified flow (TRIVIAL)
+1. User story → Orchestrator → TRIVIAL
+2. A single specialist (e.g. Frontend to change button text)
+3. No contract, no Integrator, no exhaustive validation
+4. Minimal documentation
 
-### Flujo Complejo (COMPLEX)
-1. HU → Orquestador → COMPLEX → contrato exhaustivo + políticas completas
-2. Backend → Frontend → Integrador
-3. Validaciones V1/V2 completas, tests unit + integration + E2E
-4. Documentación exhaustiva en 4 documentos
+### Complex flow (COMPLEX)
+1. User story → Orchestrator → COMPLEX → exhaustive contract + complete policies
+2. Backend → Frontend → Integrator
+3. Complete V1/V2 validations, unit + integration + E2E tests
+4. Exhaustive documentation in 4 documents
 
 ---
 
-## 🎚️ Niveles de Complejidad
+## 🎚️ Complexity levels
 
-| Nivel | Archivos | Lógica | Validación | Agentes | Tokens estimados |
+| Level | Files | Logic | Validation | Agents | Estimated tokens |
 |---|---|---|---|---|---|
-| **TRIVIAL** | 1 | Cosmético | Revisión simple | 1 especialista | 5-10K |
-| **SIMPLE** | 2-4 | Simple | V1 ligera + V2 | 1-2 especialistas | 15-30K |
-| **MODERATE** | 5-10 | Negocio + transacciones | V1/V2 completa | 3 (+ Integrador) | 40-70K |
-| **COMPLEX** | 10+ | Múltiples dependencias | Exhaustiva + E2E | 3 + Integrador | 80-150K |
+| **TRIVIAL** | 1 | Cosmetic | Simple review | 1 specialist | 5-10K |
+| **SIMPLE** | 2-4 | Simple | Light V1 + V2 | 1-2 specialists | 15-30K |
+| **MODERATE** | 5-10 | Business + transactions | Complete V1/V2 | 3 (+ Integrator) | 40-70K |
+| **COMPLEX** | 10+ | Multiple dependencies | Exhaustive + E2E | 3 + Integrator | 80-150K |
 
-**Ejemplos:**
-- **TRIVIAL:** "Cambiar color de botón a azul" → 1 archivo CSS → Frontend solo
-- **SIMPLE:** "Agregar campo 'teléfono' a formulario de registro" → Backend ya existe, 2-3 archivos → Backend + Frontend ligero
-- **MODERATE:** "Implementar formulario de contacto con envío de email" → Formulario + validación + API + integración email → Full pipeline
-- **COMPLEX:** "Sistema de pagos con Stripe (captura, webhook, confirmación, rollback)" → 10+ archivos, transacciones, integraciones externas, seguridad crítica → Pipeline exhaustiva
-
----
-
-## 🚀 Cómo Usarlo
-
-### Instalación
-1. Copiar carpeta `.ai/` en la raíz de tu proyecto (o dentro de un microservicio específico)
-2. Asegurar que existe código base identificable (backend/ o frontend/ o ambos)
-3. Abrir Cursor en Agent mode
-
-### Uso Básico
-1. Preparar HU con criterios de aceptación claros y verificables
-2. En Cursor, abrir template según alcance:
-   - `.ai/templates/user-story-implementation/full-stack.md` (recomendado por defecto)
-   - `.ai/templates/user-story-implementation/backend-only.md`
-   - `.ai/templates/user-story-implementation/frontend-only.md`
-3. Completar plantilla con tu HU
-4. Ejecutar; dejar que Orquestador clasifique y rute automáticamente
-5. Revisar código + tests + docs generadas
-
-### Proyectos con Múltiples Microservicios
-- Copiar `.ai/` a cada microservicio O usar una vez con `project_path` apuntando al servicio específico
-- Usar restricciones adicionales si es necesario: "Solo modificar auth-service"
+**Examples:**
+- **TRIVIAL:** "Change the button color to blue" → 1 CSS file → Frontend only
+- **SIMPLE:** "Add a 'phone' field to the registration form" → Backend already exists, 2-3 files → Backend + light Frontend
+- **MODERATE:** "Implement a contact form with email sending" → Form + validation + API + email integration → Full pipeline
+- **COMPLEX:** "Payment system with Stripe (capture, webhook, confirmation, rollback)" → 10+ files, transactions, external integrations, critical security → Exhaustive pipeline
 
 ---
 
-## 📊 Estimaciones de Consumo
+## 🚀 How to use it
 
-| Escenario | Tokens Promedio | Costo aprox. (GPT-4) |
+### Installation
+1. Copy the `.ai-vexarq/` folder into the root of your project (or inside a specific microservice)
+2. Make sure there is identifiable base code (backend/ or frontend/ or both)
+3. Open Cursor in Agent mode
+
+### Basic use
+1. Prepare a user story with clear and verifiable acceptance criteria
+2. In Cursor, open the template according to scope:
+   - `.ai-vexarq/templates/user-story-implementation/full-stack.md` (recommended by default)
+   - `.ai-vexarq/templates/user-story-implementation/backend-only.md`
+   - `.ai-vexarq/templates/user-story-implementation/frontend-only.md`
+3. Fill in the template with your user story
+4. Run it; let the Orchestrator classify and route automatically
+5. Review the generated code + tests + docs
+
+### Projects with multiple microservices
+- Copy `.ai-vexarq/` to each microservice OR use it once with `project_path` pointing to the specific service
+- Use additional constraints if necessary: "Only modify auth-service"
+
+---
+
+## 📊 Consumption estimates
+
+| Scenario | Average tokens | Approx. cost (GPT-4) |
 |---|---|---|
-| HU trivial semanal (x5) | 50K | ~$2-3/semana |
-| HU simple (x10/mes) | 250K | ~$10-15/mes |
-| HU moderate (x5/mes) | 300K | ~$15-20/mes |
-| HU complex (x2/mes) | 250K | ~$12-18/mes |
-| **Proyecto completo (20 HUs/mes)** | **~850K** | **~$40-60/mes** |
+| Weekly trivial user story (x5) | 50K | ~$2-3/week |
+| Simple user story (x10/month) | 250K | ~$10-15/month |
+| Moderate user story (x5/month) | 300K | ~$15-20/month |
+| Complex user story (x2/month) | 250K | ~$12-18/month |
+| **Complete project (20 user stories/month)** | **~850K** | **~$40-60/month** |
 
-**Comparación vs. enfoque sin optimización:**  
-Sistema sin clasificación aplicaría ~120K tokens/HU promedio → ~2.4M tokens/mes → $110-180/mes  
-**Ahorro estimado: 60-70%** en proyectos reales mixtos
-
----
-
-## ⚙️ Afinar el Sistema
-
-### Para Aumentar Consumo (Más Exhaustivo)
-1. **Forzar complejidad más alta:** Editar `complexity_score` manualmente si Orquestador subestima
-2. **Cargar más políticas:** En handoffs, agregar explícitamente políticas (ej. "Incluir performance + SEO aunque sea SIMPLE")
-3. **Validación más rigurosa:** Solicitar tests E2E incluso para SIMPLE
-4. **Documentación más detallada:** Modificar templates para requerir más contexto
-
-### Para Reducir Consumo (Más Ágil)
-1. **Usar templates específicos:** `backend-only` o `frontend-only` en lugar de `full-stack` cuando aplique
-2. **Criterios mínimos:** HU con 2-3 criterios claros vs. 10 ambiguos
-3. **Omitir Integrador:** Para SIMPLE si no hay flujo E2E crítico (modificar execution_plan)
-4. **Proyectos pequeños:** Skippear Orquestador si el alcance es obvio (usar directamente especialistas)
+**Comparison versus an approach without optimization:**  
+A system without classification would apply ~120K tokens/user story on average → ~2.4M tokens/month → $110-180/month  
+**Estimated savings: 60-70%** in real mixed projects
 
 ---
 
-## ✅ Ventajas
+## ⚙️ Tuning the system
 
-1. **Balance automático calidad-consumo:** No paga por exhaustividad innecesaria
-2. **Adaptabilidad:** Funciona en proyecto único o microservicios; full-stack, backend-only, frontend-only
-3. **Trazabilidad completa:** HU → código → tests → evidencia; 4 documentos incrementales
-4. **Calidad consistente:** Acceptance Score ≥90% en todos los niveles
-5. **Especialización:** Cada agente experto en su dominio (backend, frontend, integración)
-6. **Reutilización:** Prompts modulares; políticas cargadas solo cuando aplican
-7. **No inventivo:** Respeta arquitectura, stack y código existente; cambio mínimo
-8. **Portable:** Copiar `.ai/` y usar; no requiere configuración compleja
+### To increase consumption (more exhaustive)
+1. **Force a higher complexity:** Edit `complexity_score` manually if the Orchestrator underestimates
+2. **Load more policies:** In handoffs, explicitly add policies (e.g. "Include performance + SEO even if it is SIMPLE")
+3. **More rigorous validation:** Request E2E tests even for SIMPLE
+4. **More detailed documentation:** Modify templates to require more context
 
----
-
-## ⚠️ Desventajas
-
-1. **Curva de aprendizaje:** Requiere entender clasificación de complejidad y routing
-2. **Overhead inicial:** Orquestador siempre se ejecuta (aunque sea TRIVIAL)
-3. **Dependencia de IA:** Clasificación puede equivocarse (mitigable con revisión manual)
-4. **Sobrecarga documental:** 4 documentos generados pueden ser excesivos para proyectos ultra-pequeños
-5. **Limitado a HUs bien escritas:** Criterios ambiguos → clasificación incorrecta o bloqueo
-6. **No reemplaza arquitecto humano:** Decisiones críticas requieren validación humana
+### To reduce consumption (more agile)
+1. **Use specific templates:** `backend-only` or `frontend-only` instead of `full-stack` when they apply
+2. **Minimum criteria:** A user story with 2-3 clear criteria vs. 10 ambiguous ones
+3. **Omit the Integrator:** For SIMPLE if there is no critical E2E flow (modify execution_plan)
+4. **Small projects:** Skip the Orchestrator if the scope is obvious (use the specialists directly)
 
 ---
 
-## 🎓 Aplicabilidad
+## ✅ Advantages
 
-**Ideal para:**
-- Proyectos académicos con requisitos de trazabilidad (ej. Proyecto Integrador)
-- Equipos pequeños (1-3 devs) que buscan velocidad sin sacrificar calidad
-- Proyectos con HUs mixtas (triviales + complejas)
-- Aprendizaje de buenas prácticas (seguridad, a11y, testing, clean code)
-
-**No ideal para:**
-- Proyectos sin código base (construir desde cero; el sistema requiere proyecto existente)
-- Startups ultra-rápidas que priorizan velocidad sobre trazabilidad
-- Equipos con procesos QA/testing muy consolidados (puede ser redundante)
+1. **Automatic quality-consumption balance:** You do not pay for unnecessary exhaustiveness
+2. **Adaptability:** Works in a single project or in microservices; full-stack, backend-only, frontend-only
+3. **Complete traceability:** User story → code → tests → evidence; 4 incremental documents
+4. **Consistent quality:** Acceptance Score ≥90% at every level
+5. **Specialization:** Each agent is an expert in its domain (backend, frontend, integration)
+6. **Reuse:** Modular prompts; policies loaded only when they apply
+7. **Non-inventive:** Respects the existing architecture, stack, and code; minimal change
+8. **Portable:** Copy `.ai-vexarq/` and use it; it does not require complex configuration
 
 ---
 
-## 📦 Estructura del Repositorio
+## ⚠️ Disadvantages
+
+1. **Learning curve:** Requires understanding complexity classification and routing
+2. **Initial overhead:** The Orchestrator always runs (even for TRIVIAL)
+3. **AI dependency:** Classification can be wrong (mitigated by manual review)
+4. **Documentation overhead:** 4 generated documents can be excessive for ultra-small projects
+5. **Limited to well-written user stories:** Ambiguous criteria → incorrect classification or a block
+6. **Does not replace a human architect:** Critical decisions require human validation
+
+---
+
+## 🎓 Applicability
+
+**Ideal for:**
+- Academic projects with traceability requirements (e.g. Integrador Project)
+- Small teams (1-3 devs) that want speed without sacrificing quality
+- Projects with mixed user stories (trivial + complex)
+- Learning good practices (security, a11y, testing, clean code)
+
+**Not ideal for:**
+- Projects without a code base (building from scratch; the system requires an existing project)
+- Ultra-fast startups that prioritize speed over traceability
+- Teams with very established QA/testing processes (it can be redundant)
+
+---
+
+## 📦 Repository structure
 
 ```
-.ai/
+.ai-vexarq/
 ├── core/
-│   ├── policies.xml              # Políticas globales (heredadas por todos)
-│   └── adaptive-policies.xml     # Estrategia de clasificación y carga selectiva
+│   ├── policies.xml              # Global policies (inherited by everyone)
+│   └── adaptive-policies.xml     # Classification strategy and selective loading
 ├── workflows/
 │   └── user-story-implementation/
-│       ├── orchestrator.xml      # Análisis, clasificación, contrato, routing
-│       ├── backend.xml           # Implementación servidor
-│       ├── frontend.xml          # Implementación UI/UX
-│       └── integrator.xml        # Validación E2E
+│       ├── orchestrator.xml      # Analysis, classification, contract, routing
+│       ├── backend.xml           # Server implementation
+│       ├── frontend.xml          # UI/UX implementation
+│       └── integrator.xml        # E2E validation
 ├── templates/
 │   └── user-story-implementation/
-│       ├── full-stack.md         # Template completo (recomendado)
+│       ├── full-stack.md         # Complete template (recommended)
 │       ├── backend-only.md
 │       ├── frontend-only.md
 │       └── integration-fix.md
 ├── guides/
-│   └── user-story-implementation.xml  # Guía de uso
+│   └── user-story-implementation.xml  # Usage guide
 ├── standards/
 │   └── quality-attributes.xml    # ISO 25010, WCAG, OWASP
-└── README.md                     # Descripción del framework
+└── README.md                     # Framework description
 ```
 
-**Para usar:** Copiar `.ai/` completo a tu proyecto. No requiere `docs/` ni `tests/` (se crean automáticamente).
+**To use:** Copy the complete `.ai-vexarq/` folder into your project. It does not require `docs/` or `tests/` (they are created automatically).
 
 ---
 
-## 🔗 Referencias
+## 🔗 References
 
-- **Arquitectura multiagente:** Prompt chaining con contexto compartido
-- **Estrategia adaptativa:** Context engineering según complejidad
-- **Estándares:** ISO/IEC 25010:2011, WCAG 2.1 AA, OWASP Top 10
-- **Inspiración:** Clean Code (Martin), SOLID, DDD (Evans), Testing best practices
+- **Multi-agent architecture:** Prompt chaining with shared context
+- **Adaptive strategy:** Context engineering according to complexity
+- **Standards:** ISO/IEC 25010:2011, WCAG 2.1 AA, OWASP Top 10
+- **Inspiration:** Clean Code (Martin), SOLID, DDD (Evans), Testing best practices
 
 ---
 
-## 📝 Versión
+## 📝 Version
 
-**v2.1.1** — Framework con estrategia adaptativa optimizada y formato XML estructurado  
-**Última actualización:** 2026-09-14
+**v2.1.1** — Framework with an optimized adaptive strategy and structured XML format  
+**Last updated:** 2026-09-14

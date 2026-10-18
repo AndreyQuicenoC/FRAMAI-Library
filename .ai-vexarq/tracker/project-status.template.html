@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project status</title>
+  <style>
+    :root {
+      --ink: #1c1915;
+      --muted: #5c564c;
+      --line: #e4ddd2;
+      --paper: #f7f4ee;
+      --card: #fffcf7;
+      --accent: #0f5c4c;
+      --accent-soft: #e5f3ef;
+      --warn: #8a4b08;
+      --warn-soft: #fbf1e4;
+      --stop: #8f2d2d;
+      --stop-soft: #f8e8e8;
+      --ok: #0f5c4c;
+      --ok-soft: #e5f3ef;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.45 "Segoe UI", system-ui, sans-serif;
+    }
+    main { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-end; margin-bottom: 28px; }
+    .mark { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    h1 { font-size: 32px; line-height: 1.1; margin: 4px 0 0; font-weight: 650; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .chip, .state {
+      display: inline-block;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .now {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+    }
+    .now p { margin: 6px 0 0; }
+    .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    ol, ul { list-style: none; margin: 0; padding: 0; }
+    .phase, .area {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .area { grid-template-columns: 1fr auto; }
+    .num { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .name { font-weight: 650; }
+    .doc { color: var(--accent); font-size: 14px; }
+    a.doc { text-underline-offset: 3px; }
+    [data-state="current"] .state { color: var(--ok); background: var(--ok-soft); border-color: transparent; }
+    [data-state="preliminary"] .state, [data-state="in progress"] .state { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+    [data-state="blocked"] .state { color: var(--stop); background: var(--stop-soft); border-color: transparent; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 640px) {
+      header, .phase { display: block; }
+      .meta { justify-content: flex-start; margin-top: 12px; }
+      .state, .doc { margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    Static VEXARQ template. Copy to docs/vexarq/status.html.
+    Update only data-vexarq nodes and data-state.
+    States: pending | in progress | preliminary | current | blocked | not applicable
+    Contract: .ai-vexarq/formats/tracker/STATUS.md
+  -->
+  <main>
+    <header>
+      <div>
+        <div class="mark">VEXARQ</div>
+        <h1 data-vexarq="project-name">Project not started</h1>
+      </div>
+      <div class="meta">
+        <span class="chip">Business: <span data-vexarq="business-model">Not identified</span></span>
+        <span class="chip">Mode: <span data-vexarq="execution-mode">validar</span></span>
+        <span class="chip">Profile: <span data-vexarq="profile">unclassified</span></span>
+      </div>
+    </header>
+
+    <section class="now">
+      <div class="kicker">Current phase</div>
+      <strong data-vexarq="current-phase">Discovery</strong>
+      <p data-vexarq="next-action">Describe the problem, the actors, and the business model.</p>
+    </section>
+
+    <h2>Phases</h2>
+    <ol>
+      <li class="phase" data-phase="acercamiento" data-state="pending">
+        <span class="num">01</span>
+        <span class="name">Discovery</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="srs" data-state="pending">
+        <span class="num">02</span>
+        <span class="name">SRS</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="base-de-datos" data-state="pending">
+        <span class="num">03</span>
+        <span class="name">Database</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="backlog" data-state="pending">
+        <span class="num">04</span>
+        <span class="name">Backlog</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="extendido" data-state="pending">
+        <span class="num">05</span>
+        <span class="name">Extended backlog</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="sad" data-state="pending">
+        <span class="num">06</span>
+        <span class="name">SAD</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="arquetipo" data-state="pending">
+        <span class="num">07</span>
+        <span class="name">Archetype</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="implementacion" data-state="pending">
+        <span class="num">08</span>
+        <span class="name">Implementation</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="entrega" data-state="pending">
+        <span class="num">09</span>
+        <span class="name">Delivery</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="phase" data-phase="recomendaciones" data-state="pending">
+        <span class="num">10</span>
+        <span class="name">Recommendations</span>
+        <span><span class="state" data-vexarq="state">pending</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+    </ol>
+
+    <h2>According to the project structure</h2>
+    <ul>
+      <li class="area" data-phase="frontend" data-state="not applicable">
+        <span class="name">Frontend</span>
+        <span><span class="state" data-vexarq="state">not applicable</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="area" data-phase="backend" data-state="not applicable">
+        <span class="name">Backend</span>
+        <span><span class="state" data-vexarq="state">not applicable</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="area" data-phase="datos" data-state="not applicable">
+        <span class="name">Data</span>
+        <span><span class="state" data-vexarq="state">not applicable</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="area" data-phase="pruebas" data-state="not applicable">
+        <span class="name">Tests</span>
+        <span><span class="state" data-vexarq="state">not applicable</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+      <li class="area" data-phase="documentacion" data-state="not applicable">
+        <span class="name">Documentation</span>
+        <span><span class="state" data-vexarq="state">not applicable</span> <span class="doc" data-vexarq="doc">No document</span></span>
+      </li>
+    </ul>
+
+    <footer>
+      Updated: <span data-vexarq="updated-at">—</span>
+      · Request: <span data-vexarq="request-id">—</span>
+    </footer>
+  </main>
+</body>
+</html>

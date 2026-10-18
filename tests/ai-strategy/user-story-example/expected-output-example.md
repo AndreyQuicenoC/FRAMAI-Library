@@ -1,109 +1,109 @@
-# Salida esperada del sistema multiagente
+# Expected output of the multi-agent system
 
-Este ejemplo muestra cómo se actualizan los 4 documentos incrementales para **HU-023: Registrar venta**.
+This example shows how the 4 incremental documents are updated for **HU-023: Register sale**.
 
 ---
 
-## 1. `docs/user-stories.md` (actualizada por Orquestador e Integrador)
+## 1. `docs/user-stories.md` (updated by the Orchestrator and the Integrator)
 
 ```markdown
-# Historias de Usuario
+# User Stories
 
-## HU-023 — Registrar venta
-**Como** cajero  
-**Quiero** registrar una venta con productos y cantidades  
-**Para** generar ticket y actualizar inventario
+## HU-023 — Register sale
+**As a** cashier  
+**I want** to register a sale with products and quantities  
+**So that** I can generate a ticket and update inventory
 
-### Criterios de aceptación
-1. Formulario con selector de productos, campo cantidad y precio unitario
-2. Total calculado automáticamente al agregar/modificar productos
-3. POST /api/sales persiste en base de datos y retorna 201 con ID de venta
-4. Mensaje de éxito en pantalla y redirección a /sales
-5. Errores de validación visibles inline en el formulario
-6. Solo usuarios con rol "cashier" pueden registrar ventas
+### Acceptance criteria
+1. Form with a product selector, a quantity field, and a unit price
+2. Total calculated automatically when products are added/modified
+3. POST /api/sales persists to the database and returns 201 with the sale ID
+4. Success message on screen and redirect to /sales
+5. Validation errors visible inline in the form
+6. Only users with the "cashier" role can register sales
 
-**Fecha recepción:** 2026-09-14  
-**Estado:** COMPLETED
+**Received date:** 2026-09-14  
+**Status:** COMPLETED
 
 ---
 ```
 
 ---
 
-## 2. `docs/code-structure.md` (actualizada por Orquestador, Backend, Frontend)
+## 2. `docs/code-structure.md` (updated by the Orchestrator, Backend, and Frontend)
 
 ```markdown
-# Estructura del código
+# Code structure
 
 ## Backend
 
 ### API Endpoints
-- POST /api/sales (HU-023) — Crear venta con items y total
-- GET /api/products (HU-023) — Listar productos disponibles
+- POST /api/sales (HU-023) — Create a sale with items and a total
+- GET /api/products (HU-023) — List available products
 
-### Servicios
-- SaleService (HU-023) — Crear venta, validar stock, actualizar inventario
+### Services
+- SaleService (HU-023) — Create a sale, validate stock, update inventory
 
-### Modelos
+### Models
 - Sale (HU-023) — { id, userId, items: [{ productId, quantity, price }], total, createdAt }
-- Product (existente, usado en HU-023)
+- Product (existing, used in HU-023)
 
 ### Middleware
-- auth.js — AuthN/AuthZ (verificar rol cashier en HU-023)
-- validate.js — Validación requests (esquema venta en HU-023)
+- auth.js — AuthN/AuthZ (verify the cashier role in HU-023)
+- validate.js — Request validation (sale schema in HU-023)
 
 ## Frontend
 
-### Páginas
-- /sales/new (HU-023) — Página para registrar nueva venta
+### Pages
+- /sales/new (HU-023) — Page for registering a new sale
 
-### Componentes
-- SaleForm (HU-023) — Formulario principal con ProductSelector + TotalCalculator
-- ProductSelector (HU-023) — Dropdown con productos + cantidad
-- TotalCalculator (HU-023) — Muestra total en tiempo real
+### Components
+- SaleForm (HU-023) — Main form with ProductSelector + TotalCalculator
+- ProductSelector (HU-023) — Dropdown with products + quantity
+- TotalCalculator (HU-023) — Shows the total in real time
 
 ### Hooks
-- useSales (HU-023) — Hook para POST /api/sales
-- useProducts (HU-023) — Hook para GET /api/products
+- useSales (HU-023) — Hook for POST /api/sales
+- useProducts (HU-023) — Hook for GET /api/products
 
-### Servicios
-- apiClient (existente, usado en HU-023)
+### Services
+- apiClient (existing, used in HU-023)
 
-## Estructuras críticas
-- backend/src/middleware/auth.js — NO modificar lógica AuthN
-- frontend/src/services/apiClient.js — Cliente HTTP configurado
+## Critical structures
+- backend/src/middleware/auth.js — DO NOT modify AuthN logic
+- frontend/src/services/apiClient.js — Configured HTTP client
 
 ---
 ```
 
 ---
 
-## 3. `docs/implementation-report.md` (actualizada por todos los agentes)
+## 3. `docs/implementation-report.md` (updated by all agents)
 
 ```markdown
-# Reporte de implementación
+# Implementation report
 
-## HU-023 — Registrar venta
-**Estado:** COMPLETED  
-**Fecha:** 2026-09-14
+## HU-023 — Register sale
+**Status:** COMPLETED  
+**Date:** 2026-09-14
 
-### Análisis (Orquestador)
-**Clasificación:** FULL_STACK
+### Analysis (Orchestrator)
+**Classification:** FULL_STACK
 
-**Alcance Backend:**
-- Endpoint POST /api/sales
-- Validación: items no vacío, cantidades > 0, total >= 0
-- AuthZ: rol cashier
-- Persistencia: Sale model (ya existe)
+**Backend scope:**
+- POST /api/sales endpoint
+- Validation: items not empty, quantities > 0, total >= 0
+- AuthZ: cashier role
+- Persistence: Sale model (already exists)
 
-**Alcance Frontend:**
-- Página /sales/new
-- Formulario con ProductSelector
-- Cálculo total automático
-- Manejo errores inline
-- Redirect después de éxito
+**Frontend scope:**
+- Page /sales/new
+- Form with ProductSelector
+- Automatic total calculation
+- Inline error handling
+- Redirect after success
 
-**Contrato compartido:**
+**Shared contract:**
 ```json
 // POST /api/sales
 Request: { items: [{ productId: string, quantity: number, price: number }], total: number }
@@ -111,264 +111,264 @@ Response: 201 { id: string, message: string }
 Errors: 400 (validation), 401 (unauthorized), 403 (forbidden)
 ```
 
-**Estructuras críticas:**
-- auth.js (middleware) — NO modificar AuthN
-- apiClient (frontend) — NO cambiar configuración base
+**Critical structures:**
+- auth.js (middleware) — DO NOT modify AuthN
+- apiClient (frontend) — DO NOT change the base configuration
 
 ---
 
-### Cambios Backend
-**Archivos modificados:**
-- src/api/sales/routes.js (endpoint POST /api/sales)
-- src/services/SaleService.js (lógica negocio: crear venta + validar)
-- src/models/Sale.js (modelo ya existente, sin cambios)
-- tests/sales.test.js (tests unitarios + integración)
+### Backend changes
+**Files modified:**
+- src/api/sales/routes.js (POST /api/sales endpoint)
+- src/services/SaleService.js (business logic: create sale + validate)
+- src/models/Sale.js (model already existed, no changes)
+- tests/sales.test.js (unit + integration tests)
 
-**API implementada:**
+**API implemented:**
 - POST /api/sales
 - Request: `{ items: [{ productId, quantity, price }], total }`
-- Response: `201 { id, message: "Venta creada" }`
-- Errores: 400 (validación), 401 (no autenticado), 403 (rol incorrecto)
+- Response: `201 { id, message: "Sale created" }`
+- Errors: 400 (validation), 401 (unauthenticated), 403 (incorrect role)
 
-**Reglas de negocio:**
-- Items no puede estar vacío
-- Cantidades deben ser > 0
-- Total debe ser >= 0
-- Usuario debe tener rol "cashier"
+**Business rules:**
+- Items cannot be empty
+- Quantities must be > 0
+- Total must be >= 0
+- The user must have the "cashier" role
 
 **Tests:**
-- ✓ Crear venta válida (happy path)
-- ✓ Rechazar items vacío (400)
-- ✓ Rechazar cantidad negativa (400)
-- ✓ Rechazar usuario sin rol cashier (403)
-- ✓ Rechazar usuario no autenticado (401)
+- ✓ Create a valid sale (happy path)
+- ✓ Reject empty items (400)
+- ✓ Reject a negative quantity (400)
+- ✓ Reject a user without the cashier role (403)
+- ✓ Reject an unauthenticated user (401)
 - Coverage: 95%
 
-**Validación V1:** 3/3 criterios backend (endpoint, validación, authZ)  
-**Validación V2:** ✓ Tests passing (5/5)
+**V1 validation:** 3/3 backend criteria (endpoint, validation, authZ)  
+**V2 validation:** ✓ Tests passing (5/5)
 
 ---
 
-### Cambios Frontend
-**Archivos modificados:**
-- src/pages/Sales/NewSale.jsx (página con SaleForm)
-- src/components/SaleForm.jsx (formulario principal)
-- src/components/ProductSelector.jsx (selector productos)
-- src/components/TotalCalculator.jsx (total automático)
-- src/hooks/useSales.js (hook API POST /api/sales)
-- src/hooks/useProducts.js (hook API GET /api/products)
-- tests/SaleForm.test.jsx (tests componente)
-- tests/NewSale.test.jsx (tests integración)
+### Frontend changes
+**Files modified:**
+- src/pages/Sales/NewSale.jsx (page with SaleForm)
+- src/components/SaleForm.jsx (main form)
+- src/components/ProductSelector.jsx (product selector)
+- src/components/TotalCalculator.jsx (automatic total)
+- src/hooks/useSales.js (API hook POST /api/sales)
+- src/hooks/useProducts.js (API hook GET /api/products)
+- tests/SaleForm.test.jsx (component tests)
+- tests/NewSale.test.jsx (integration tests)
 
-**Componentes:**
-- SaleForm: formulario con validación inline
-- ProductSelector: dropdown productos + input cantidad
-- TotalCalculator: muestra total calculado en tiempo real
+**Components:**
+- SaleForm: form with inline validation
+- ProductSelector: product dropdown + quantity input
+- TotalCalculator: shows the calculated total in real time
 
-**Rutas:**
-- /sales/new → NewSale (página)
+**Routes:**
+- /sales/new → NewSale (page)
 
-**Estados manejados:**
-- loading: spinner durante POST /api/sales
-- success: toast "Venta creada" + redirect /sales
-- error: mensajes inline por campo (validación) o toast (error servidor)
-- validation: errores en tiempo real (on blur)
+**States handled:**
+- loading: spinner during POST /api/sales
+- success: toast "Sale created" + redirect /sales
+- error: inline messages per field (validation) or toast (server error)
+- validation: real-time errors (on blur)
 
 **UX:**
-- Cálculo total automático al agregar/cambiar productos
-- Validación on blur en cantidad y productos
-- Botón submit disabled durante loading
-- Feedback inmediato con toast
+- Automatic total calculation when products are added/changed
+- On-blur validation on quantity and products
+- Submit button disabled during loading
+- Immediate feedback with a toast
 
 **Tests:**
-- ✓ Renderiza formulario correctamente
-- ✓ Calcula total en tiempo real
-- ✓ Muestra errores de validación
-- ✓ Redirect al éxito
-- ✓ Muestra error API (500)
+- ✓ Renders the form correctly
+- ✓ Calculates the total in real time
+- ✓ Shows validation errors
+- ✓ Redirects on success
+- ✓ Shows an API error (500)
 - Coverage: 92%
 
-**Validación V1:** 3/3 criterios frontend (formulario, total auto, errores inline)  
-**Validación V2:** ✓ Tests passing (5/5)
+**V1 validation:** 3/3 frontend criteria (form, automatic total, inline errors)  
+**V2 validation:** ✓ Tests passing (5/5)
 
 ---
 
-### Validación final (Integrador)
-**Estado:** COMPLETED  
-**Fecha cierre:** 2026-09-14
+### Final validation (Integrator)
+**Status:** COMPLETED  
+**Closing date:** 2026-09-14
 
-**Flujo E2E verificado:**
-1. ✓ Usuario accede /sales/new
-2. ✓ Selecciona productos y cantidades
-3. ✓ Total se calcula automáticamente
+**E2E flow verified:**
+1. ✓ The user opens /sales/new
+2. ✓ Selects products and quantities
+3. ✓ The total is calculated automatically
 4. ✓ Submit → POST /api/sales → 201
-5. ✓ Toast "Venta creada exitosamente"
+5. ✓ Toast "Sale created successfully"
 6. ✓ Redirect /sales
-7. ✓ Venta visible en listado
+7. ✓ Sale visible in the list
 
-**Criterios de aceptación:**
-1. ✓ Formulario con productos → FULFILLED (test E2E)
-2. ✓ Total automático → FULFILLED (test unit)
-3. ✓ POST persiste → FULFILLED (test integration)
-4. ✓ Mensaje éxito + redirect → FULFILLED (test E2E)
-5. ✓ Errores inline → FULFILLED (test component)
-6. ✓ AuthZ cashier → FULFILLED (test integration)
+**Acceptance criteria:**
+1. ✓ Form with products → FULFILLED (E2E test)
+2. ✓ Automatic total → FULFILLED (unit test)
+3. ✓ POST persists → FULFILLED (integration test)
+4. ✓ Success message + redirect → FULFILLED (E2E test)
+5. ✓ Inline errors → FULFILLED (component test)
+6. ✓ Cashier AuthZ → FULFILLED (integration test)
 
 **Acceptance Score:** 6/6 (100%)
 
-**Contrato:**
-- ✓ Backend implementa según contrato
-- ✓ Frontend consume según contrato
-- ✓ Tipos alineados
-- ✓ Errores manejados correctamente
+**Contract:**
+- ✓ Backend implements according to the contract
+- ✓ Frontend consumes according to the contract
+- ✓ Types aligned
+- ✓ Errors handled correctly
 
-**Seguridad:**
-- ✓ Validación servidor (no confía en cliente)
-- ✓ AuthZ verificada (solo cashier)
-- ✓ No expone datos sensibles
+**Security:**
+- ✓ Server validation (does not trust the client)
+- ✓ AuthZ verified (cashier only)
+- ✓ Does not expose sensitive data
 
-**Tests ejecutados:**
+**Tests executed:**
 - Unit: 8 passing (backend) + 5 passing (frontend)
 - Integration: 4 passing (API)
-- E2E: 1 passing (flujo completo)
+- E2E: 1 passing (full flow)
 
-**Riesgos/pendientes:** Ninguno
+**Risks/pending items:** None
 
 ---
 ```
 
 ---
 
-## 4. `docs/integration-report.md` (actualizada por Integrador)
+## 4. `docs/integration-report.md` (updated by the Integrator)
 
 ```markdown
-# Reporte de integración
+# Integration report
 
-## HU-023 — Registrar venta
-**Fecha validación:** 2026-09-14
+## HU-023 — Register sale
+**Validation date:** 2026-09-14
 
-### Contrato de integración
-**Endpoints involucrados:**
+### Integration contract
+**Endpoints involved:**
 - POST /api/sales
 
-**Estado compartido:**
-- Sales list cache (invalidar al crear nueva venta)
+**Shared state:**
+- Sales list cache (invalidate when a new sale is created)
 
-**Dependencias externas:**
-- Ninguna
+**External dependencies:**
+- None
 
-### Flujo End-to-End
-1. **Inicio:** Usuario autenticado con rol "cashier" accede /sales/new
-2. **Interacción:** Selecciona productos del dropdown, ingresa cantidades
-3. **Cálculo:** Total se actualiza automáticamente en tiempo real
+### End-to-end flow
+1. **Start:** An authenticated user with the "cashier" role opens /sales/new
+2. **Interaction:** Selects products from the dropdown and enters quantities
+3. **Calculation:** The total updates automatically in real time
 4. **Request:** POST /api/sales { items: [...], total: 150 }
-5. **Procesamiento:** Backend valida datos, verifica AuthZ, persiste en DB
-6. **Response:** 201 { id: "abc123", message: "Venta creada exitosamente" }
-7. **Actualización UI:** Toast éxito + redirect /sales + venta visible en listado
+5. **Processing:** The backend validates the data, verifies AuthZ, and persists to the DB
+6. **Response:** 201 { id: "abc123", message: "Sale created successfully" }
+7. **UI update:** Success toast + redirect /sales + sale visible in the list
 
-### Validación funcional
-| Criterio | Estado | Evidencia |
+### Functional validation
+| Criterion | Status | Evidence |
 |---|---|---|
-| Formulario con productos | ✓ PASS | Test E2E (captura: form-loaded.png) |
-| Total automático | ✓ PASS | Test unit (TotalCalculator.test.jsx) |
-| POST persiste | ✓ PASS | Test integration (sales.test.js) |
-| Mensaje éxito + redirect | ✓ PASS | Test E2E (captura: success-flow.png) |
-| Errores inline | ✓ PASS | Test component (SaleForm.test.jsx) |
-| AuthZ cashier | ✓ PASS | Test integration (403 para rol incorrecto) |
+| Form with products | ✓ PASS | E2E test (screenshot: form-loaded.png) |
+| Automatic total | ✓ PASS | Unit test (TotalCalculator.test.jsx) |
+| POST persists | ✓ PASS | Integration test (sales.test.js) |
+| Success message + redirect | ✓ PASS | E2E test (screenshot: success-flow.png) |
+| Inline errors | ✓ PASS | Component test (SaleForm.test.jsx) |
+| Cashier AuthZ | ✓ PASS | Integration test (403 for an incorrect role) |
 
-### Validación de caminos de error
-**Escenarios probados:**
-- ✓ Error validación (400) → Errores inline en formulario ("Cantidad debe ser > 0")
-- ✓ No autorizado (401) → Redirect /login
-- ✓ Forbidden (403) → Toast "No tienes permisos para registrar ventas"
-- ✓ Recurso no encontrado (404) → No aplica a este endpoint
-- ✓ Error servidor (500) → Toast "Error inesperado. Intente más tarde."
+### Error-path validation
+**Scenarios tested:**
+- ✓ Validation error (400) → Inline errors in the form ("Quantity must be > 0")
+- ✓ Unauthorized (401) → Redirect /login
+- ✓ Forbidden (403) → Toast "You do not have permission to register sales"
+- ✓ Resource not found (404) → Does not apply to this endpoint
+- ✓ Server error (500) → Toast "Unexpected error. Try again later."
 
-**Manejo en frontend:**
-- 400: Mapeo de `error.fields` a errores inline por campo
-- 401: Limpia token + redirect /login
-- 403: Toast error específico
-- 500: Toast error genérico (no expone stack trace)
+**Handling in the frontend:**
+- 400: Mapping of `error.fields` to inline errors per field
+- 401: Clears the token + redirect /login
+- 403: Specific error toast
+- 500: Generic error toast (does not expose the stack trace)
 
-### Validación de seguridad
-- ✓ **AuthN:** Endpoint POST /api/sales requiere token válido
-- ✓ **AuthZ:** Solo usuarios con rol "cashier" pueden crear ventas (403 para otros roles)
-- ✓ **Validación entrada:** Backend rechaza items vacío, cantidades <= 0, total negativo
-- ✓ **Output encoding:** No expone datos sensibles (stack traces, IDs internos)
-- ✓ **HTTPS:** Tráfico encriptado en producción
+### Security validation
+- ✓ **AuthN:** The POST /api/sales endpoint requires a valid token
+- ✓ **AuthZ:** Only users with the "cashier" role can create sales (403 for other roles)
+- ✓ **Input validation:** The backend rejects empty items, quantities <= 0, and a negative total
+- ✓ **Output encoding:** Does not expose sensitive data (stack traces, internal IDs)
+- ✓ **HTTPS:** Encrypted traffic in production
 
-### Validación UX
-- ✓ **Estados claros:** Loading spinner en botón submit, toast success/error
-- ✓ **Feedback inmediato:** Validación on blur, cálculo total en tiempo real
-- ✓ **Errores específicos:** "Cantidad debe ser > 0", no "Error genérico"
-- ✓ **Navegación coherente:** Redirect /sales después de éxito
-- ✓ **Responsive:** Funciona en mobile, tablet, desktop (testado en DevTools)
+### UX validation
+- ✓ **Clear states:** Loading spinner on the submit button, success/error toast
+- ✓ **Immediate feedback:** On-blur validation, real-time total calculation
+- ✓ **Specific errors:** "Quantity must be > 0", not "Generic error"
+- ✓ **Coherent navigation:** Redirect /sales after success
+- ✓ **Responsive:** Works on mobile, tablet, and desktop (tested in DevTools)
 
-### Validación de accesibilidad (WCAG 2.1 AA)
-- ✓ **Keyboard navigation:** Tab entre campos, Enter submit, Escape cierra modals
-- ✓ **Screen reader:** Labels asociados (`<label htmlFor="...">`), ARIA roles en toast
-- ✓ **Contraste:** 4.5:1 en textos (verificado con WebAIM)
-- ✓ **Foco visible:** Outline en campos activos (no `outline: none`)
-- ✓ **Formularios:** Todos los inputs tienen label visible
+### Accessibility validation (WCAG 2.1 AA)
+- ✓ **Keyboard navigation:** Tab between fields, Enter to submit, Escape closes modals
+- ✓ **Screen reader:** Associated labels (`<label htmlFor="...">`), ARIA roles on the toast
+- ✓ **Contrast:** 4.5:1 on text (verified with WebAIM)
+- ✓ **Visible focus:** Outline on active fields (not `outline: none`)
+- ✓ **Forms:** Every input has a visible label
 
-### Validación SEO (si aplica)
-- N/A (página privada detrás de autenticación)
+### SEO validation (if it applies)
+- N/A (private page behind authentication)
 
-### Validación de performance
-**Métricas medidas:**
-- Backend response time: 95ms (aceptable, < 200ms)
-- Frontend render time: 38ms (aceptable, < 100ms)
+### Performance validation
+**Metrics measured:**
+- Backend response time: 95ms (acceptable, < 200ms)
+- Frontend render time: 38ms (acceptable, < 100ms)
 - Lighthouse Performance: 94/100
 
-**Optimizaciones aplicadas:**
-- Ninguna necesaria (performance dentro de umbrales)
+**Optimizations applied:**
+- None needed (performance within thresholds)
 
-### Consistencia de base de datos
-- ✓ **Transacciones:** Venta + items insertados atómicamente
-- ✓ **Constraints:** FK a products, total >= 0, cantidades > 0
-- ✓ **Rollback:** Error en validación revierte toda la operación
-- ✓ **Migrations:** Aplicadas correctamente (no se requirieron nuevas)
+### Database consistency
+- ✓ **Transactions:** Sale + items inserted atomically
+- ✓ **Constraints:** FK to products, total >= 0, quantities > 0
+- ✓ **Rollback:** A validation error rolls back the entire operation
+- ✓ **Migrations:** Applied correctly (no new ones were required)
 
-### Tests ejecutados
-**Unitarios:**
-- Backend: 8/8 passing (SaleService, validaciones)
+### Tests executed
+**Unit:**
+- Backend: 8/8 passing (SaleService, validations)
 - Frontend: 5/5 passing (TotalCalculator, ProductSelector)
 
-**Integración:**
-- API: 4/4 passing (POST /api/sales con diferentes casos)
+**Integration:**
+- API: 4/4 passing (POST /api/sales with different cases)
 
 **E2E:**
-- Flujo completo: 1/1 passing (Cypress: create-sale.spec.js)
+- Full flow: 1/1 passing (Cypress: create-sale.spec.js)
 
 ### Acceptance Score
-**Fórmula:** (6 criterios cumplidos / 6 totales) × 100
-**Resultado:** 100%
-**Umbral mínimo:** 90%
-**Estado:** ✓ APROBADO
+**Formula:** (6 criteria met / 6 total) × 100
+**Result:** 100%
+**Minimum threshold:** 90%
+**Status:** ✓ APPROVED
 
-### Problemas detectados
-Ninguno
+### Issues found
+None
 
-### Trazabilidad
-**HU original:** `docs/user-stories.md#HU-023`  
-**Código backend:** Commits 7a3f8b2, 9c1d4e6  
-**Código frontend:** Commits 2b5e8a1, 4f7c9d3  
-**Reporte implementación:** `docs/implementation-report.md#HU-023`
+### Traceability
+**Original user story:** `docs/user-stories.md#HU-023`  
+**Backend code:** Commits 7a3f8b2, 9c1d4e6  
+**Frontend code:** Commits 2b5e8a1, 4f7c9d3  
+**Implementation report:** `docs/implementation-report.md#HU-023`
 
 ---
 ```
 
 ---
 
-## Resumen
+## Summary
 
-El sistema multiagente generó actualizaciones en **4 documentos incrementales**:
+The multi-agent system generated updates in **4 incremental documents**:
 
-1. ✅ **`docs/user-stories.md`**: HU-023 agregada exacta, estado COMPLETED
-2. ✅ **`docs/code-structure.md`**: Endpoints, servicios, modelos, páginas, componentes documentados
-3. ✅ **`docs/implementation-report.md`**: Análisis + cambios backend/frontend + validación final
-4. ✅ **`docs/integration-report.md`**: Validación E2E exhaustiva con evidencia completa
+1. ✅ **`docs/user-stories.md`**: HU-023 added exactly, status COMPLETED
+2. ✅ **`docs/code-structure.md`**: Endpoints, services, models, pages, and components documented
+3. ✅ **`docs/implementation-report.md`**: Analysis + backend/frontend changes + final validation
+4. ✅ **`docs/integration-report.md`**: Exhaustive E2E validation with complete evidence
 
-**Acceptance Score global:** 100% (6/6 criterios)  
+**Global Acceptance Score:** 100% (6/6 criteria)  
 **Tests:** 18/18 passing (8 unit backend + 5 unit frontend + 4 integration + 1 E2E)  
-**Estado final:** COMPLETED
+**Final status:** COMPLETED
