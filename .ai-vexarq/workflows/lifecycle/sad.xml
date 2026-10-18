@@ -2,26 +2,27 @@
 <prompt>
   <metadata>
     <id>lifecycle.sad</id>
-    <name>Fase — Documento de arquitectura</name>
+    <name>Phase — Software architecture</name>
     <version>3.0.0</version>
     <formato>formats/sad/SAD.md</formato>
     <salida>docs/vexarq/preliminary/sad/SAD.md</salida>
-    <insumos>docs/vexarq/current/srs/SRS.md y docs/vexarq/current/base-de-datos/DATABASE_DESIGN.md</insumos>
+    <insumos>current/srs/SRS.md, current/base-de-datos/DATABASE_DESIGN.md, current/backlog/BACKLOG.md when it exists</insumos>
   </metadata>
 
-  <objetivo>Describir la arquitectura que satisface el SRS y el modelo de datos vigentes. El índice de salida es el del formato, alineado con una lectura práctica de arc42 e ISO/IEC/IEEE 42010.</objetivo>
+  <objetivo>Describe the architecture that satisfies the current requirements. The depth matches the product, not the length of a template.</objetivo>
 
   <hacer>
-    <paso>Leer los vigentes. Si el repositorio ya tiene stack, ese stack es la base. Proponer un cambio solo como decisión pendiente, con consecuencia.</paso>
-    <paso>No convertir un sistema estático en una plataforma distribuida, ni ignorar un backend que el SRS exige. El perfil y el modelo de negocio vigente fijan el tamaño.</paso>
-    <paso>Incluir decisiones en formato contexto, decisión, consecuencia. Registrar al menos una alternativa descartada cuando la decisión sea relevante.</paso>
-    <paso>Cubrir contexto, contenedores, seguridad, datos, procesos centrales, despliegue y riesgos. Añadir componentes o código solo en perfil avanzado o crítico.</paso>
-    <paso>Los diagramas van en Mermaid. Si falta información para un diagrama fiel, describir el hueco en lugar de dibujar una topología inventada como hecho.</paso>
-    <paso>En perfil crítico, ampliar amenazas, disponibilidad y recuperación. En perfil ligero, no rellenar esas secciones con controles que el sistema no necesita.</paso>
+    <paso>Start from the current stack. If it does not exist, propose one option and one alternative, with the reason and the decision left open in validar mode.</paso>
+    <paso>Follow the index in formats/sad/SAD.md. Use C4 context and containers. Components only when there is more than one module with a different responsibility.</paso>
+    <paso>Document the decisions that are hard to reverse: style, persistence, boundaries, authentication, errors, and deployment. Each decision has context, options, and consequences.</paso>
+    <paso>Bind quality characteristics to measurable scenarios. Do not copy all of ISO/IEC 25010:2023.</paso>
+    <paso>Define the folder and module structure the archetype will have to respect. If the repository already has one, that structure is the base.</paso>
+    <paso>Risks and technical debt are concrete. A generic risk does not count.</paso>
   </hacer>
 
   <no_hacer>
-    <regla>No fijar modelos de IA, colas o Kubernetes porque un ejemplo anterior los usaba.</regla>
-    <regla>No contradecir el esquema de datos vigente. Si la arquitectura necesita cambiarlo, la salida es una decisión pendiente, no un esquema paralelo.</regla>
+    <regla>Do not design microservices, a message broker, or a cache because a sample document had them.</regla>
+    <regla>Do not contradict the current data model. If the architecture needs to change it, write the change as a proposal and do not edit the current document.</regla>
+    <regla>Do not declare the architecture validated without a review.</regla>
   </no_hacer>
 </prompt>

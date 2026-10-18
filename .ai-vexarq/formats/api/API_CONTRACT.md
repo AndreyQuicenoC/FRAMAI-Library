@@ -1,12 +1,12 @@
-# Contrato de API
+# API contract
 
-Un recurso o una operación por bloque. Omitir el documento si el producto no expone API.
+One resource or one operation per block. Omit the document when the product does not expose an API.
 
-- Operación:
-- Método y ruta:
-- Autorización:
-- Entrada:
-- Salida correcta:
-- Errores:
-- Idempotencia:
-- Requisito o HU que lo exige:
+- Operation:
+- Method and path:
+- Authorization:
+- Input:
+- Successful output:
+- Errors:
+- Idempotency:
+- Requirement or user story that demands it:

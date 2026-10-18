@@ -2,30 +2,31 @@
 <prompt>
   <metadata>
     <id>lifecycle.discovery</id>
-    <name>Fase — Acercamiento al proyecto</name>
+    <name>Phase — Project discovery</name>
     <version>3.0.0</version>
     <formato>formats/project/PROJECT_DOCUMENT.md</formato>
     <salida>docs/vexarq/preliminary/acercamiento/proyecto.md</salida>
   </metadata>
 
-  <objetivo>Dejar un documento de proyecto evaluable: problema, usuarios, modelo de negocio, alcance inicial y decisiones abiertas. No es el SRS.</objetivo>
+  <objetivo>Leave a project document a person can evaluate: problem, users, business model, initial scope, and open decisions. This is not the SRS.</objetivo>
 
   <cargar>
     <archivo>core/business-model.xml</archivo>
+    <archivo>core/language.xml</archivo>
     <archivo>formats/project/PROJECT_DOCUMENT.md</archivo>
   </cargar>
 
   <hacer>
-    <paso>Leer el pedido y el repositorio. Separar CONFIRMADO, REPOSITORIO, INFERENCIA, SUPUESTO_ESTANDAR y PENDIENTE.</paso>
-    <paso>Identificar el modelo de negocio con business-model.xml. No asumir SaaS.</paso>
-    <paso>Decidir si hay MVP. Si el usuario no definió MVP y no lo pidió, no crear documentos de MVP.</paso>
-    <paso>Redactar el documento con el formato. Incluir qué queda fuera y qué impediría pasar al SRS.</paso>
-    <paso>En modo validar, no promover. En modo continuo, promover si el objetivo y los actores son identificables.</paso>
+    <paso>Read the request and the repository. Separate CONFIRMED, REPOSITORY, INFERENCE, STANDARD_ASSUMPTION, and PENDING.</paso>
+    <paso>Identify the business model with business-model.xml. Do not assume SaaS.</paso>
+    <paso>Decide whether there is an MVP. If the user did not define one and did not ask for one, do not create MVP documents.</paso>
+    <paso>Write the document with the format, in the language selected by language.xml. Include what is out of scope and what would block the SRS.</paso>
+    <paso>In validar mode, do not promote. In continuo mode, promote when the goal and the actors are identifiable.</paso>
   </hacer>
 
   <no_hacer>
-    <regla>No escribir requisitos numerados exhaustivos: eso es la fase SRS.</regla>
-    <regla>No elegir stack definitivo si el usuario no lo fijó y el repositorio no lo tiene. Proponer opciones y marcar la decisión.</regla>
-    <regla>No copiar el alcance de otro proyecto de ejemplo.</regla>
+    <regla>Do not write an exhaustive numbered requirement list. That is the SRS phase.</regla>
+    <regla>Do not choose a final stack if the user did not set one and the repository does not have one. Propose options and mark the decision.</regla>
+    <regla>Do not copy the scope of another project's example.</regla>
   </no_hacer>
 </prompt>

@@ -1,61 +1,61 @@
-# Reporte de implementación
+# Implementation report
 
-Este documento registra resultados de implementación por Historia de Usuario.
+This document records implementation results per user story.
 
-**Actualización:** Incremental (NO sobrescribir reportes anteriores)
+**Update:** Incremental (DO NOT overwrite previous reports)
 
 ---
 
-## Plantilla para reporte de HU
+## Template for a user story report
 
 ```markdown
-## HU-XXX — [Título]
-**Estado:** COMPLETED | PARTIALLY_COMPLETED | BLOCKED  
-**Fecha:** YYYY-MM-DD
+## HU-XXX — [Title]
+**Status:** COMPLETED | PARTIALLY_COMPLETED | BLOCKED  
+**Date:** YYYY-MM-DD
 
-### Análisis (Orquestador)
-- Clasificación: FRONTEND_ONLY | BACKEND_ONLY | FULL_STACK
-- Alcance Backend: [resumen]
-- Alcance Frontend: [resumen]
-- Restricciones: [lista]
+### Analysis (Orchestrator)
+- Classification: FRONTEND_ONLY | BACKEND_ONLY | FULL_STACK
+- Backend scope: [summary]
+- Frontend scope: [summary]
+- Constraints: [list]
 
-### Cambios Backend
-**Archivos modificados:**
-- [ruta/archivo]
+### Backend changes
+**Files modified:**
+- [path/file]
 
-**API implementada:**
+**API implemented:**
 - [endpoints]
 
-**Reglas de negocio:**
-- [reglas]
+**Business rules:**
+- [rules]
 
 **Tests:** X passing  
-**Validación V1:** Y/Z criterios backend  
-**Validación V2:** [resultado]
+**V1 validation:** Y/Z backend criteria  
+**V2 validation:** [result]
 
-### Cambios Frontend
-**Archivos modificados:**
-- [ruta/archivo]
+### Frontend changes
+**Files modified:**
+- [path/file]
 
-**Componentes:**
-- [lista]
+**Components:**
+- [list]
 
 **Tests:** X passing  
-**Validación V1:** Y/Z criterios frontend  
-**Validación V2:** [resultado]
+**V1 validation:** Y/Z frontend criteria  
+**V2 validation:** [result]
 
-### Validación final (Integrador)
-**Flujo E2E:** [descripción]  
-**Criterios de aceptación:** X/Y FULFILLED  
+### Final validation (Integrator)
+**E2E flow:** [description]  
+**Acceptance criteria:** X/Y FULFILLED  
 **Acceptance Score:** Z%  
-**Tests ejecutados:** [unit, integration, E2E]
+**Tests executed:** [unit, integration, E2E]
 
-### Pendientes
-- [lista o "Ninguno"]
+### Pending items
+- [list or "None"]
 
 ---
 ```
 
 ---
 
-_Los reportes se agregarán conforme se completen las HUs._
+_Reports will be added as the user stories are completed._

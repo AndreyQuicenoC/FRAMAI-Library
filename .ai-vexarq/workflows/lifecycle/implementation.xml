@@ -2,27 +2,29 @@
 <prompt>
   <metadata>
     <id>lifecycle.implementation</id>
-    <name>Fase — Implementación</name>
+    <name>Phase — Implementation</name>
     <version>3.0.0</version>
     <delega>workflows/user-story-implementation/orchestrator.xml</delega>
   </metadata>
 
-  <objetivo>Implementar sobre el arquetipo aprobado o sobre el código existente, usando el motor de historias de VEXARG. No rehacer SRS, datos ni SAD.</objetivo>
+  <objetivo>Build or correct the product from current artifacts and the existing code. This phase does not redesign earlier phases.</objetivo>
 
-  <entrada>
-    <opcion>Una HU vigente.</opcion>
-    <opcion>Una épica, en una rama de trabajo.</opcion>
-    <opcion>Un módulo, respetando los límites del SAD vigente.</opcion>
-    <opcion>El backlog vigente, secuenciado por dependencias. No todas las HU en un único cambio.</opcion>
-    <opcion>Un fix o una corrección puntual. Reproducir, corregir y verificar solo ese comportamiento. Usar templates/targeted-fix/ cuando el pedido sea una corrección local.</opcion>
-  </entrada>
+  <alcance>
+    <opcion>The increment or story the user names.</opcion>
+    <opcion>The current backlog, sequenced by dependencies. Not every story in one change.</opcion>
+    <opcion>A fix or a targeted correction. Reproduce, correct, and verify only that behavior. Use templates/targeted-fix/ when the request is a local correction.</opcion>
+  </alcance>
 
-  <reglas>
-    <regla>La fuente funcional es current/backlog/ o, si existe, current/extendido/backlog-extendido.csv. No implementar desde el preliminar.</regla>
-    <regla>Cargar policies, engineering-standards y design-system según la capa tocada. El workflow de HU conserva su routing y su complejidad adaptativa.</regla>
-    <regla>Antes de cambiar comportamiento existente, identificar el flujo y las pruebas que lo cubren. Si el cambio lo rompe fuera de alcance, detenerse.</regla>
-    <regla>Frontend, backend, persistencia y pruebas se implementan en la medida en que la HU y el SAD lo piden. Una página estática no recibe un backend nuevo.</regla>
-    <regla>Actualizar el bloque de estructura del tablero: frontend, backend, datos, pruebas y documentación, con enlace a la carpeta real.</regla>
-    <regla>Commits según git-workflow.xml y formats/delivery/COMMIT_CONVENTIONS.md, solo si el usuario pidió control de versiones. Push solo con autorización explícita.</regla>
-  </reglas>
+  <hacer>
+    <paso>The functional source is current/backlog/, or current/extendido/backlog-extendido.csv when it exists. Do not implement from the preliminary.</paso>
+    <paso>Load policies, engineering-standards, and design-system for the layer being touched. The user-story workflow keeps its routing and its adaptive complexity.</paso>
+    <paso>Write code, tests, and the minimum documentation for the change. Update the four incremental documents when the change justifies it.</paso>
+    <paso>The report says what was verified and what was not. A test that was not run is not listed as passing.</paso>
+    <paso>Commits follow git-workflow.xml and formats/delivery/COMMIT_CONVENTIONS.md, only when the user asked for version control. A push requires explicit authorization.</paso>
+  </hacer>
+
+  <bloqueo>
+    <regla>If the story depends on another story that is not implemented, implement the dependency first or stop and say so.</regla>
+    <regla>If the current SAD and the code disagree, do not "fix" the architecture in silence. Record the divergence and ask, unless the request is precisely that correction.</regla>
+  </bloqueo>
 </prompt>

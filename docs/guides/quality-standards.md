@@ -1,113 +1,113 @@
-# Estándares de calidad aplicados al proyecto
+# Quality standards applied to the project
 
-Este documento define los estándares de calidad que el equipo y los workflows de IA deben seguir.
+This document defines the quality standards that the team and the AI workflows must follow.
 
-## Referencia principal
+## Main reference
 
-Ver especificación completa: **`.ai-vexarq/standards/quality-attributes.xml`** y **`.ai-vexarq/core/engineering-standards.xml`**
+See the full specification: **`.ai-vexarq/standards/quality-attributes.xml`** and **`.ai-vexarq/core/engineering-standards.xml`**
 
-El ecosistema de prompts utiliza como referencia:
-- **ISO/IEC 25010:2011** — Modelo de calidad del producto software
-- **WCAG 2.1** — Accesibilidad web (nivel AA objetivo)
-- **OWASP Top 10** — Seguridad
-- **Clean Code / SOLID** — Principios de diseño
-- **Conventional Commits** — Trazabilidad
+The prompt ecosystem uses the following as reference:
+- **ISO/IEC 25010:2011** — Software product quality model
+- **WCAG 2.1** — Web accessibility (target level AA)
+- **OWASP Top 10** — Security
+- **Clean Code / SOLID** — Design principles
+- **Conventional Commits** — Traceability
 
-## Aplicación en este proyecto
+## Application in this project
 
-### Functional Suitability (Idoneidad funcional)
+### Functional Suitability
 
-✓ **Criterios de aceptación explícitos** en cada HU  
-✓ Validación V1/V2 contra criterios  
-✓ Evidencia verificable (tests)
+✓ **Explicit acceptance criteria** in each user story  
+✓ V1/V2 validation against the criteria  
+✓ Verifiable evidence (tests)
 
-### Security (Seguridad)
+### Security
 
-✓ Validación de entrada en backend  
-✓ AuthN/AuthZ según roles  
-✓ Consultas parametrizadas (ORM)  
-✓ No exponer secretos ni stack traces  
-✓ HTTPS en producción
+✓ Input validation in the backend  
+✓ AuthN/AuthZ according to roles  
+✓ Parameterized queries (ORM)  
+✓ Do not expose secrets or stack traces  
+✓ HTTPS in production
 
-### Usability (Usabilidad)
+### Usability
 
-✓ Estados claros: loading, success, error, empty  
-✓ Feedback inmediato  
-✓ Errores específicos por campo  
-✓ Accesibilidad WCAG 2.1 AA cuando aplica  
+✓ Clear states: loading, success, error, empty  
+✓ Immediate feedback  
+✓ Specific errors per field  
+✓ WCAG 2.1 AA accessibility when it applies  
 ✓ Responsive design
 
 ### Performance Efficiency
 
-✓ Consultas optimizadas (índices cuando necesario)  
-✓ Lazy loading en frontend  
-✓ Bundle size razonable  
-✓ Solo optimizar si HU lo requiere o hay degradación
+✓ Optimized queries (indexes when necessary)  
+✓ Lazy loading in the frontend  
+✓ Reasonable bundle size  
+✓ Optimize only if the user story requires it or there is degradation
 
-### Maintainability (Mantenibilidad)
+### Maintainability
 
-✓ Cambio mínimo por HU  
-✓ Reutilización de componentes/servicios  
-✓ No refactorización general innecesaria  
-✓ Tests unitarios + integración  
-✓ Documentación en `docs/dev-history.md`
+✓ Minimal change per user story  
+✓ Reuse of components/services  
+✓ No unnecessary general refactoring  
+✓ Unit tests + integration tests  
+✓ Documentation in `docs/dev-history.md`
 
-### Reliability (Fiabilidad)
+### Reliability
 
-✓ Manejo robusto de errores  
-✓ Transacciones cuando aplica  
-✓ Tests E2E del flujo completo  
-✓ Validación de casos de error
+✓ Robust error handling  
+✓ Transactions when they apply  
+✓ E2E tests of the full flow  
+✓ Validation of error cases
 
-### Compatibility (Compatibilidad)
+### Compatibility
 
-✓ No romper funcionalidad existente  
-✓ Contratos respetados (Backend ↔ Frontend)  
-✓ Backward compatibility en APIs públicas  
-✓ Protección de estructuras críticas
+✓ Do not break existing functionality  
+✓ Contracts respected (Backend ↔ Frontend)  
+✓ Backward compatibility in public APIs  
+✓ Protection of critical structures
 
-## Métricas objetivo
+## Target metrics
 
-| Métrica | Objetivo | Medición |
+| Metric | Target | Measurement |
 |---|---|---|
-| Acceptance Score | ≥ 90% | Criterios cumplidos / verificables |
+| Acceptance Score | ≥ 90% | Criteria met / verifiable |
 | Test Coverage | ≥ 80% | Jest/Vitest |
-| Defect Rate | < 10% | Errores detectados post-implementación / HUs |
-| Security Issues | 0 críticos | Análisis manual + workflows |
-| Accessibility (WCAG AA) | 100% en funcionalidad pública | axe-core / manual |
+| Defect Rate | < 10% | Errors found after implementation / user stories |
+| Security Issues | 0 critical | Manual analysis + workflows |
+| Accessibility (WCAG AA) | 100% on public functionality | axe-core / manual |
 
-## Procesos de validación
+## Validation processes
 
-### Implementación de HU
+### User story implementation
 
-1. **V1 (especialistas):** Validación contra criterios de aceptación
-2. **V2 (especialistas):** Tests ejecutados + corrección de incumplimientos V1
-3. **Integrador:** Validación E2E con evidencia
+1. **V1 (specialists):** Validation against acceptance criteria
+2. **V2 (specialists):** Tests executed + correction of V1 failures
+3. **Integrator:** E2E validation with evidence
 
 ### Code review (manual)
 
-- Seguridad
-- Arquitectura
+- Security
+- Architecture
 - Clean Code
-- Tests suficientes
+- Sufficient tests
 
 ### CI/CD
 
 - Linter
-- Tests automatizados
-- Build exitoso
-- Security scan (opcional)
+- Automated tests
+- Successful build
+- Security scan (optional)
 
-## Evolución de estándares
+## Evolution of standards
 
-Este documento debe actualizarse cuando:
-1. Se adopten nuevos estándares (ej. agregar OWASP ASVS)
-2. Cambien objetivos de métricas
-3. Se agreguen validaciones CI/CD
-4. El equipo defina nuevas convenciones
+This document must be updated when:
+1. New standards are adopted (e.g. adding OWASP ASVS)
+2. Metric targets change
+3. CI/CD validations are added
+4. The team defines new conventions
 
 ---
 
-**Última revisión:** 2026-09-14  
-**Responsable:** [Definir según proyecto]  
-**Referencia técnica completa:** `.ai-vexarq/standards/quality-attributes.xml` y `.ai-vexarq/core/engineering-standards.xml`
+**Last review:** 2026-09-14  
+**Responsible:** [Define according to the project]  
+**Complete technical reference:** `.ai-vexarq/standards/quality-attributes.xml` and `.ai-vexarq/core/engineering-standards.xml`

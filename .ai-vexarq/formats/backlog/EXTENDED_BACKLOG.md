@@ -1,33 +1,27 @@
-# Contrato del backlog extendido
+# Extended backlog
 
-Versión de columnas: 1.0.0
+## File
 
-El archivo de trabajo es CSV UTF-8, RFC 4180, separado por comas. El Markdown explica el contrato y no sustituye al CSV.
+`backlog-extendido.csv`, UTF-8, comma-separated, [RFC 4180](https://www.rfc-editor.org/rfc/rfc4180).
 
-## Cabecera obligatoria
+## Columns
 
-```csv
-Tipo,Id de la Historia,Id de Tarea,Epica,MVP,Sprint,Rol,Caracteristica / Funcionalidad,Razon / Resultado,Criterio de Aceptacion,Estado de validacion,Observacion,Tipo de tarea,DoR,DoD,Estimacion (SP Fibonacci),Justificacion de estimacion,Prioridad MoSCoW,Justificacion de prioridad,Dependencias,Riesgo,Notas del analista
-```
+`Type`, `Story ID`, `Task ID`, `Epic`, `MVP`, `Sprint`, `Role`, `Feature`, `Reason`, `Acceptance Criteria`, `Validation Status`, `Observation`, `Task Type`, `Definition of Ready`, `Definition of Done`, `Estimate (Fibonacci SP)`, `Estimate Justification`, `MoSCoW Priority`, `Priority Justification`, `Dependencies`, `Risk`, `Analyst Notes`.
 
-## Filas
+## Rows
 
-- `HU`: conserva el texto original del backlog vigente. Id de Tarea, Tipo de tarea y los campos de tarea van vacíos. DoR, DoD, estimación, prioridad, dependencias, riesgo y notas viven en esta fila.
-- `Tarea`: repite el id de la HU padre, trae su id de tarea y su título en Caracteristica / Funcionalidad, el tipo de tarea y los números de criterio que cubre.
+`Story` repeats the story and leaves the task fields empty. Each `Task` repeats the story's identity and fills only its own task. `Feature` carries the original feature on the story row and the task title on the task row.
 
-## Campos nuevos respecto del ejemplo externo
+## Text
 
-- Dependencias: identificadores, separados por espacio.
-- Riesgo: `bajo`, `medio` o `alto`, y una frase en la misma celda.
+`Acceptance Criteria`, `Definition of Ready`, and `Definition of Done` use real line breaks inside double quotes. Definitions of ready and done use the bullet `•`.
 
-El ejemplo de otro proyecto usaba TSV para una hoja de cálculo y fijaba sprints, siglas y conteos de ese producto. Esos datos no forman parte de este contrato.
+Validation status has three values: `Ready`, `With remarks`, `Pending clarification`.
 
-## Codificación
+## What does not change
 
-- Comillas dobles alrededor de cualquier campo con coma, comilla o salto de línea.
-- Una comilla doble interna se escapa duplicándola, salvo la excepción de los mensajes literales ya convertidos a comillas simples por el prompt de fase.
-- Sin BOM obligatorio. Sin filas de título antes de la cabecera.
+The identifier, epic, MVP, sprint, role, feature, reason, criteria, status, and observation are copied from the current backlog. This format does not authorize paraphrasing them.
 
-## Informe que acompaña al CSV
+## Report
 
-`validacion.md` junto al CSV: conteos, integridad, cobertura de categorías, escala, alertas y confirmación de que no se importó el alcance del ejemplo externo.
+`validacion.md` accompanies the CSV: stories read, stories written, integrity, categories covered, alerts, and confirmation that no other project's example was imported.

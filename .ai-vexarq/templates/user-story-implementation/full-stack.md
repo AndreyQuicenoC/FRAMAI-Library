@@ -1,48 +1,48 @@
 @.ai-vexarq/core/policies.xml
 @.ai-vexarq/workflows/user-story-implementation/orchestrator.xml
 
-Implementa la siguiente Historia de Usuario usando el workflow multiagente de user-story-implementation.
+Implement the following User Story using the user-story-implementation multi-agent workflow.
 
-## Instrucciones de ejecución
-1. **Orquestador** analiza y clasifica la HU, genera contrato compartido y execution_plan
-2. Según el plan, ejecuta SOLO los agentes necesarios:
+## Execution instructions
+1. **Orchestrator** analyzes and classifies the user story, generates the shared contract and execution_plan
+2. According to the plan, run ONLY the necessary agents:
    - Backend: @.ai-vexarq/workflows/user-story-implementation/backend.xml
    - Frontend: @.ai-vexarq/workflows/user-story-implementation/frontend.xml
-   - Integrador: @.ai-vexarq/workflows/user-story-implementation/integrator.xml
-3. Cada agente actualiza docs/ (user-stories.md, code-structure.md, implementation-report.md, integration-report.md)
-4. Implementa código real y ejecuta tests
-5. No te detengas solo en análisis; produce cambios verificables
+   - Integrator: @.ai-vexarq/workflows/user-story-implementation/integrator.xml
+3. Each agent updates docs/ (user-stories.md, code-structure.md, implementation-report.md, integration-report.md)
+4. Implement real code and run tests
+5. Do not stop at analysis alone; produce verifiable changes
 
 ---
 
-## Historia de Usuario
+## User Story
 
 **ID:** HU-XXX
 
-**Como** [actor]  
-**Quiero** [acción]  
-**Para** [beneficio]
+**As** [actor]  
+**I want** [action]  
+**So that** [benefit]
 
-### Criterios de aceptación
-1. [Criterio verificable]
-2. [Criterio verificable]
+### Acceptance criteria
+1. [Verifiable criterion]
+2. [Verifiable criterion]
 3. ...
 
 ---
 
-## Contexto del proyecto
+## Project context
 
-**Ruta:** .
+**Path:** .
 
-**Restricciones adicionales:** Ninguna
+**Additional constraints:** None
 
-**Alcance solicitado:** auto (dejar que Orquestador clasifique)
+**Requested scope:** auto (let the Orchestrator classify)
 
 ---
 
-## Output esperado
+## Expected output
 
-- Documentación actualizada en `docs/user-stories.md`, `docs/code-structure.md`, `docs/implementation-report.md`, `docs/integration-report.md`
-- Código implementado y funcionando
-- Tests ejecutados y pasando
-- Trazabilidad HU → código → tests → evidencia
+- Documentation updated in `docs/user-stories.md`, `docs/code-structure.md`, `docs/implementation-report.md`, `docs/integration-report.md`
+- Code implemented and working
+- Tests executed and passing
+- Traceability user story → code → tests → evidence

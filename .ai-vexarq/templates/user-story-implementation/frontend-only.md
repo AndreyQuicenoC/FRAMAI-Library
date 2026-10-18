@@ -2,17 +2,17 @@
 @.ai-vexarq/workflows/user-story-implementation/orchestrator.xml
 @.ai-vexarq/workflows/user-story-implementation/frontend.xml
 
-Implementa la siguiente Historia de Usuario (alcance frontend).
+Implement the following User Story (frontend scope).
 
-## HU-XXX: [Título]
+## HU-XXX: [Title]
 
-[Descripción completa]
+[Full description]
 
-### Criterios de aceptación
+### Acceptance criteria
 1. ...
 
 ---
 
-**Proyecto:** .  
-**Alcance:** frontend-only  
-**Output:** Actualización en docs/user-stories.md, docs/code-structure.md, docs/implementation-report.md con análisis + frontend implementado
+**Project:** .  
+**Scope:** frontend-only  
+**Output:** Update in docs/user-stories.md, docs/code-structure.md, docs/implementation-report.md with analysis + frontend implemented

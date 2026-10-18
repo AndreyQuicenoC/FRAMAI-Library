@@ -1,49 +1,32 @@
 # Product backlog
 
-## Control
+## 1. Generation record
 
-- Siglas:
-- Versión:
-- Estado: preliminar | vigente
-- Insumo: SRS vigente
-- Canon aplicado: `.ai-vexarq/sources/canon/backlog-hu-generator.md`
+- Project acronym.
+- Source: path of the current SRS.
+- Canon: `.ai-vexarq/sources/canon/backlog-hu-generator.md`.
+- Mode used by the canon and validation summary.
 
-## Historias
+## 2. Epic index
 
-Repetir este bloque por cada HU. El texto sale del canon; no se resume.
+Epic, goal, and the stories it contains. Do not invent an epic to fill a quota.
 
-### HU_SIGLAS_FASE_NN
+## 3. Stories
 
-- Rol:
-- Funcionalidad:
-- Motivo:
-- Estado de validación: Lista | Con observaciones | Pendiente de aclaracion
-- Épica:
-- MVP: vacío si el proyecto no tiene MVP
-- Sprint: vacío si no hay sprint
+Each story keeps the structure the canon produced:
 
-#### Criterios de aceptación
+- Identifier.
+- Epic.
+- Story statement.
+- Acceptance criteria, grouped by the categories that apply.
+- Business rules and literal messages.
+- Validation status: Ready, With remarks, or Pending clarification.
+- Observation, when there is one.
 
-1. Dónde.
-2. Campos.
-3. Validación.
-4. Restricción.
-5. Éxito.
-6. Fallo.
+## 4. Coverage
 
-#### Observación y trazabilidad
+Which SRS requirements have a story and which do not, with the reason. A requirement with no story is not a defect when it is an explicit constraint or a quality attribute covered another way.
 
-RF, RN, RNF y dependencias.
+## 5. Pending clarifications
 
-## Exportación aprobada
-
-La tabla de exportación del modo 3 del canon se añade aquí solo cuando la HU está aprobada por el usuario, o cuando el modo continuo promueve una HU en estado Lista.
-
-| Id de la Historia | Rol | Característica / Funcionalidad | Razón / Resultado | Criterio de Aceptación | Complejidad | Prioridad | Observación |
-|---|---|---|---|---|---|---|---|
-
-Complejidad y prioridad quedan vacías salvo sugerencia explícitamente marcada como sugerida.
-
-## Pendientes del lote
-
-Huecos, duplicados detectados y preguntas. Esta sección no autoriza a la fase extendida a completarlos por su cuenta.
+Only the questions the canon could not close.

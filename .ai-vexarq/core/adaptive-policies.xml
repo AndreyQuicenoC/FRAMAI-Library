@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>ADAPTIVE POLICIES — Estrategia de ejecución adaptativa</name>
+    <name>ADAPTIVE POLICIES — Adaptive execution strategy</name>
     <version>2.2.0</version>
-    <purpose>Optimizar el balance entre calidad y consumo de tokens según la complejidad de la HU</purpose>
+    <purpose>Optimize the balance between quality and token consumption according to the user story's complexity</purpose>
   </metadata>
 
   <principio_rector>
-    <formula>Sofisticación proporcional a la complejidad de la HU</formula>
-    <regla>No ejecutar toda la maquinaria para HUs triviales</regla>
-    <regla>No sacrificar calidad en HUs complejas</regla>
+    <formula>Sophistication proportional to the user story's complexity</formula>
+    <regla>Do not run the entire machinery for trivial user stories</regla>
+    <regla>Do not sacrifice quality on complex user stories</regla>
   </principio_rector>
 
   <clasificacion_complejidad>
-    <descripcion>El Orquestador clasifica cada HU en 4 niveles</descripcion>
+    <descripcion>The Orchestrator classifies each user story into 4 levels</descripcion>
 
     <nivel name="TRIVIAL">
       <caracteristicas>
-        <item>Cambio cosmético o textual</item>
-        <item>1 archivo modificado</item>
-        <item>No afecta lógica de negocio</item>
-        <item>No requiere tests nuevos</item>
-        <item>Sin impacto en arquitectura</item>
+        <item>Cosmetic or textual change</item>
+        <item>1 file modified</item>
+        <item>Does not affect business logic</item>
+        <item>Does not require new tests</item>
+        <item>No architectural impact</item>
       </caracteristicas>
       <ejemplos>
-        <ejemplo>Cambiar texto de botón</ejemplo>
-        <ejemplo>Ajustar color CSS</ejemplo>
-        <ejemplo>Corregir typo en mensaje</ejemplo>
+        <ejemplo>Change button text</ejemplo>
+        <ejemplo>Adjust CSS color</ejemplo>
+        <ejemplo>Fix a typo in a message</ejemplo>
       </ejemplos>
       <estrategia>
-        <accion ejecutar="si">Orquestador: Análisis mínimo + clasificación</accion>
-        <accion ejecutar="si">Especialista único (Backend o Frontend)</accion>
-        <accion ejecutar="no">NO cargar: contrato compartido, estándares completos, validación V1/V2</accion>
-        <accion ejecutar="no">NO ejecutar: Integrador</accion>
-        <accion ejecutar="si">Documentación: Entrada resumida en implementation-report.md</accion>
+        <accion ejecutar="si">Orchestrator: Minimal analysis + classification</accion>
+        <accion ejecutar="si">Single specialist (Backend or Frontend)</accion>
+        <accion ejecutar="no">DO NOT load: shared contract, full standards, V1/V2 validation</accion>
+        <accion ejecutar="no">DO NOT run: Integrator</accion>
+        <accion ejecutar="si">Documentation: Summarized entry in implementation-report.md</accion>
       </estrategia>
       <consumo_estimado>5-10K tokens</consumo_estimado>
     </nivel>
 
     <nivel name="SIMPLE">
       <caracteristicas>
-        <item>Cambio en 2-4 archivos</item>
-        <item>Lógica simple sin dependencias críticas</item>
-        <item>Tests unitarios básicos</item>
-        <item>Sin impacto en contrato existente</item>
+        <item>Change in 2-4 files</item>
+        <item>Simple logic without critical dependencies</item>
+        <item>Basic unit tests</item>
+        <item>No impact on an existing contract</item>
       </caracteristicas>
       <ejemplos>
-        <ejemplo>Agregar campo a formulario (backend ya existe)</ejemplo>
-        <ejemplo>Nuevo endpoint GET sin lógica compleja</ejemplo>
-        <ejemplo>Componente UI reutilizando existentes</ejemplo>
+        <ejemplo>Add a field to a form (backend already exists)</ejemplo>
+        <ejemplo>New GET endpoint without complex logic</ejemplo>
+        <ejemplo>UI component reusing existing ones</ejemplo>
       </ejemplos>
       <estrategia>
-        <accion ejecutar="si">Orquestador: Análisis estándar + contrato ligero</accion>
-        <accion ejecutar="si">Especialista(s) necesarios (1 o 2)</accion>
-        <accion ejecutar="si">Validación V1 (ligera) + V2 (tests)</accion>
-        <accion ejecutar="condicional">Contrato compartido solo si FULL_STACK</accion>
-        <accion ejecutar="no">NO cargar: Políticas exhaustivas de performance, SEO, a11y (salvo si HU lo requiere)</accion>
-        <accion ejecutar="condicional">Integrador: Opcional (solo si FULL_STACK)</accion>
-        <accion ejecutar="si">Documentación: Completa pero concisa</accion>
+        <accion ejecutar="si">Orchestrator: Standard analysis + light contract</accion>
+        <accion ejecutar="si">Necessary specialist(s) (1 or 2)</accion>
+        <accion ejecutar="si">V1 validation (light) + V2 (tests)</accion>
+        <accion ejecutar="condicional">Shared contract only if FULL_STACK</accion>
+        <accion ejecutar="no">DO NOT load: Exhaustive performance, SEO, a11y policies (unless the user story requires it)</accion>
+        <accion ejecutar="condicional">Integrator: Optional (only if FULL_STACK)</accion>
+        <accion ejecutar="si">Documentation: Complete but concise</accion>
       </estrategia>
       <consumo_estimado>15-30K tokens</consumo_estimado>
     </nivel>
 
     <nivel name="MODERATE">
       <caracteristicas>
-        <item>Cambio en 5-10 archivos</item>
-        <item>Lógica de negocio con validaciones</item>
-        <item>Transacciones o estado compartido</item>
-        <item>Tests unitarios + integración</item>
-        <item>Puede afectar contratos existentes</item>
+        <item>Change in 5-10 files</item>
+        <item>Business logic with validations</item>
+        <item>Transactions or shared state</item>
+        <item>Unit + integration tests</item>
+        <item>May affect existing contracts</item>
       </caracteristicas>
       <ejemplos>
-        <ejemplo>Formulario + API + persistencia</ejemplo>
-        <ejemplo>Flujo completo (registro usuario, confirmación email)</ejemplo>
-        <ejemplo>Modificación de contrato con impacto frontend</ejemplo>
+        <ejemplo>Form + API + persistence</ejemplo>
+        <ejemplo>Full flow (user registration, email confirmation)</ejemplo>
+        <ejemplo>Contract modification with frontend impact</ejemplo>
       </ejemplos>
       <estrategia>
-        <accion ejecutar="si">Orquestador: Análisis completo + contrato detallado</accion>
-        <accion ejecutar="si">Backend + Frontend si FULL_STACK</accion>
-        <accion ejecutar="si">Validación V1/V2 completa</accion>
-        <accion ejecutar="si">Integrador: Obligatorio si FULL_STACK</accion>
-        <accion ejecutar="si">Cargar: Políticas relevantes (seguridad, transacciones, error handling)</accion>
-        <accion ejecutar="no">NO cargar: Políticas no aplicables (ej. SEO si página privada)</accion>
-        <accion ejecutar="si">Documentación: Completa</accion>
+        <accion ejecutar="si">Orchestrator: Complete analysis + detailed contract</accion>
+        <accion ejecutar="si">Backend + Frontend if FULL_STACK</accion>
+        <accion ejecutar="si">Complete V1/V2 validation</accion>
+        <accion ejecutar="si">Integrator: Mandatory if FULL_STACK</accion>
+        <accion ejecutar="si">Load: Relevant policies (security, transactions, error handling)</accion>
+        <accion ejecutar="no">DO NOT load: Policies that do not apply (e.g. SEO if a private page)</accion>
+        <accion ejecutar="si">Documentation: Complete</accion>
       </estrategia>
       <consumo_estimado>40-70K tokens</consumo_estimado>
     </nivel>
 
     <nivel name="COMPLEX">
       <caracteristicas>
-        <item>Cambio en 10+ archivos</item>
-        <item>Lógica compleja con dependencias múltiples</item>
-        <item>Transacciones, concurrencia, integraciones externas</item>
-        <item>Tests unitarios + integración + E2E</item>
-        <item>Impacto arquitectónico o en múltiples módulos</item>
+        <item>Change in 10+ files</item>
+        <item>Complex logic with multiple dependencies</item>
+        <item>Transactions, concurrency, external integrations</item>
+        <item>Unit tests + integration + E2E</item>
+        <item>Architectural impact or impact on multiple modules</item>
       </caracteristicas>
       <ejemplos>
-        <ejemplo>Sistema de pagos (gateway, webhooks, confirmación, rollback)</ejemplo>
-        <ejemplo>Carrito de compras (productos, inventario, cálculo, persistencia, notificación)</ejemplo>
-        <ejemplo>Migración de auth (cambio de JWT a OAuth con retrocompatibilidad)</ejemplo>
+        <ejemplo>Payment system (gateway, webhooks, confirmation, rollback)</ejemplo>
+        <ejemplo>Shopping cart (products, inventory, calculation, persistence, notification)</ejemplo>
+        <ejemplo>Auth migration (change from JWT to OAuth with backward compatibility)</ejemplo>
       </ejemplos>
       <estrategia>
-        <accion ejecutar="si">Orquestador: Análisis exhaustivo + contrato completo + estructuras críticas</accion>
-        <accion ejecutar="si">Backend + Frontend + Integrador</accion>
-        <accion ejecutar="si">Validación V1/V2 exhaustiva</accion>
-        <accion ejecutar="si">Cargar: TODAS las políticas relevantes (seguridad, performance, a11y, SEO, concurrencia, external integrations)</accion>
-        <accion ejecutar="si">Integrador: Validación E2E exhaustiva (funcional, seguridad, UX, a11y, performance)</accion>
-        <accion ejecutar="si">Documentación: Exhaustiva (4 documentos actualizados)</accion>
+        <accion ejecutar="si">Orchestrator: Exhaustive analysis + complete contract + critical structures</accion>
+        <accion ejecutar="si">Backend + Frontend + Integrator</accion>
+        <accion ejecutar="si">Exhaustive V1/V2 validation</accion>
+        <accion ejecutar="si">Load: ALL relevant policies (security, performance, a11y, SEO, concurrency, external integrations)</accion>
+        <accion ejecutar="si">Integrator: Exhaustive E2E validation (functional, security, UX, a11y, performance)</accion>
+        <accion ejecutar="si">Documentation: Exhaustive (4 documents updated)</accion>
       </estrategia>
       <consumo_estimado>80-150K tokens</consumo_estimado>
     </nivel>
@@ -114,132 +114,132 @@
 
   <carga_selectiva_politicas>
     <siempre_cargar>
-      <item>.ai-vexarq/core/policies.xml (políticas globales mínimas)</item>
-      <item>Clasificación de complejidad</item>
+      <item>.ai-vexarq/core/policies.xml (minimum global policies)</item>
+      <item>Complexity classification</item>
     </siempre_cargar>
 
     <cargar_condicionalmente>
-      <politica name="Transacciones" condicion="Si HU modifica múltiples tablas/entidades"/>
-      <politica name="Concurrencia" condicion="Si HU tiene operaciones read-modify-write o inventario"/>
-      <politica name="Performance" condicion="Si HU es compleja O explícitamente requiere optimización"/>
-      <politica name="Seguridad" condicion="Si HU involucra AuthN, AuthZ, datos sensibles"/>
-      <politica name="A11y (WCAG)" condicion="Si HU crea/modifica UI pública"/>
-      <politica name="SEO" condicion="Si HU crea/modifica páginas públicas"/>
-      <politica name="External integrations" condicion="Si HU llama APIs externas (pagos, email, etc.)"/>
-      <politica name="Files &amp; uploads" condicion="Si HU maneja subida de archivos"/>
-      <politica name="Error handling exhaustivo" condicion="Si MODERATE o COMPLEX"/>
-      <politica name="Backward compatibility" condicion="Si HU modifica APIs públicas"/>
-      <politica name="Git workflow" condicion="Si la solicitud menciona ramas, commits o push (git-workflow.xml)"/>
-      <politica name="Project modes" condicion="Siempre en el Gate inicial (project-modes.xml)"/>
-      <politica name="Contenedores y entorno" condicion="Si se pide ejecutar el sistema o entregarlo operable (engineering-standards.xml)"/>
-      <politica name="Scripts de validación" condicion="Si hay integración real o E2E (engineering-standards.xml, scripts)"/>
+      <politica name="Transactions" condicion="If the user story modifies multiple tables/entities"/>
+      <politica name="Concurrency" condicion="If the user story has read-modify-write operations or inventory"/>
+      <politica name="Performance" condicion="If the user story is complex OR explicitly requires optimization"/>
+      <politica name="Security" condicion="If the user story involves AuthN, AuthZ, sensitive data"/>
+      <politica name="A11y (WCAG)" condicion="If the user story creates/modifies public UI"/>
+      <politica name="SEO" condicion="If the user story creates/modifies public pages"/>
+      <politica name="External integrations" condicion="If the user story calls external APIs (payments, email, etc.)"/>
+      <politica name="Files &amp; uploads" condicion="If the user story handles file uploads"/>
+      <politica name="Exhaustive error handling" condicion="If MODERATE or COMPLEX"/>
+      <politica name="Backward compatibility" condicion="If the user story modifies public APIs"/>
+      <politica name="Git workflow" condicion="If the request mentions branches, commits, or push (git-workflow.xml)"/>
+      <politica name="Project modes" condicion="Always at the initial Gate (project-modes.xml)"/>
+      <politica name="Containers and environment" condicion="If running the system or delivering it operable is requested (engineering-standards.xml)"/>
+      <politica name="Validation scripts" condicion="If there is real integration or E2E (engineering-standards.xml, scripts)"/>
     </cargar_condicionalmente>
   </carga_selectiva_politicas>
 
   <formula_decision>
-    <descripcion>Cálculo de complejidad basado en factores cuantificables</descripcion>
+    <descripcion>Complexity calculation based on quantifiable factors</descripcion>
     <formula><![CDATA[
-Complejidad = 
-  (Archivos modificados × 1) +
-  (Lógica de negocio × 3) +
-  (Transacciones × 5) +
-  (Integraciones externas × 5) +
-  (Impacto en contratos × 4) +
-  (Requisitos de calidad explícitos × 2)
+Complexity = 
+  (Files modified × 1) +
+  (Business logic × 3) +
+  (Transactions × 5) +
+  (External integrations × 5) +
+  (Impact on contracts × 4) +
+  (Explicit quality requirements × 2)
 
-Si Complejidad < 5 → TRIVIAL
-Si Complejidad 5-15 → SIMPLE
-Si Complejidad 16-35 → MODERATE
-Si Complejidad > 35 → COMPLEX
+If Complexity < 5 → TRIVIAL
+If Complexity 5-15 → SIMPLE
+If Complexity 16-35 → MODERATE
+If Complexity > 35 → COMPLEX
 ]]></formula>
   </formula_decision>
 
   <factores_de_elevacion>
-    <descripcion>La fórmula cuantitativa es un piso, no un techo. Estos factores suben el nivel al menos un escalón y fijan mínimos de validación</descripcion>
-    <factor name="Autenticación, sesión o roles" minimo="MODERATE">Carga seguridad_aplicacion; V1/V2 completas; Integrador obligatorio; pruebas negativas de seguridad</factor>
-    <factor name="Datos personales o credenciales" minimo="MODERATE">Prohíbe valores sensibles en logs, respuestas y fixtures; escaneo de secretos obligatorio</factor>
-    <factor name="Contrato nuevo entre capas" minimo="MODERATE">Contrato compartido completo y verificación de identidad Backend-Frontend</factor>
-    <factor name="Migración de esquema" minimo="SIMPLE">Migración probada desde cero y contra el motor real</factor>
-    <factor name="Productización de mockup o arquetipo" minimo="COMPLEX">Protocolo de project-modes.xml, entorno y contenedores, validación exhaustiva</factor>
-    <factor name="Entrega operable (contenedores, entorno, scripts)" minimo="MODERATE">engineering-standards.xml: contenedores_y_entorno, scripts, documentacion_operativa</factor>
+    <descripcion>The quantitative formula is a floor, not a ceiling. These factors raise the level by at least one step and set validation minimums</descripcion>
+    <factor name="Authentication, session, or roles" minimo="MODERATE">Loads seguridad_aplicacion; complete V1/V2; Integrator mandatory; negative security tests</factor>
+    <factor name="Personal data or credentials" minimo="MODERATE">Forbids sensitive values in logs, responses, and fixtures; secret scanning mandatory</factor>
+    <factor name="New contract between layers" minimo="MODERATE">Complete shared contract and Backend-Frontend identity verification</factor>
+    <factor name="Schema migration" minimo="SIMPLE">Migration tested from scratch and against the real engine</factor>
+    <factor name="Mockup or archetype productionization" minimo="COMPLEX">project-modes.xml protocol, environment and containers, exhaustive validation</factor>
+    <factor name="Operable delivery (containers, environment, scripts)" minimo="MODERATE">engineering-standards.xml: contenedores_y_entorno, scripts, documentacion_operativa</factor>
   </factores_de_elevacion>
 
   <modo_lote>
-    <descripcion>Cuando la solicitud contiene varias HU (épica)</descripcion>
-    <regla>Un solo análisis del proyecto y un contrato de épica; el coste de contexto se amortiza entre HU.</regla>
-    <regla>Complejidad por HU para decidir la profundidad de cada especialista; el lote hereda la más alta para el Integrador y los gates transversales.</regla>
-    <regla>Ejecución en orden de dependencias; cada HU se cierra (tests verdes + commit según git-workflow.xml) antes de iniciar la siguiente que dependa de ella.</regla>
-    <regla>El Integrador corre una vez por lote con la pila real y recorre todas las HU; los hallazgos se corrigen en conjunto.</regla>
-    <regla>Presupuesto de tokens del lote: suma por HU + sobrecoste fijo de análisis y de integración; no se reduce el nivel de validación por tamaño del lote.</regla>
+    <descripcion>When the request contains several user stories (epic)</descripcion>
+    <regla>A single project analysis and one epic contract; the context cost is amortized across user stories.</regla>
+    <regla>Per-user-story complexity to decide each specialist's depth; the batch inherits the highest for the Integrator and the cross-cutting gates.</regla>
+    <regla>Execution in dependency order; each user story is closed (green tests + commit according to git-workflow.xml) before starting the next one that depends on it.</regla>
+    <regla>The Integrator runs once per batch with the real stack and walks through all user stories; findings are corrected together.</regla>
+    <regla>Batch token budget: sum per user story + fixed overhead of analysis and integration; the validation level is not reduced because of batch size.</regla>
   </modo_lote>
 
   <reglas_ejecucion>
-    <regla id="1">El Orquestador siempre se ejecuta (analiza HU, clasifica complejidad y routing, decide políticas, genera handoffs)</regla>
+    <regla id="1">The Orchestrator always runs (analyzes the user story, classifies complexity and routing, decides policies, generates handoffs)</regla>
     <regla id="2">
-      Especialistas según complejidad:
-      - TRIVIAL: 1 especialista
-      - SIMPLE: 1-2 especialistas
-      - MODERATE/COMPLEX: 2-3 agentes + Integrador
+      Specialists according to complexity:
+      - TRIVIAL: 1 specialist
+      - SIMPLE: 1-2 specialists
+      - MODERATE/COMPLEX: 2-3 agents + Integrator
     </regla>
     <regla id="3">
-      Integrador según complejidad:
+      Integrator according to complexity:
       - TRIVIAL: NO
-      - SIMPLE: Solo si FULL_STACK
-      - MODERATE: Si FULL_STACK
-      - COMPLEX: Siempre
+      - SIMPLE: Only if FULL_STACK
+      - MODERATE: If FULL_STACK
+      - COMPLEX: Always
     </regla>
     <regla id="4">
-      Validación proporcional:
-      - TRIVIAL: Solo revisión de cambio
-      - SIMPLE: V1 ligera + V2 tests
-      - MODERATE: V1 + V2 + tests completos
-      - COMPLEX: V1 + V2 + tests + E2E + evidencia
+      Proportional validation:
+      - TRIVIAL: Change review only
+      - SIMPLE: Light V1 + V2 tests
+      - MODERATE: V1 + V2 + complete tests
+      - COMPLEX: V1 + V2 + tests + E2E + evidence
     </regla>
   </reglas_ejecucion>
 
   <metricas_exito>
-    <metrica name="Tokens promedio por HU TRIVIAL" objetivo="&lt; 10K"/>
-    <metrica name="Tokens promedio por HU SIMPLE" objetivo="&lt; 30K"/>
-    <metrica name="Tokens promedio por HU MODERATE" objetivo="&lt; 70K"/>
-    <metrica name="Tokens promedio por HU COMPLEX" objetivo="&lt; 150K"/>
-    <metrica name="Calidad (Acceptance Score)" objetivo="≥ 90% en todas las complejidades"/>
-    <metrica name="Retrabajo" objetivo="&lt; 10% de HUs requieren segunda iteración"/>
-    <metrica name="Latencia TRIVIAL" objetivo="&lt; 2 min"/>
-    <metrica name="Latencia COMPLEX" objetivo="&lt; 15 min"/>
+    <metrica name="Average tokens per TRIVIAL user story" objetivo="&lt; 10K"/>
+    <metrica name="Average tokens per SIMPLE user story" objetivo="&lt; 30K"/>
+    <metrica name="Average tokens per MODERATE user story" objetivo="&lt; 70K"/>
+    <metrica name="Average tokens per COMPLEX user story" objetivo="&lt; 150K"/>
+    <metrica name="Quality (Acceptance Score)" objetivo="≥ 90% at every complexity"/>
+    <metrica name="Rework" objetivo="&lt; 10% of user stories require a second iteration"/>
+    <metrica name="TRIVIAL latency" objetivo="&lt; 2 min"/>
+    <metrica name="COMPLEX latency" objetivo="&lt; 15 min"/>
   </metricas_exito>
 
   <balance_calidad_consumo>
     <vale_la_pena>
       <casos_si>
-        <caso>HUs complejas con múltiples dependencias</caso>
-        <caso>HUs con impacto en seguridad/datos críticos</caso>
-        <caso>HUs que modifican contratos/APIs públicas</caso>
-        <caso>HUs con requisitos de calidad explícitos (a11y, SEO, performance)</caso>
-        <caso>Proyectos académicos que requieren trazabilidad y evidencia</caso>
+        <caso>Complex user stories with multiple dependencies</caso>
+        <caso>User stories with impact on security/critical data</caso>
+        <caso>User stories that modify public contracts/APIs</caso>
+        <caso>User stories with explicit quality requirements (a11y, SEO, performance)</caso>
+        <caso>Academic projects that require traceability and evidence</caso>
       </casos_si>
       <casos_no>
-        <caso>HUs triviales (cambios cosméticos)</caso>
-        <caso>HUs simples con 1-2 archivos</caso>
-        <caso>Correcciones rápidas sin impacto arquitectónico</caso>
+        <caso>Trivial user stories (cosmetic changes)</caso>
+        <caso>Simple user stories with 1-2 files</caso>
+        <caso>Quick corrections without architectural impact</caso>
       </casos_no>
     </vale_la_pena>
   </balance_calidad_consumo>
 
   <implementacion_orquestador>
-    <descripcion>El Orquestador debe ejecutar estos pasos para clasificación</descripcion>
-    <paso numero="1">Analizar HU</paso>
-    <paso numero="2">Calcular complejidad (fórmula o heurística)</paso>
-    <paso numero="3">Emitir clasificación de complejidad</paso>
-    <paso numero="4">Decidir qué políticas cargar</paso>
-    <paso numero="5">Decidir qué agentes ejecutar</paso>
-    <paso numero="6">Generar handoffs optimizados (no repetir todo el contexto)</paso>
+    <descripcion>The Orchestrator must run these steps for classification</descripcion>
+    <paso numero="1">Analyze the user story</paso>
+    <paso numero="2">Calculate complexity (formula or heuristic)</paso>
+    <paso numero="3">Emit the complexity classification</paso>
+    <paso numero="4">Decide which policies to load</paso>
+    <paso numero="5">Decide which agents to run</paso>
+    <paso numero="6">Generate optimized handoffs (do not repeat the entire context)</paso>
 
     <output_requerido>
       <campo>&lt;complexity&gt;TRIVIAL | SIMPLE | MODERATE | COMPLEX&lt;/complexity&gt;</campo>
-      <campo>&lt;complexity_score&gt;Puntaje numérico (0-100)&lt;/complexity_score&gt;</campo>
-      <campo>&lt;complexity_rationale&gt;Por qué esta clasificación&lt;/complexity_rationale&gt;</campo>
-      <campo>&lt;policies_to_load&gt;Lista de políticas a cargar por agentes&lt;/policies_to_load&gt;</campo>
-      <campo>&lt;estimated_tokens&gt;Rango estimado&lt;/estimated_tokens&gt;</campo>
+      <campo>&lt;complexity_score&gt;Numeric score (0-100)&lt;/complexity_score&gt;</campo>
+      <campo>&lt;complexity_rationale&gt;Why this classification&lt;/complexity_rationale&gt;</campo>
+      <campo>&lt;policies_to_load&gt;List of policies for agents to load&lt;/policies_to_load&gt;</campo>
+      <campo>&lt;estimated_tokens&gt;Estimated range&lt;/estimated_tokens&gt;</campo>
     </output_requerido>
   </implementacion_orquestador>
 </prompt>

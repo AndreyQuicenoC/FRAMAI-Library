@@ -1,142 +1,142 @@
-# Reporte de integración
+# Integration report
 
-Este documento registra las validaciones E2E realizadas por el Integrador para cada Historia de Usuario.
+This document records the E2E validations performed by the Integrator for each user story.
 
-**Actualización:** Incremental (NO sobrescribir reportes anteriores)
+**Update:** Incremental (DO NOT overwrite previous reports)
 
 ---
 
-## Plantilla para reporte de integración
+## Template for an integration report
 
 ```markdown
-## HU-XXX — [Título]
-**Fecha validación:** YYYY-MM-DD  
-**Integrador:** [Nombre del validador o "AI Agent"]
+## HU-XXX — [Title]
+**Validation date:** YYYY-MM-DD  
+**Integrator:** [Validator name or "AI Agent"]
 
-### Contrato de integración
-**Endpoints involucrados:**
+### Integration contract
+**Endpoints involved:**
 - [GET/POST/PUT/DELETE /api/resource]
 
-**Estado compartido:**
-- [Lista de estado relevante en frontend]
+**Shared state:**
+- [List of relevant frontend state]
 
-**Dependencias externas:**
-- [APIs, servicios, etc.]
+**External dependencies:**
+- [APIs, services, etc.]
 
-### Flujo End-to-End
+### End-to-end flow
 
-1. **Inicio:** [Punto de entrada usuario]
-2. **Interacción frontend:** [Acciones UI]
-3. **Request backend:** [Detalles de la llamada]
-4. **Procesamiento backend:** [Lógica ejecutada]
-5. **Response:** [Formato y contenido]
-6. **Actualización UI:** [Cambios en frontend]
+1. **Start:** [User entry point]
+2. **Frontend interaction:** [UI actions]
+3. **Backend request:** [Call details]
+4. **Backend processing:** [Logic executed]
+5. **Response:** [Format and content]
+6. **UI update:** [Frontend changes]
 
-### Validación funcional
+### Functional validation
 
-| Criterio de aceptación | Estado | Evidencia |
+| Acceptance criterion | Status | Evidence |
 |---|---|---|
-| [Criterio 1] | ✓ PASS / ✗ FAIL | [Test/captura] |
-| [Criterio 2] | ✓ PASS / ✗ FAIL | [Test/captura] |
+| [Criterion 1] | ✓ PASS / ✗ FAIL | [Test/screenshot] |
+| [Criterion 2] | ✓ PASS / ✗ FAIL | [Test/screenshot] |
 
-### Validación de caminos de error
+### Error-path validation
 
-**Escenarios probados:**
-- [ ] Error de validación (400)
-- [ ] No autorizado (401/403)
-- [ ] Recurso no encontrado (404)
-- [ ] Error de servidor (500)
-- [ ] Timeout / red caída
+**Scenarios tested:**
+- [ ] Validation error (400)
+- [ ] Unauthorized (401/403)
+- [ ] Resource not found (404)
+- [ ] Server error (500)
+- [ ] Timeout / network down
 
-**Manejo en frontend:**
-- [Descripción de feedback al usuario para cada escenario]
+**Handling in the frontend:**
+- [Description of user feedback for each scenario]
 
-### Validación de seguridad
+### Security validation
 
-- [ ] **AuthN:** Endpoints protegidos requieren autenticación
-- [ ] **AuthZ:** Solo usuarios autorizados acceden
-- [ ] **Validación de entrada:** Backend rechaza datos inválidos
-- [ ] **Output encoding:** No se expone información sensible
-- [ ] **HTTPS:** Tráfico encriptado (producción)
+- [ ] **AuthN:** Protected endpoints require authentication
+- [ ] **AuthZ:** Only authorized users have access
+- [ ] **Input validation:** The backend rejects invalid data
+- [ ] **Output encoding:** Sensitive information is not exposed
+- [ ] **HTTPS:** Encrypted traffic (production)
 
-### Validación UX
+### UX validation
 
-- [ ] **Estados claros:** Loading, success, error, empty
-- [ ] **Feedback inmediato:** Usuario sabe qué está pasando
-- [ ] **Errores específicos:** Mensajes claros por campo/operación
-- [ ] **Navegación coherente:** Flujo lógico
-- [ ] **Responsive:** Funciona en mobile/tablet/desktop
+- [ ] **Clear states:** Loading, success, error, empty
+- [ ] **Immediate feedback:** The user knows what is happening
+- [ ] **Specific errors:** Clear messages per field/operation
+- [ ] **Coherent navigation:** Logical flow
+- [ ] **Responsive:** Works on mobile/tablet/desktop
 
-### Validación de accesibilidad (WCAG 2.1 AA)
+### Accessibility validation (WCAG 2.1 AA)
 
-- [ ] **Keyboard navigation:** Todo operable con teclado
-- [ ] **Screen reader:** Etiquetas y roles ARIA
-- [ ] **Contraste:** Ratio 4.5:1 mínimo para texto
-- [ ] **Foco visible:** Indica dónde está el usuario
-- [ ] **Formularios:** Labels asociados a inputs
+- [ ] **Keyboard navigation:** Everything operable with the keyboard
+- [ ] **Screen reader:** Labels and ARIA roles
+- [ ] **Contrast:** Minimum 4.5:1 ratio for text
+- [ ] **Visible focus:** Indicates where the user is
+- [ ] **Forms:** Labels associated with inputs
 
-### Validación SEO (si aplica)
+### SEO validation (if it applies)
 
-- [ ] **Meta tags:** title, description apropiados
-- [ ] **Semantic HTML:** Uso correcto de h1-h6, nav, main, etc.
-- [ ] **URLs limpias:** Rutas descriptivas
+- [ ] **Meta tags:** Appropriate title and description
+- [ ] **Semantic HTML:** Correct use of h1-h6, nav, main, etc.
+- [ ] **Clean URLs:** Descriptive routes
 - [ ] **Performance:** Lighthouse score > 90
 
-### Validación de performance
+### Performance validation
 
-**Métricas medidas:**
+**Metrics measured:**
 - **Backend response time:** [X ms]
 - **Frontend render time:** [Y ms]
 - **Lighthouse Performance:** [Z/100]
 
-**Optimizaciones aplicadas:**
-- [Lista o "Ninguna necesaria"]
+**Optimizations applied:**
+- [List or "None needed"]
 
-### Consistencia de base de datos
+### Database consistency
 
-- [ ] **Transacciones:** Operaciones atómicas cuando aplica
-- [ ] **Constraints:** FK, unique, not null respetados
-- [ ] **Rollback:** Errores no dejan estado inconsistente
-- [ ] **Migrations:** Aplicadas correctamente
+- [ ] **Transactions:** Atomic operations when they apply
+- [ ] **Constraints:** FK, unique, and not null respected
+- [ ] **Rollback:** Errors do not leave an inconsistent state
+- [ ] **Migrations:** Applied correctly
 
-### Tests ejecutados
+### Tests executed
 
-**Unitarios:**
+**Unit:**
 - Backend: X/X passing
 - Frontend: Y/Y passing
 
-**Integración:**
+**Integration:**
 - API: Z/Z passing
 
 **E2E:**
-- Flujo completo: W/W passing
+- Full flow: W/W passing
 
 ### Acceptance Score
 
-**Fórmula:** (Criterios cumplidos / Criterios totales) × 100
+**Formula:** (Criteria met / Total criteria) × 100
 
-**Resultado:** [X]%
+**Result:** [X]%
 
-**Umbral mínimo:** 90%
+**Minimum threshold:** 90%
 
-**Estado:** ✓ APROBADO / ✗ REQUIERE CORRECCIÓN
+**Status:** ✓ APPROVED / ✗ REQUIRES CORRECTION
 
-### Problemas detectados
+### Issues found
 
-| Problema | Severidad | Estado | Responsable |
+| Issue | Severity | Status | Owner |
 |---|---|---|---|
-| [Descripción] | CRÍTICO/ALTO/MEDIO/BAJO | ABIERTO/RESUELTO | Backend/Frontend |
+| [Description] | CRITICAL/HIGH/MEDIUM/LOW | OPEN/RESOLVED | Backend/Frontend |
 
-### Trazabilidad
+### Traceability
 
-**HU original:** `docs/user-stories.md#HU-XXX`  
-**Código backend:** [Commits/PRs]  
-**Código frontend:** [Commits/PRs]  
-**Reporte implementación:** `docs/implementation-report.md#HU-XXX`
+**Original user story:** `docs/user-stories.md#HU-XXX`  
+**Backend code:** [Commits/PRs]  
+**Frontend code:** [Commits/PRs]  
+**Implementation report:** `docs/implementation-report.md#HU-XXX`
 
 ---
 ```
 
 ---
 
-_Los reportes de integración se agregarán conforme se validen las HUs._
+_Integration reports will be added as the user stories are validated._

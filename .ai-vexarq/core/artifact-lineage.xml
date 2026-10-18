@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Preliminares y vigentes</name>
+    <name>CORE — Preliminary and current artifacts</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
   </metadata>
 
   <regla_de_oro>
-    La fase N+1 lee docs/vexarq/current/. No lee docs/vexarq/preliminary/, aunque el preliminar sea más reciente.
+    Phase N+1 reads docs/vexarq/current/. It does not read docs/vexarq/preliminary/, even when the preliminary is newer.
   </regla_de_oro>
 
   <directorios>
-    <directorio path="docs/vexarq/preliminary/">Salida de la IA, pendiente de revisión humana.</directorio>
-    <directorio path="docs/vexarq/current/">Documento que el usuario editó o que el modo continuo promovió tras autovalidarse. Es la única fuente de la fase siguiente.</directorio>
-    <directorio path="docs/vexarq/status.html">Tablero estático. Se actualiza al cerrar cada solicitud.</directorio>
+    <directorio path="docs/vexarq/preliminary/">Output of the model, waiting for human review.</directorio>
+    <directorio path="docs/vexarq/current/">The document the user edited, or that continuo mode promoted after it checked itself. It is the only source for the next phase.</directorio>
+    <directorio path="docs/vexarq/status.html">Static board. Update it at the end of each request.</directorio>
   </directorios>
 
   <escritura>
-    <regla>Crear el preliminar nuevo sin borrar el vigente.</regla>
-    <regla>No editar un vigente para "mejorarlo" durante la generación. Las correcciones de la IA van al preliminar.</regla>
-    <regla>En modo validar, el usuario copia o edita el preliminar y deja el resultado en current/. La IA puede crear el archivo current/ vacío de trabajo solo si el usuario pide que lo deje listo para editar, y debe partir del preliminar sin añadir decisiones nuevas.</regla>
-    <regla>En modo continuo, promover significa copiar el preliminar validado a current/ y registrar en el reporte qué supuestos viajaron.</regla>
-    <regla>Si current/ ya existe, no sobrescribirlo. Escribir una nueva versión del preliminar y pedir confirmación antes de reemplazar el vigente.</regla>
+    <regla>Create the new preliminary without deleting the current document.</regla>
+    <regla>Do not edit a current document to "improve" it during generation. Model corrections go to the preliminary.</regla>
+    <regla>In validar mode, the user copies or edits the preliminary and leaves the result in current/. The model may create an empty working current/ only when the user asks for a file ready to edit, and it must start from the preliminary without adding new decisions.</regla>
+    <regla>In continuo mode, promotion means copying the checked preliminary to current/ and recording which assumptions traveled with it.</regla>
+    <regla>If current/ already exists, do not overwrite it. Write a new preliminary version and ask before replacing the current document.</regla>
   </escritura>
 
   <provenance>
-    <etiqueta>CONFIRMADO: lo dijo el usuario o está en un vigente aprobado.</etiqueta>
-    <etiqueta>REPOSITORIO: descubierto en código o documentación existente.</etiqueta>
-    <etiqueta>INFERENCIA: conclusión de la IA, distinguible del hecho.</etiqueta>
-    <etiqueta>SUPUESTO_ESTANDAR: relleno del modo continuo a partir de un ejemplo de la biblioteca.</etiqueta>
-    <etiqueta>PENDIENTE: falta una decisión y la fase no puede fingir que existe.</etiqueta>
-    <etiqueta>CONTRADICCION: dos fuentes vigentes no coinciden.</etiqueta>
+    <etiqueta>CONFIRMED: the user said it, or it is in an approved current document.</etiqueta>
+    <etiqueta>REPOSITORY: found in existing code or documentation.</etiqueta>
+    <etiqueta>INFERENCE: a conclusion of the model, distinct from a fact.</etiqueta>
+    <etiqueta>STANDARD_ASSUMPTION: a gap filled in continuo mode from a library example.</etiqueta>
+    <etiqueta>PENDING: a decision is missing and the phase must not pretend it exists.</etiqueta>
+    <etiqueta>CONTRADICTION: two current sources do not agree.</etiqueta>
   </provenance>
 
   <actualizacion_del_tablero>
-    <regla>Al terminar la solicitud, copiar .ai-vexarq/tracker/project-status.template.html a docs/vexarq/status.html si aún no existe.</regla>
-    <regla>Actualizar solo los campos data-vexarq. No añadir paneles, historial largo ni texto de prompts.</regla>
-    <regla>Enlazar cada fase a su documento vigente. Si solo existe preliminar, el enlace dice Preliminar y apunta a ese archivo. Si no existe ninguno, el estado es pendiente y no hay enlace roto.</regla>
+    <regla>When the request ends, copy .ai-vexarq/tracker/project-status.template.html to docs/vexarq/status.html if it does not exist yet.</regla>
+    <regla>Update only data-vexarq fields. Do not add panels, a long history, or prompt text.</regla>
+    <regla>Link each phase to its current document. If only a preliminary exists, the link text is Preliminary and it points at that file. If neither exists, the state is pending and there is no broken link.</regla>
+    <regla>Allowed state tokens: pending, in progress, preliminary, current, blocked, not applicable.</regla>
   </actualizacion_del_tablero>
 </prompt>

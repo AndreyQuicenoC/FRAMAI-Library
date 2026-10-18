@@ -1,72 +1,54 @@
-# Documento de arquitectura de software
+# Software architecture document
 
-## Control de cambios
+## 1. Purpose and scope
 
-| Versión | Fecha | Descripción |
-|---|---|---|
-| 0.1.0 |  | Borrador preliminar |
+Which requirements this architecture serves and which it leaves for later.
 
-- Estado: preliminar | vigente
-- Insumos vigentes: SRS y diseño de datos
-- Perfil:
+## 2. Context
 
-## 1. Introducción
+Users, the system, and external systems. A C4 context diagram in Mermaid.
 
-### 1.1 Propósito
+## 3. Containers
 
-Qué decisiones fija este documento y qué implementación debe obedecerlo.
+Applications, data stores, and interfaces. The technology of each one and the reason it was chosen. A Mermaid diagram.
 
-### 1.2 Alcance
+## 4. Components
 
-Qué se construye y qué queda fuera.
+Only when there is more than one module with its own responsibility. Otherwise, write that the container level is enough.
 
-### 1.3 Contexto y stack
+## 5. Decisions
 
-Stack confirmado por el repositorio o por el usuario. Las alternativas no elegidas van a decisiones pendientes.
+One subsection per decision that is hard to reverse:
 
-| Pieza | Elección | Estado | Motivo |
-|---|---|---|---|
+- Context.
+- Options.
+- Decision.
+- Consequences.
 
-## 2. Vista de contexto
+## 6. Data
 
-Diagrama C4 de contexto en Mermaid: usuarios, sistema y externos reales.
+How the current model is used. Allowed divergences are proposals, not silent edits.
 
-## 3. Contenedores y patrones
+## 7. Interfaces
 
-Estilo elegido (monolito modular, capas, hexagonal u otro) y por qué cabe en este problema.
-Contenedores: aplicación, datos, interfaz y externos. Sin nodos de relleno.
+API or event contracts that are in scope: operations, errors, and compatibility.
 
-## 4. Decisiones
+## 8. Quality
 
-| Id | Contexto | Decisión | Consecuencia | Descartada |
-|---|---|---|---|---|
+Measurable scenarios for the characteristics the SRS selected.
 
-## 5. Calidad
+## 9. Security
 
-Atributos observables y no observables que el SRS pidió. Conflictos entre atributos, si existen.
+Trust boundaries, authentication, authorization, secrets, and data in transit and at rest, at the level the product needs.
 
-## 6. Seguridad
+## 10. Project structure
 
-Identidad, autorización, secretos, validación y superficie de ataque del alcance real. En perfil crítico, ampliar. En un sitio estático, no simular un IAM.
+Directories and modules the archetype must respect. If the repository already has a structure, this section documents it and marks only the changes.
 
-## 7. Datos
+## 11. Deployment and operation
 
-Cómo la arquitectura usa el diseño de datos vigente. Cambios necesarios quedan como decisión pendiente, no como un esquema nuevo.
+Environments, configuration, and the minimum needed to run the system. Do not invent a production cluster.
 
-## 8. Procesos centrales
+## 12. Risks
 
-Para cada proceso que el SRS marca como principal:
-
-- Objetivo.
-- Componentes.
-- Secuencia.
-- Validaciones de negocio.
-- Fallo esperado.
-
-## 9. Despliegue y operación
-
-Entornos, configuración, migración, observación y recuperación, al tamaño del perfil. Comandos concretos solo si el repositorio ya los tiene o el arquetipo posterior los creará.
-
-## 10. Riesgos y huecos
-
-Qué no está decidido y qué no debe implementar el arquetipo hasta que exista un vigente nuevo.
+Risk, impact, and the decision still open.

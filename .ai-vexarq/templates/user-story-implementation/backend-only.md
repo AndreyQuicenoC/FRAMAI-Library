@@ -2,17 +2,17 @@
 @.ai-vexarq/workflows/user-story-implementation/orchestrator.xml
 @.ai-vexarq/workflows/user-story-implementation/backend.xml
 
-Implementa la siguiente Historia de Usuario (alcance backend).
+Implement the following User Story (backend scope).
 
-## HU-XXX: [Título]
+## HU-XXX: [Title]
 
-[Descripción completa]
+[Full description]
 
-### Criterios de aceptación
+### Acceptance criteria
 1. ...
 
 ---
 
-**Proyecto:** .  
-**Alcance:** backend-only  
-**Output:** Actualización en docs/user-stories.md, docs/code-structure.md, docs/implementation-report.md con análisis + backend implementado
+**Project:** .  
+**Scope:** backend-only  
+**Output:** Update in docs/user-stories.md, docs/code-structure.md, docs/implementation-report.md with analysis + backend implemented

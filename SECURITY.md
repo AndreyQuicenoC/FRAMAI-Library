@@ -10,7 +10,7 @@
 
 ## Reporting a vulnerability
 
-If you discover a security issue in VEXARG prompts, templates, or documentation:
+If you discover a security issue in VEXARQ prompts, templates, or documentation:
 
 1. Do **not** open a public issue for sensitive findings.
 2. Contact the maintainer via GitHub: [AndreyQuicenoC](https://github.com/AndreyQuicenoC).

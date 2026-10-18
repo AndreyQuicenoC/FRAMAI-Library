@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Modos de ejecución y perfiles de rigor</name>
+    <name>CORE — Execution modes and rigor profiles</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
   </metadata>
 
   <modos>
     <modo name="validar" default="true">
-      <cuando>El usuario no elige modo, o pide revisar cada fase.</cuando>
+      <cuando>The user does not choose a mode, or asks to review each phase.</cuando>
       <comportamiento>
-        <regla>Generar el artefacto en docs/vexarq/preliminary/.</regla>
-        <regla>No copiarlo a current/.</regla>
-        <regla>Detener el ciclo y pedir al usuario que edite o apruebe el preliminar.</regla>
-        <regla>La fase siguiente no empieza hasta que exista el vigente correspondiente.</regla>
-        <regla>Informar qué archivo debe revisar y qué decisión bloquea el avance.</regla>
+        <regla>Write the artifact under docs/vexarq/preliminary/.</regla>
+        <regla>Do not copy it to current/.</regla>
+        <regla>Stop the cycle and ask the user to edit or approve the preliminary.</regla>
+        <regla>The next phase does not start until the corresponding current document exists.</regla>
+        <regla>Say which file to review and which decision blocks progress.</regla>
       </comportamiento>
     </modo>
     <modo name="continuo">
-      <cuando>El usuario pide desarrollar el proyecto de inicio a fin, obviar las validaciones intermedias o rellenar con ejemplos estándar.</cuando>
+      <cuando>The user asks to build the project from start to finish, to skip intermediate reviews, or to fill gaps from the standard examples.</cuando>
       <comportamiento>
-        <regla>Completar huecos con los ejemplos y estándares de la biblioteca.</regla>
-        <regla>Etiquetar cada hueco como SUPUESTO_ESTANDAR. No presentarlo como dato confirmado por el usuario.</regla>
-        <regla>Autovalidar el preliminar contra su formato. Si no hay bloqueo, promover la copia a current/ y continuar.</regla>
-        <regla>Un bloqueo real detiene el ciclo: objetivo de producto ilegible, contradicción que cambia el alcance, o riesgo crítico sin decisión.</regla>
-        <regla>Este modo autoriza documentación, código, pruebas y commits en la rama de trabajo cuando el usuario pidió construir el proyecto. No autoriza push.</regla>
+        <regla>Fill gaps from the library's formats and examples.</regla>
+        <regla>Label every gap STANDARD_ASSUMPTION. Do not present it as confirmed by the user.</regla>
+        <regla>Check the preliminary against its format. If there is no blocker, promote the copy to current/ and continue.</regla>
+        <regla>A real blocker stops the cycle: an unreadable product goal, a contradiction that changes scope, or a critical risk with no decision.</regla>
+        <regla>This mode authorizes documentation, code, tests, and commits on the working branch when the user asked to build the project. It does not authorize a push.</regla>
       </comportamiento>
     </modo>
   </modos>
 
   <perfiles>
-    <nota>Perfiles de VEXARG, no una escala industrial universal. El consumo indicado es una previsión.</nota>
-    <perfil name="ligero">Cambio localizado, documento corto o corrección. Validación del comportamiento afectado.</perfil>
-    <perfil name="estandar">Módulo, CRUD, API, formulario o persistencia. Pruebas del alcance y contrato de errores.</perfil>
-    <perfil name="avanzado">Varios módulos, permisos, migración o integraciones. Trazabilidad y revisión de contratos.</perfil>
-    <perfil name="critico">Datos sensibles, dinero, operaciones irreversibles o alta disponibilidad. Más rigor y más puertas, no solo más texto.</perfil>
+    <nota>VEXARQ profiles, not a universal industry scale. The stated consumption is a forecast.</nota>
+    <perfil name="ligero">A localized change, a short document, or a correction. Validate the affected behavior.</perfil>
+    <perfil name="estandar">A module, CRUD, API, form, or persistence. Tests for the scope and an error contract.</perfil>
+    <perfil name="avanzado">Several modules, permissions, a migration, or integrations. Traceability and contract review.</perfil>
+    <perfil name="critico">Sensitive data, money, irreversible operations, or high availability. More rigor and more gates, not only more text.</perfil>
   </perfiles>
 
   <clasificacion>
-    <dimension>Alcance: módulos, archivos y artefactos tocados.</dimension>
-    <dimension>Incertidumbre: ambigüedades y decisiones pendientes.</dimension>
-    <dimension>Riesgo: datos, seguridad, usuarios y negocio.</dimension>
-    <dimension>Integración: sistemas y contratos externos.</dimension>
-    <dimension>Validación: qué evidencia demuestra el cierre.</dimension>
-    <regla>Si el usuario fija el perfil, se respeta, y se advierte cuando es insuficiente para el riesgo detectado.</regla>
-    <regla>Si el presupuesto no alcanza, informar qué queda sin hacer. No declarar la fase terminada.</regla>
+    <dimension>Scope: modules, files, and artifacts touched.</dimension>
+    <dimension>Uncertainty: ambiguities and open decisions.</dimension>
+    <dimension>Risk: data, security, users, and the business.</dimension>
+    <dimension>Integration: external systems and contracts.</dimension>
+    <dimension>Validation: the evidence that shows the work is done.</dimension>
+    <regla>If the user sets the profile, respect it, and warn when it is too weak for the detected risk.</regla>
+    <regla>If the budget is not enough, say what will remain undone. Do not declare the phase finished.</regla>
   </clasificacion>
 
   <presupuesto>
-    <etapa>Comprensión del contexto vigente.</etapa>
-    <etapa>Análisis y planificación.</etapa>
-    <etapa>Generación del preliminar.</etapa>
-    <etapa>Implementación o corrección, si la fase lo pide.</etapa>
-    <etapa>Validación y reporte.</etapa>
+    <etapa>Reading the current context.</etapa>
+    <etapa>Analysis and planning.</etapa>
+    <etapa>Writing the preliminary.</etapa>
+    <etapa>Implementation or correction, when the phase requires it.</etapa>
+    <etapa>Validation and report.</etapa>
   </presupuesto>
 </prompt>

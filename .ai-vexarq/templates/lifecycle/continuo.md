@@ -1,14 +1,15 @@
-# Ciclo continuo de VEXARG
+# Continuous VEXARQ cycle
 
-Carga y obedece `.ai-vexarq/workflows/lifecycle/orchestrator.xml` y `.ai-vexarq/core/policies.xml`.
+Load and follow `.ai-vexarq/workflows/lifecycle/orchestrator.xml` and `.ai-vexarq/core/policies.xml`.
 
-Modo: continuo.
-Autorizo a promover cada fase autovalidada a `docs/vexarq/current/` y a continuar hasta implementar el alcance, con documentación, frontend, backend y pruebas que el producto vigente exija.
+Mode: continuo.
+Language: the language of this request, unless I name another language.
+I authorize promoting each self-checked phase to `docs/vexarq/current/` and continuing until the scope is implemented, with the documentation, frontend, backend, and tests the current product requires.
 
-Los huecos se rellenan como SUPUESTO_ESTANDAR, nunca como si yo los hubiera confirmado. Un bloqueo real detiene el ciclo.
+Fill gaps as STANDARD_ASSUMPTION. Never present them as if I had confirmed them. A real blocker stops the cycle.
 
-No hagas push. No reemplaces un vigente que yo ya haya editado. No modifiques `sources/canon/`.
+Do not push. Do not replace a current document I have already edited. Do not modify `sources/canon/`.
 
-Pedido:
+Request:
 
-[Describe el producto.]
+[Describe the product.]

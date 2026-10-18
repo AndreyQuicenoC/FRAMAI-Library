@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>Guía: Implementación de Historias de Usuario</name>
+    <name>Guide: User Story Implementation</name>
     <version>2.2.0</version>
-    <tipo>Guía de uso</tipo>
-    <referencia>README.md y docs/guides/ del repositorio FRAMAI; estándares en .ai-vexarq/core/engineering-standards.xml</referencia>
+    <tipo>Usage guide</tipo>
+    <referencia>README.md and docs/guides/ of the FRAMAI repository; standards in .ai-vexarq/core/engineering-standards.xml</referencia>
   </metadata>
 
   <flujo_general>
-    <paso>Preparar HU con criterios de aceptación claros</paso>
-    <paso>Abrir Cursor en Agent mode</paso>
-    <paso>Usar template según alcance (full-stack, backend-only, etc.)</paso>
-    <paso>Dejar que Orquestador clasifique y rute</paso>
-    <paso>Revisar documentación generada en docs/ (user-stories, code-structure, implementation-report, integration-report)</paso>
-    <paso>Verificar tests y código</paso>
+    <paso>Prepare the user story with clear acceptance criteria</paso>
+    <paso>Open Cursor in Agent mode</paso>
+    <paso>Use the template according to scope (full-stack, backend-only, etc.)</paso>
+    <paso>Let the Orchestrator classify and route</paso>
+    <paso>Review the documentation generated in docs/ (user-stories, code-structure, implementation-report, integration-report)</paso>
+    <paso>Verify tests and code</paso>
   </flujo_general>
 
   <requisitos_previos>
-    <requisito>Proyecto con código base (frontend y/o backend)</requisito>
-    <requisito>HU con criterios de aceptación explícitos y verificables</requisito>
-    <requisito>Cursor IDE en Agent mode</requisito>
+    <requisito>Project with a code base (frontend and/or backend)</requisito>
+    <requisito>User story with explicit and verifiable acceptance criteria</requisito>
+    <requisito>Cursor IDE in Agent mode</requisito>
   </requisitos_previos>
 
   <templates_disponibles>
-    <template name="full-stack.md">Backend + Frontend + Integrador (FULL_STACK)</template>
-    <template name="backend-only.md">Solo backend (BACKEND_ONLY)</template>
-    <template name="frontend-only.md">Solo frontend (FRONTEND_ONLY)</template>
-    <template name="integration-fix.md">Corrección de integración</template>
-    <template name="epic-full-stack.md">Lote de HU (épica) full-stack con Git, entorno, contenedores e integración real</template>
+    <template name="full-stack.md">Backend + Frontend + Integrator (FULL_STACK)</template>
+    <template name="backend-only.md">Backend only (BACKEND_ONLY)</template>
+    <template name="frontend-only.md">Frontend only (FRONTEND_ONLY)</template>
+    <template name="integration-fix.md">Integration correction</template>
+    <template name="epic-full-stack.md">User-story batch (epic) full-stack with Git, environment, containers, and real integration</template>
   </templates_disponibles>
 
   <documentos_generados>
-    <documento>docs/user-stories.md — HUs exactas recibidas</documento>
-    <documento>docs/code-structure.md — Estructuras código</documento>
-    <documento>docs/implementation-report.md — Resultados implementación</documento>
-    <documento>docs/integration-report.md — Validación E2E</documento>
+    <documento>docs/user-stories.md — Exact user stories received</documento>
+    <documento>docs/code-structure.md — Code structures</documento>
+    <documento>docs/implementation-report.md — Implementation results</documento>
+    <documento>docs/integration-report.md — E2E validation</documento>
   </documentos_generados>
 
   <troubleshooting>
-    <problema name="BLOCKED">Verificar que existe proyecto base identificable</problema>
-    <problema name="Clasificación incorrecta">Revisar complexity_rationale del Orquestador; corregir manualmente si es necesario</problema>
-    <problema name="Backend/Frontend desalineados">Ejecutar Integrador; revisar contrato</problema>
-    <problema name="Tests fallando">V2 debe corregir; no declarar COMPLETED</problema>
-    <problema name="El agente se detiene en el análisis">Indicar en el prompt "No te detengas en análisis; produce cambios verificables" (incluido en las plantillas); un arquetipo o mockup identificable no es BLOCKED</problema>
-    <problema name="Herramienta no instalada">No es bloqueo: instalar o usar contenedor (policies.xml, comportamiento_ante_bloqueos)</problema>
-    <problema name="Push rechazado por autenticación">Detenerse e informar; nunca escribir credenciales en el repositorio (git-workflow.xml)</problema>
-    <problema name="Frontend sigue con datos de ejemplo">Verificar project_mode MOCKUP_PRODUCTIONIZATION en el plan y ejecutar su protocolo (project-modes.xml)</problema>
+    <problema name="BLOCKED">Verify that an identifiable base project exists</problema>
+    <problema name="Incorrect classification">Review the Orchestrator's complexity_rationale; correct manually if necessary</problema>
+    <problema name="Backend/Frontend misaligned">Run the Integrator; review the contract</problema>
+    <problema name="Tests failing">V2 must correct them; do not declare COMPLETED</problema>
+    <problema name="The agent stops at analysis">State in the prompt "Do not stop at analysis; produce verifiable changes" (included in the templates); an identifiable archetype or mockup is not BLOCKED</problema>
+    <problema name="Tool not installed">It is not a blocker: install it or use a container (policies.xml, comportamiento_ante_bloqueos)</problema>
+    <problema name="Push rejected by authentication">Stop and report; never write credentials in the repository (git-workflow.xml)</problema>
+    <problema name="Frontend still has example data">Verify project_mode MOCKUP_PRODUCTIONIZATION in the plan and run its protocol (project-modes.xml)</problema>
   </troubleshooting>
 </prompt>

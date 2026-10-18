@@ -1,5 +1,5 @@
-# Ciclo de vida
+# Lifecycle
 
-El orquestador está en `orchestrator.xml`. Cada archivo de esta carpeta es una fase. Los formatos de salida están en `../../formats/`.
+The orchestrator is `orchestrator.xml`. Each file in this folder is one phase. Output formats live in `../../formats/`.
 
-No se recorre el ciclo para una corrección local. Eso sigue en `../user-story-implementation/`.
+A local correction does not walk the cycle. That stays in `../user-story-implementation/`.

@@ -1,36 +1,36 @@
-# Ejemplo: Implementación de HU-023 — Registrar venta
+# Example: Implementation of HU-023 — Register sale
 
-Ejemplo completo de ejecución del workflow de implementación de HU con arquitectura multiagente.
+Complete example of running the user-story implementation workflow with a multi-agent architecture.
 
-## HU Original
+## Original user story
 
 ```markdown
-## HU-023: Registrar venta
+## HU-023: Register sale
 
-**Como** cajero  
-**Quiero** registrar una venta con productos y cantidades  
-**Para** generar ticket y actualizar inventario
+**As a** cashier  
+**I want** to register a sale with products and quantities  
+**So that** I can generate a ticket and update inventory
 
-### Criterios de aceptación
-1. Formulario con selector de productos, campo cantidad y precio unitario
-2. Total calculado automáticamente al agregar/modificar productos
-3. POST /api/sales persiste en base de datos y retorna 201 con ID de venta
-4. Mensaje de éxito en pantalla y redirección a /sales
-5. Errores de validación visibles inline en el formulario
-6. Solo usuarios con rol "cashier" pueden registrar ventas
+### Acceptance criteria
+1. Form with a product selector, a quantity field, and a unit price
+2. Total calculated automatically when products are added/modified
+3. POST /api/sales persists to the database and returns 201 with the sale ID
+4. Success message on screen and redirect to /sales
+5. Validation errors visible inline in the form
+6. Only users with the "cashier" role can register sales
 ```
 
 ---
 
-## Contexto del proyecto (ejemplo)
+## Project context (example)
 
 **Stack:**
 - Backend: Node.js + Express + PostgreSQL + Prisma
 - Frontend: React + Vite + React Router + Axios
-- Auth: JWT con roles
+- Auth: JWT with roles
 - Tests: Jest (backend) + Vitest (frontend)
 
-**Estructura:**
+**Structure:**
 ```
 project/
 ├── backend/
@@ -51,36 +51,36 @@ project/
 
 ---
 
-## Mensaje enviado a Cursor
+## Message sent to Cursor
 
-Ver [input-message.md](input-message.md)
+See [input-message.md](input-message.md)
 
 ---
 
-## Salida del Orquestador
+## Orchestrator output
 
-Ver [orchestrator-output.md](orchestrator-output.md)
+See [orchestrator-output.md](orchestrator-output.md)
 
 **Highlights:**
-- **Clasificación:** `FULL_STACK`
-- **Agentes:** orchestrator → backend → frontend → integrator
-- **Contrato compartido:** Definido completamente (API, datos, estados, errores)
-- **Estructuras críticas:** auth middleware, Sale model existente
-- **Ambigüedades:** Ninguna (HU clara)
+- **Classification:** `FULL_STACK`
+- **Agents:** orchestrator → backend → frontend → integrator
+- **Shared contract:** Fully defined (API, data, states, errors)
+- **Critical structures:** auth middleware, existing Sale model
+- **Ambiguities:** None (clear user story)
 
 ---
 
-## Salida de Backend
+## Backend output
 
-Ver [backend-output.md](backend-output.md)
+See [backend-output.md](backend-output.md)
 
-**Archivos modificados:**
+**Files modified:**
 - `backend/src/api/sales/routes.js` — POST /api/sales endpoint
-- `backend/src/services/SaleService.js` — Lógica de negocio
-- `backend/src/models/Sale.js` — Modelo Prisma (ya existía, sin cambios)
-- `backend/tests/sales.test.js` — Tests unitarios
+- `backend/src/services/SaleService.js` — Business logic
+- `backend/src/models/Sale.js` — Prisma model (already existed, no changes)
+- `backend/tests/sales.test.js` — Unit tests
 
-**Implementación:**
+**Implementation:**
 ```javascript
 // backend/src/api/sales/routes.js
 router.post('/sales', authenticate, authorize(['cashier']), async (req, res) => {
@@ -96,7 +96,7 @@ router.post('/sales', authenticate, authorize(['cashier']), async (req, res) => 
 });
 ```
 
-**Tests ejecutados:**
+**Tests executed:**
 ```
 ✓ POST /api/sales creates sale with valid data (201)
 ✓ POST /api/sales rejects invalid total (400)
@@ -106,22 +106,22 @@ router.post('/sales', authenticate, authorize(['cashier']), async (req, res) => 
 ✓ SaleService calculates total correctly
 ```
 
-**Validación V1:** 3/3 criterios backend (API, validación, authZ)  
-**Validación V2:** ✓ 6 tests passing
+**V1 validation:** 3/3 backend criteria (API, validation, authZ)  
+**V2 validation:** ✓ 6 tests passing
 
 ---
 
-## Salida de Frontend
+## Frontend output
 
-Ver [frontend-output.md](frontend-output.md)
+See [frontend-output.md](frontend-output.md)
 
-**Archivos modificados:**
-- `frontend/src/pages/Sales/NewSale.jsx` — Página de registro
-- `frontend/src/components/SaleForm.jsx` — Formulario
-- `frontend/src/hooks/useSales.js` — Hook API
+**Files modified:**
+- `frontend/src/pages/Sales/NewSale.jsx` — Registration page
+- `frontend/src/components/SaleForm.jsx` — Form
+- `frontend/src/hooks/useSales.js` — API hook
 - `frontend/tests/SaleForm.test.jsx` — Tests
 
-**Implementación:**
+**Implementation:**
 ```jsx
 // frontend/src/components/SaleForm.jsx
 export function SaleForm() {
@@ -156,7 +156,7 @@ export function SaleForm() {
 }
 ```
 
-**Tests ejecutados:**
+**Tests executed:**
 ```
 ✓ renders form with product selector
 ✓ calculates total automatically when items change
@@ -165,102 +165,102 @@ export function SaleForm() {
 ✓ displays validation errors inline
 ```
 
-**Validación V1:** 5/5 criterios frontend  
-**Validación V2:** ✓ 5 tests passing + UX verificada
+**V1 validation:** 5/5 frontend criteria  
+**V2 validation:** ✓ 5 tests passing + UX verified
 
 ---
 
-## Salida del Integrador
+## Integrator output
 
-Ver [integrator-output.md](integrator-output.md)
+See [integrator-output.md](integrator-output.md)
 
-**Flujo E2E validado:**
+**E2E flow validated:**
 
-1. ✓ Usuario autenticado con rol cashier carga `/sales/new`
-2. ✓ Selecciona productos y cantidades
-3. ✓ Total se calcula automáticamente en tiempo real
+1. ✓ An authenticated user with the cashier role loads `/sales/new`
+2. ✓ Selects products and quantities
+3. ✓ The total is calculated automatically in real time
 4. ✓ Click "Create Sale" → loading spinner
-5. ✓ Backend recibe POST, valida, persiste → 201
-6. ✓ Frontend recibe respuesta, muestra toast, redirige a `/sales`
-7. ✓ Venta aparece en listado
+5. ✓ The backend receives the POST, validates, and persists → 201
+6. ✓ The frontend receives the response, shows a toast, and redirects to `/sales`
+7. ✓ The sale appears in the list
 
-**Validación de contrato:**
+**Contract validation:**
 
-| Campo | Backend | Frontend | Estado |
+| Field | Backend | Frontend | Status |
 |---|---|---|---|
 | Endpoint | POST /api/sales | POST /api/sales | ✓ |
 | Auth | Bearer + role cashier | Bearer token | ✓ |
 | Request body | { items, total } | { items, total } | ✓ |
-| Response 201 | { id, message, sale } | esperado | ✓ |
-| Error 400 | { error, fields } | mostrado inline | ✓ |
+| Response 201 | { id, message, sale } | expected | ✓ |
+| Error 400 | { error, fields } | shown inline | ✓ |
 | Error 401 | { error } | redirect login | ✓ |
 
-**Criterios de aceptación:**
+**Acceptance criteria:**
 
-1. ✓ **Formulario con selector** → FULFILLED (componente ProductSelector)
-2. ✓ **Total automático** → FULFILLED (useEffect recalcula)
-3. ✓ **POST persiste y 201** → FULFILLED (test integración)
-4. ✓ **Mensaje y redirect** → FULFILLED (toast + navigate)
-5. ✓ **Errores inline** → FULFILLED (ErrorMessage component)
-6. ✓ **Solo cashiers** → FULFILLED (middleware authZ)
+1. ✓ **Form with selector** → FULFILLED (ProductSelector component)
+2. ✓ **Automatic total** → FULFILLED (useEffect recalculates)
+3. ✓ **POST persists and 201** → FULFILLED (integration test)
+4. ✓ **Message and redirect** → FULFILLED (toast + navigate)
+5. ✓ **Inline errors** → FULFILLED (ErrorMessage component)
+6. ✓ **Cashiers only** → FULFILLED (authZ middleware)
 
 **Acceptance Score:** 6/6 (100%)
 
-**Tests ejecutados:**
+**Tests executed:**
 - Unit: 11 passing (6 backend + 5 frontend)
-- Integration: 1 passing (E2E flujo completo)
+- Integration: 1 passing (full E2E flow)
 
-**Evidencia:**
-- Código: implementado y revisado
+**Evidence:**
+- Code: implemented and reviewed
 - Tests: all green
-- Manual: flujo verificado en desarrollo
+- Manual: flow verified in development
 
-**Estado final:** `COMPLETED`
-
----
-
-## Resultado en docs/
-
-Ver [expected-output-example.md](expected-output-example.md) para los 4 documentos generados.
-
-**Resumen:**
-- HU agregada exacta en `docs/user-stories.md`
-- Estructuras documentadas en `docs/code-structure.md`
-- Implementación registrada en `docs/implementation-report.md`
-- Validación E2E completa en `docs/integration-report.md`
-- Trazabilidad completa: HU → código → tests → evidencia
-- Documentación persistida en 4 archivos incrementales
+**Final status:** `COMPLETED`
 
 ---
 
-## Lecciones
+## Result in docs/
 
-### Lo que funcionó bien
-✓ Clasificación automática (FULL_STACK correcto)  
-✓ Contrato compartido evitó desalineación  
-✓ V1/V2 detectó problemas tempranos  
-✓ Tests ejecutados (no solo documentados)  
-✓ Cambio mínimo (no refactor general)
+See [expected-output-example.md](expected-output-example.md) for the 4 generated documents.
 
-### Mejoras identificadas
-- Agregar test E2E automatizado con Playwright/Cypress
-- Considerar performance si items > 100
-- Documentar casos edge (productos sin stock)
+**Summary:**
+- User story added exactly in `docs/user-stories.md`
+- Structures documented in `docs/code-structure.md`
+- Implementation recorded in `docs/implementation-report.md`
+- Complete E2E validation in `docs/integration-report.md`
+- Complete traceability: user story → code → tests → evidence
+- Documentation persisted in 4 incremental files
 
 ---
 
-## Archivos de ejemplo
+## Lessons
 
-| Archivo | Descripción |
+### What worked well
+✓ Automatic classification (FULL_STACK correct)  
+✓ The shared contract avoided misalignment  
+✓ V1/V2 detected problems early  
+✓ Tests executed (not only documented)  
+✓ Minimal change (no general refactor)
+
+### Improvements identified
+- Add an automated E2E test with Playwright/Cypress
+- Consider performance if items > 100
+- Document edge cases (products out of stock)
+
+---
+
+## Example files
+
+| File | Description |
 |---|---|
-| `input-message.md` | Mensaje completo enviado a Cursor |
-| `orchestrator-output.md` | Análisis y contrato del Orquestador |
-| `backend-output.md` | Implementación y validación Backend |
-| `frontend-output.md` | Implementación y validación Frontend |
-| `integrator-output.md` | Validación E2E y cierre |
-| `expected-output-example.md` | Salida final en docs/ (4 documentos) |
-| `code-samples/` | Código generado (extractos) |
+| `input-message.md` | Complete message sent to Cursor |
+| `orchestrator-output.md` | Orchestrator analysis and contract |
+| `backend-output.md` | Backend implementation and validation |
+| `frontend-output.md` | Frontend implementation and validation |
+| `integrator-output.md` | E2E validation and closure |
+| `expected-output-example.md` | Final output in docs/ (4 documents) |
+| `code-samples/` | Generated code (extracts) |
 
 ---
 
-Este ejemplo demuestra el flujo completo del workflow de implementación de HU con routing dinámico, contrato compartido, validación en dos rondas y trazabilidad verificable.
+This example demonstrates the full flow of the user-story implementation workflow with dynamic routing, a shared contract, two-round validation, and verifiable traceability.

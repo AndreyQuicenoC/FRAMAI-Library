@@ -1,26 +1,28 @@
-# Tablero de estado
+# Phase board
 
-El archivo que ve el usuario es `docs/vexarq/status.html`, copiado desde `.ai-vexarq/tracker/project-status.template.html` la primera vez.
+## File
 
-## Qué se actualiza
+`docs/vexarq/status.html`, created by copying `.ai-vexarq/tracker/project-status.template.html`.
 
-Solo elementos con `data-vexarq`. No se añaden secciones.
+## Fields
 
-| data-vexarq | Contenido |
-|---|---|
-| project-name | Nombre del proyecto |
-| business-model | Modelo identificado, o "Sin identificar" |
-| execution-mode | validar o continuo |
-| profile | ligero, estandar, avanzado o critico |
-| current-phase | Nombre de la fase en curso |
-| next-action | Una frase: qué falta para avanzar |
-| updated-at | Fecha de la solicitud |
-| request-id | Id del reporte |
+Only `data-vexarq` attributes change:
 
-Cada fase tiene `data-phase` y un hijo `[data-vexarq="state"]` con uno de: pendiente, en curso, preliminar, vigente, bloqueado, no aplica.
+- `data-project`: the project name.
+- `data-updated`: the date of the request.
+- `data-phase`: the id of the current phase.
+- `data-state`: `pending`, `in progress`, `preliminary`, `current`, `blocked`, or `not applicable`.
+- `data-href`: a relative link to the document, or empty.
+- `data-note`: one short sentence.
 
-El enlace `[data-vexarq="doc"]` apunta al vigente. Si solo hay preliminar, el texto del enlace es Preliminar y el href apunta a ese archivo. Si no hay documento, el enlace se omite.
+Visible text follows the language selected for the project. The state tokens above stay in English because the template's selectors depend on them.
 
-## Qué no muestra
+## Rows
 
-Prompts, diffs, secretos, historial de chat ni listas largas de tareas.
+Discovery, SRS, database, backlog, extended backlog, SAD, archetype, implementation, delivery, and recommendations.
+
+When the SAD defines a structure, the board may show frontend, backend, data, tests, and documentation as rows of that structure. They are not extra lifecycle phases.
+
+## Content
+
+No prompt text, no history, and no metrics. A link points at the current document. If only a preliminary exists, the link text is `Preliminary`.

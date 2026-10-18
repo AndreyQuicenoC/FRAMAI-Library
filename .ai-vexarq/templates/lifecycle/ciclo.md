@@ -1,14 +1,15 @@
-# Ciclo de VEXARG
+# VEXARQ cycle
 
-Carga y obedece `.ai-vexarq/workflows/lifecycle/orchestrator.xml`, junto con `.ai-vexarq/core/policies.xml`.
+Load and follow `.ai-vexarq/workflows/lifecycle/orchestrator.xml`, together with `.ai-vexarq/core/policies.xml` and `.ai-vexarq/core/language.xml`.
 
-Detecta la fase a partir de `docs/vexarq/current/` y de `docs/vexarq/status.html`. Si no existe el ciclo, empieza por acercamiento.
+Detect the phase from `docs/vexarq/current/` and `docs/vexarq/status.html`. If the cycle does not exist yet, start at discovery (`acercamiento`).
 
-Modo: validar.
-Perfil: clasifícalo tú si yo no lo indico.
+Mode: validar.
+Profile: classify it if I do not set one.
+Language: the language of this request, unless I name another language.
 
-Pedido:
+Request:
 
-[Describe el producto o la fase que quieres continuar.]
+[Describe the product or the phase you want to continue.]
 
-Al cerrar, actualiza el tablero y escribe el reporte de solicitud. No hagas push.
+When you finish, update the board and write the request report. Do not push.

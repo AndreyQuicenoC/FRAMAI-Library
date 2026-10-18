@@ -2,30 +2,31 @@
 <prompt>
   <metadata>
     <id>lifecycle.recommendations</id>
-    <name>Fase — Recomendaciones de cierre</name>
+    <name>Phase — Recommendations</name>
     <version>3.0.0</version>
     <formato>formats/reports/RECOMMENDATIONS.md</formato>
     <salida>docs/vexarq/preliminary/recomendaciones/RECOMENDACIONES.md</salida>
   </metadata>
 
-  <objetivo>Al cerrar las fases pedidas, dejar recomendaciones útiles para el producto real. No es una lista genérica de mejoras.</objetivo>
+  <objetivo>When the requested phases close, leave recommendations that are useful for the real product. This is not a generic improvement list.</objetivo>
 
   <cuando>
-    <regla>Se ejecuta cuando el usuario cierra el ciclo o cuando el modo continuo termina la implementación pedida.</regla>
-    <regla>No se ejecuta a mitad de una corrección puntual.</regla>
+    <regla>It runs when the user closes the cycle or when continuo mode finishes the requested implementation.</regla>
+    <regla>It also runs when the user asks only for recommendations about the current state.</regla>
   </cuando>
 
   <secciones>
-    <seccion>Software: huecos entre el backlog vigente y lo implementado, deuda visible y riesgos de cambio.</seccion>
-    <seccion>Técnica: arquitectura, datos, seguridad, pruebas y operación, cada punto ligado a un archivo o a una decisión del SAD.</seccion>
-    <seccion>Documental: vigentes desactualizados, decisiones que siguieron como supuesto y documentos que faltan.</seccion>
-    <seccion>Negocio: consecuencias del modelo identificado. Oportunidades y riesgos, sin inventar un plan comercial.</seccion>
-    <seccion>Futuras funcionalidades: solo las que el SRS, el backlog o el usuario dejaron fuera a propósito, con el motivo y la dependencia.</seccion>
+    <seccion>Software: product behavior that is missing, excessive, or inconsistent with the current SRS.</seccion>
+    <seccion>Technical: architecture, data, security, tests, and operation, tied to an artifact or a file.</seccion>
+    <seccion>Documentary: current documents that are missing, outdated, or contradictory.</seccion>
+    <seccion>Business: consequences of the identified model. Do not invent a market or a price.</seccion>
+    <seccion>Future capabilities: only those the SRS, the backlog, or the user deliberately left out, with the reason and the dependency.</seccion>
   </secciones>
 
-  <disciplina>
-    <regla>Cada recomendación dice evidencia, impacto y si es obligatoria, condicional u orientativa.</regla>
-    <regla>Separar lo ya decidido de lo sugerido.</regla>
-    <regla>Si una fase no se hizo, decirlo. No recomendar como si el sistema estuviera completo.</regla>
-  </disciplina>
+  <hacer>
+    <paso>Read current artifacts and, when there is code, the code. Each recommendation cites its source.</paso>
+    <paso>Give it priority, cost, and risk in one line. Priority uses MoSCoW only as a label, with the reason.</paso>
+    <paso>Separate what blocks a release from what can wait.</paso>
+    <paso>If a phase was not done, say so. Do not recommend as if the system were complete.</paso>
+  </hacer>
 </prompt>

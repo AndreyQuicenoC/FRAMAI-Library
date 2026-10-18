@@ -2,27 +2,25 @@
 <prompt>
   <metadata>
     <id>lifecycle.archetype</id>
-    <name>Fase — Arquetipo</name>
+    <name>Phase — Archetype</name>
     <version>3.0.0</version>
     <canon>sources/canon/archetype-prompt.xml</canon>
     <insumo>docs/vexarq/current/sad/SAD.md</insumo>
-    <salida>docs/vexarq/preliminary/arquetipo/</salida>
   </metadata>
 
-  <objetivo>Ejecutar el generador canónico de arquetipo sobre el SAD vigente, sin alterar el canon.</objetivo>
+  <objetivo>Run the archetype canon with the current SAD as the attached document. Do not rewrite the canon.</objetivo>
 
-  <ejecucion>
-    <paso>Leer sources/canon/archetype-prompt.xml completo y aplicar sus principios, restricciones, fases, reglas R1 a R7 y checklist.</paso>
-    <paso>El SAD vigente reemplaza la petición inicial de "adjuntar el SAD". No pedir de nuevo el documento si current/sad/SAD.md existe y está completo según el formato. Si le faltan decisiones, stack o atributos de calidad, listar los huecos y detenerse: eso es un bloqueo del propio canon.</paso>
-    <paso>Escribir el informe previo y el blueprint en preliminary/arquetipo/. No generar archivos de código hasta la confirmación del blueprint.</paso>
-    <paso>En modo validar, obedecer la espera del canon. En modo continuo, la elección de ese modo cuenta como confirmación solo cuando el informe no tiene bloqueos. Los supuestos quedan escritos en el blueprint promovido.</paso>
-    <paso>Después de la confirmación, generar el arquetipo en el árbol del proyecto y dejar en current/arquetipo/BLUEPRINT.md la estructura aprobada, para poder comprobar que el código coincide.</paso>
-  </ejecucion>
+  <hacer>
+    <paso>Read sources/canon/archetype-prompt.xml and obey its analysis, its pre-generation report, its stop, and its structure.</paso>
+    <paso>The current SAD replaces the initial request to "attach the SAD". Do not ask for the document again when current/sad/SAD.md exists and is complete against the format. If it is missing decisions, a stack, or quality attributes, list the gaps and stop: that is a blocker of the canon itself.</paso>
+    <paso>Adapt the blueprint to the structure already written in the SAD and to the stack present in the repository. The canon's base structure is the starting point, not a reason to discard the project.</paso>
+    <paso>In validar mode, obey the canon's wait. In continuo mode, choosing that mode counts as confirmation only when the report has no blockers. Assumptions stay written in the promoted blueprint.</paso>
+    <paso>After confirmation, generate the archetype in the project tree and leave the approved structure in current/arquetipo/BLUEPRINT.md, so the code can be checked against it later.</paso>
+  </hacer>
 
   <prohibido>
-    <regla>No modificar el archivo canónico.</regla>
-    <regla>No usar imágenes Docker latest ni secretos reales.</regla>
-    <regla>No generar código que contradiga el SAD vigente.</regla>
-    <regla>No tomar el preliminar del SAD si el vigente existe.</regla>
+    <regla>Do not modify the canon.</regla>
+    <regla>Do not generate the full project before the confirmation the canon requires, except for the explicit condition of continuo mode.</regla>
+    <regla>Do not add dependencies outside the current SAD without marking them as a proposal.</regla>
   </prohibido>
 </prompt>

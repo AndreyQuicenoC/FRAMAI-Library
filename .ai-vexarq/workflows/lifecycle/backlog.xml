@@ -2,7 +2,7 @@
 <prompt>
   <metadata>
     <id>lifecycle.backlog</id>
-    <name>Fase — Backlog</name>
+    <name>Phase — Backlog</name>
     <version>3.0.0</version>
     <canon>sources/canon/backlog-hu-generator.md</canon>
     <formato>formats/backlog/BACKLOG.md</formato>
@@ -10,19 +10,19 @@
     <insumo>docs/vexarq/current/srs/SRS.md</insumo>
   </metadata>
 
-  <objetivo>Generar y validar el product backlog con el generador canónico, sin modificar ese archivo.</objetivo>
+  <objetivo>Generate and validate the product backlog with the canonical generator, without modifying that file.</objetivo>
 
   <ejecucion>
-    <paso>Leer sources/canon/backlog-hu-generator.md de principio a fin y obedecer sus reglas, modos, checklist y ejemplos.</paso>
-    <paso>El insumo es el SRS vigente, envuelto como requirements_document. No usar preliminares ni el ejemplo de otro proyecto.</paso>
-    <paso>Pedir siglas si el canon lo exige y el documento vigente no las trae. En modo continuo, usar las siglas ya escritas en el proyecto vigente o detenerse si no existen.</paso>
-    <paso>Escribir el resultado en el preliminar con la estructura de formats/backlog/BACKLOG.md. Conservar el texto de cada HU.</paso>
-    <paso>El modo 3 de exportación del canon solo se materializa en current/backlog/ cuando el usuario aprueba, o cuando el modo continuo promueve historias que quedaron en estado Lista. Las historias con pendiente viajan marcadas y no se disfrazan de aprobadas.</paso>
+    <paso>Read sources/canon/backlog-hu-generator.md from start to end and obey its rules, modes, checklist, and examples.</paso>
+    <paso>The input is the current SRS, wrapped as requirements_document. Do not use preliminaries or another project's example.</paso>
+    <paso>Ask for the project acronym if the canon requires it and the current document does not contain it. In continuo mode, use the acronym already written in the current project document, or stop if it does not exist.</paso>
+    <paso>Write the result in the preliminary using the structure of formats/backlog/BACKLOG.md. Keep each story's text. Write narrative labels in the language selected by language.xml. Keep required literal messages in the language of the source.</paso>
+    <paso>Canon export mode 3 is materialized in current/backlog/ only when the user approves, or when continuo mode promotes stories whose status is Ready. Stories that are still pending travel marked as such and are not disguised as approved.</paso>
   </ejecucion>
 
   <prohibido>
-    <regla>No reescribir, resumir ni "mejorar" el canon.</regla>
-    <regla>No asignar prioridad ni puntos como si fueran decisión del equipo, salvo el tratamiento que el propio canon permite.</regla>
-    <regla>No partir ni fusionar historias en contra de las reglas del canon.</regla>
+    <regla>Do not rewrite, summarize, or "improve" the canon.</regla>
+    <regla>Do not assign priority or points as if they were the team's decision, except for the treatment the canon itself allows.</regla>
+    <regla>Do not split or merge stories against the canon's rules.</regla>
   </prohibido>
 </prompt>

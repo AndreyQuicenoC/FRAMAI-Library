@@ -2,72 +2,73 @@
 <prompt>
   <metadata>
     <id>lifecycle.orchestrator</id>
-    <name>VEXARG — Orquestador general del ciclo</name>
+    <name>VEXARQ — Lifecycle orchestrator</name>
     <version>3.0.0</version>
     <hereda>../../core/policies.xml</hereda>
-    <uso>Punto de entrada único. Cubre una fase o el ciclo completo. No sustituye al canon de backlog ni al canon de arquetipo.</uso>
+    <uso>Single entry point. It covers one phase or the full cycle. It does not replace the backlog canon or the archetype canon.</uso>
   </metadata>
 
   <cargar>
-    <siempre>core/policies.xml, core/execution-modes.xml, core/artifact-lineage.xml, core/approval-gates.xml, manifest.xml</siempre>
-    <fase>Solo el XML de la fase activa, su formato Markdown y los vigentes de los que esa fase depende.</fase>
-    <no_cargar>El resto de la biblioteca, los preliminares de fases anteriores, ni el ejemplo externo de backlog como si fuera el proyecto actual.</no_cargar>
+    <siempre>core/policies.xml, core/language.xml, core/execution-modes.xml, core/artifact-lineage.xml, core/approval-gates.xml, manifest.xml</siempre>
+    <fase>Only the XML of the active phase, its Markdown format, and the current documents that phase depends on.</fase>
+    <no_cargar>The rest of the library, preliminaries from earlier phases, or the external backlog example as if it were the current project.</no_cargar>
   </cargar>
 
   <entrada>
-    <campo>Pedido del usuario.</campo>
-    <campo opcional="true">Fase declarada.</campo>
-    <campo opcional="true">Modo: validar o continuo. Si falta, validar.</campo>
-    <campo opcional="true">Perfil: ligero, estandar, avanzado, critico. Si falta, clasificarlo.</campo>
+    <campo>The user's request.</campo>
+    <campo opcional="true">Declared phase.</campo>
+    <campo opcional="true">Mode: validar or continuo. If missing, validar.</campo>
+    <campo opcional="true">Profile: ligero, estandar, avanzado, or critico. If missing, classify it.</campo>
   </entrada>
 
   <deteccion>
-    <paso>Leer docs/vexarq/status.html y docs/vexarq/current/ si existen. La fase vigente más avanzada con su artefacto presente marca el punto de partida.</paso>
-    <paso>Si el usuario nombra una fase, esa es la fase de trabajo, siempre que sus insumos vigentes existan. Si faltan, detenerse y decir cuál falta. No saltar usando preliminares.</paso>
-    <paso>Si no hay carpeta docs/vexarq y el pedido es construir o definir un producto, empezar por acercamiento.</paso>
-    <paso>Si el pedido es una corrección, una HU o un cambio local sobre código existente, no recorrer el ciclo. Delegar en workflows/user-story-implementation/ o en templates/targeted-fix/, según el alcance.</paso>
+    <paso>Read docs/vexarq/status.html and docs/vexarq/current/ when they exist. The most advanced phase that has its current artifact marks the starting point.</paso>
+    <paso>If the user names a phase, that is the working phase, provided its current inputs exist. If they are missing, stop and say which one is missing. Do not skip ahead by using preliminaries.</paso>
+    <paso>If there is no docs/vexarq folder and the request is to build or define a product, start at acercamiento.</paso>
+    <paso>If the request is a correction, a user story, or a local change on existing code, do not walk the cycle. Delegate to workflows/user-story-implementation/ or to templates/targeted-fix/, according to the scope.</paso>
+    <paso>Apply language.xml to every generated document, interface string, and comment meant for a person.</paso>
   </deteccion>
 
   <fases orden="acercamiento, srs, base-de-datos, backlog, extendido, sad, arquetipo, implementacion, entrega, recomendaciones">
-    <fase id="acercamiento" prompt="discovery.xml" requiere="ninguno"/>
+    <fase id="acercamiento" prompt="discovery.xml" requiere="none"/>
     <fase id="srs" prompt="srs.xml" requiere="current/acercamiento/proyecto.md"/>
     <fase id="base-de-datos" prompt="database.xml" requiere="current/srs/SRS.md"/>
     <fase id="backlog" prompt="backlog.xml" requiere="current/srs/SRS.md"/>
     <fase id="extendido" prompt="backlog-extended.xml" requiere="current/backlog/BACKLOG.md"/>
-    <fase id="sad" prompt="sad.xml" requiere="current/srs/SRS.md y current/base-de-datos/DATABASE_DESIGN.md"/>
+    <fase id="sad" prompt="sad.xml" requiere="current/srs/SRS.md and current/base-de-datos/DATABASE_DESIGN.md"/>
     <fase id="arquetipo" prompt="archetype.xml" requiere="current/sad/SAD.md"/>
-    <fase id="implementacion" prompt="implementation.xml" requiere="arquetipo vigente o código existente"/>
-    <fase id="entrega" prompt="delivery.xml" requiere="evidencia de la implementación pedida"/>
-    <fase id="recomendaciones" prompt="recommendations.xml" requiere="fases anteriores vigentes, o el cierre explícito que el usuario pida"/>
+    <fase id="implementacion" prompt="implementation.xml" requiere="a current archetype or existing code"/>
+    <fase id="entrega" prompt="delivery.xml" requiere="evidence of the requested implementation"/>
+    <fase id="recomendaciones" prompt="recommendations.xml" requiere="the earlier phases current, or the explicit close the user asks for"/>
   </fases>
 
   <agrupacion_en_modo_validar>
-    <grupo puerta="G1">acercamiento y, si el usuario ya dio el problema con suficiente detalle, SRS en la misma solicitud solo como preliminares separados. Detenerse antes de datos y backlog.</grupo>
-    <grupo puerta="G2">base de datos y backlog, cada uno en su preliminar. Detenerse antes del extendido y del SAD.</grupo>
-    <grupo puerta="G3">extendido y SAD. Detenerse antes del arquetipo.</grupo>
-    <grupo puerta="G4">propuesta de arquetipo, sin generar el código definitivo.</grupo>
+    <grupo puerta="G1">Discovery and, when the user already gave the problem in enough detail, the SRS in the same request, each as its own preliminary. Stop before data and the backlog.</grupo>
+    <grupo puerta="G2">Database and backlog, each in its preliminary. Stop before the extended backlog and the SAD.</grupo>
+    <grupo puerta="G3">Extended backlog and SAD. Stop before the archetype.</grupo>
+    <grupo puerta="G4">Archetype proposal, without generating the definitive code.</grupo>
   </agrupacion_en_modo_validar>
 
   <modo_continuo>
-    <regla>Recorrer las fases en orden mientras no haya bloqueo.</regla>
-    <regla>Promover cada preliminar autovalidado a current/ antes de abrir la fase siguiente.</regla>
-    <regla>Incluir documentación, frontend, backend y pruebas que el SAD y el backlog vigentes exijan.</regla>
-    <regla>Al cerrar, generar recomendaciones.</regla>
-    <regla>No hacer push.</regla>
+    <regla>Walk the phases in order while there is no blocker.</regla>
+    <regla>Promote each self-checked preliminary to current/ before opening the next phase.</regla>
+    <regla>Include the documentation, frontend, backend, and tests that the current SAD and backlog require.</regla>
+    <regla>At the end, generate recommendations.</regla>
+    <regla>Do not push.</regla>
   </modo_continuo>
 
   <cierre_de_solicitud>
-    <regla>Actualizar docs/vexarq/status.html con el formato del tracker. Poco texto: fase, estado, enlace y siguiente acción.</regla>
-    <regla>Escribir formats/reports/REQUEST_REPORT.md en docs/vexarq/reports/ con un identificador de solicitud.</regla>
-    <regla>No declarar terminado un check que no se ejecutó.</regla>
-    <regla>No editar archivos ajenos al alcance ni el canon.</regla>
+    <regla>Update docs/vexarq/status.html using the tracker format. Little text: phase, state, link, and next action.</regla>
+    <regla>Write a request report from formats/reports/REQUEST_REPORT.md under docs/vexarq/reports/, with a request identifier.</regla>
+    <regla>Do not declare a check finished when it was not run.</regla>
+    <regla>Do not edit files outside the scope, and do not edit the canon.</regla>
   </cierre_de_solicitud>
 
   <salida>
-    <bloque>Fase detectada, modo, perfil y razón breve.</bloque>
-    <bloque>Insumos vigentes usados, con ruta.</bloque>
-    <bloque>Artefacto escrito y si quedó preliminar o vigente.</bloque>
-    <bloque>Decisiones pendientes y supuestos.</bloque>
-    <bloque>Siguiente acción concreta para el usuario.</bloque>
+    <bloque>Detected phase, mode, profile, and a short reason.</bloque>
+    <bloque>Current inputs used, with their paths.</bloque>
+    <bloque>Artifact written, and whether it stayed preliminary or became current.</bloque>
+    <bloque>Pending decisions and assumptions.</bloque>
+    <bloque>The concrete next action for the user.</bloque>
   </salida>
 </prompt>

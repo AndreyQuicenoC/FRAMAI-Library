@@ -1,8 +1,8 @@
-# Reportes
+# Reports
 
-Este directorio contiene reportes, análisis y documentos adicionales organizados por número y categoría.
+This directory contains reports, analyses, and additional documents organized by number and category.
 
-## Estructura
+## Structure
 
 ```
 reports/
@@ -13,41 +13,41 @@ reports/
 └── ...
 ```
 
-## Convenciones
+## Conventions
 
-### Numeración
-- Usar prefijo de 3 dígitos: `001-`, `002-`, `003-`, etc.
-- Numeración secuencial por orden cronológico
+### Numbering
+- Use a 3-digit prefix: `001-`, `002-`, `003-`, and so on.
+- Sequential numbering in chronological order
 
-### Nombres
-- Formato: `NNN-nombre-descriptivo/`
-- Usar kebab-case (minúsculas con guiones)
-- Nombres claros y concisos
+### Names
+- Format: `NNN-nombre-descriptivo/`
+- Use kebab-case (lowercase with hyphens)
+- Clear and concise names
 
-### Contenido
-Cada carpeta numerada puede contener:
-- `README.md` o `informe.md` — Documento principal
-- Archivos adicionales (imágenes, datos, etc.)
-- Subcarpetas si es necesario
+### Contents
+Each numbered folder may contain:
+- `README.md` or `informe.md` — Main document
+- Additional files (images, data, and so on)
+- Subfolders if necessary
 
-## Ejemplos
+## Examples
 
-### Análisis
+### Analysis
 - `001-analisis-arquitectura/`
 - `002-estudio-rendimiento/`
 
-### Métricas
+### Metrics
 - `003-metricas-sprint-1/`
 - `007-cobertura-tests/`
 
-### Incidentes/Postmortems
+### Incidents/Postmortems
 - `004-postmortem-fallo-db/`
 - `008-analisis-bug-critico/`
 
-### Decisiones técnicas
+### Technical decisions
 - `005-decision-migracion-db/`
 - `009-seleccion-framework/`
 
 ---
 
-**Regla:** NO usar nombres genéricos. Cada reporte debe tener número único y nombre descriptivo.
+**Rule:** DO NOT use generic names. Each report must have a unique number and a descriptive name.

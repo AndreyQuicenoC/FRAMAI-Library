@@ -1,121 +1,121 @@
 ---
-description: Ecosistema de prompts para desarrollo con IA - Framework multiagente adaptativo y optimizado
+description: Prompt ecosystem for AI-assisted development - Adaptive and optimized multi-agent framework
 globs:
 alwaysApply: false
 ---
 
-# Implementación de historias
+# User-story implementation
 
-Esta regla cubre historias y épicas. El ciclo de producto de VEXARG está en `.cursor/rules/vexarq.mdc`.
+This rule covers user stories and epics. The VEXARQ product cycle is in `.cursor/rules/vexarq.mdc`.
 
-## Para Historias de Usuario (HU) y épicas
+## For User Stories (HU) and epics
 
-Cuando el usuario pida implementar, analizar o validar una HU (o un lote de HU):
+When the user asks to implement, analyze, or validate a user story (or a batch of user stories):
 
-### 1. Estrategia adaptativa (calidad/consumo optimizado)
+### 1. Adaptive strategy (optimized quality/consumption)
 
-El sistema usa **ejecución adaptativa** según complejidad de HU:
+The system uses **adaptive execution** according to user-story complexity:
 
-- **TRIVIAL** (cambio cosmético): 1 especialista, sin validación exhaustiva, ~5-10K tokens
-- **SIMPLE** (2-4 archivos, lógica simple): V1 ligera + V2, ~15-30K tokens
-- **MODERATE** (5-10 archivos, lógica negocio): Pipeline completa, ~40-70K tokens
-- **COMPLEX** (10+ archivos, múltiples dependencias): Validación exhaustiva, ~80-150K tokens
+- **TRIVIAL** (cosmetic change): 1 specialist, without exhaustive validation, ~5-10K tokens
+- **SIMPLE** (2-4 files, simple logic): Light V1 + V2, ~15-30K tokens
+- **MODERATE** (5-10 files, business logic): Complete pipeline, ~40-70K tokens
+- **COMPLEX** (10+ files, multiple dependencies): Exhaustive validation, ~80-150K tokens
 
-Factores de elevación (autenticación, sesión, roles, datos personales, productización de mockup) suben el nivel y fijan mínimos de validación.
+Elevation factors (authentication, session, roles, personal data, mockup productionization) raise the level and set validation minimums.
 
-Ver: `@.ai-vexarq/core/adaptive-policies.xml` para detalles completos.
+See: `@.ai-vexarq/core/adaptive-policies.xml` for complete details.
 
-### 2. Uso del workflow
+### 2. Workflow usage
 
-1. **Carga políticas core:** `@.ai-vexarq/core/policies.xml`
-2. **Inicia con Orquestador:** `@.ai-vexarq/workflows/user-story-implementation/orchestrator.xml`
-3. **Orquestador clasifica:**
-   - Modo de proyecto (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) — `@.ai-vexarq/core/project-modes.xml`
-   - Complejidad (TRIVIAL/SIMPLE/MODERATE/COMPLEX)
+1. **Load core policies:** `@.ai-vexarq/core/policies.xml`
+2. **Start with the Orchestrator:** `@.ai-vexarq/workflows/user-story-implementation/orchestrator.xml`
+3. **The Orchestrator classifies:**
+   - Project mode (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) — `@.ai-vexarq/core/project-modes.xml`
+   - Complexity (TRIVIAL/SIMPLE/MODERATE/COMPLEX)
    - Routing (FRONTEND_ONLY/BACKEND_ONLY/FULL_STACK/etc.)
-   - Políticas a cargar (solo las necesarias)
-   - En lote: orden por dependencias, contrato de épica y plan de commits
-4. **Ejecuta agentes necesarios:**
-   - TRIVIAL: 1 especialista
-   - SIMPLE: 1-2 especialistas
-   - MODERATE/COMPLEX: Backend + Frontend + Integrador
-5. **Persiste en 4 documentos incrementales:**
-   - `docs/user-stories.md` - HUs exactas
-   - `docs/code-structure.md` - Estructuras código
-   - `docs/implementation-report.md` - Resultados implementación
-   - `docs/integration-report.md` - Validación E2E (MODERATE/COMPLEX y lotes full-stack)
+   - Policies to load (only the necessary ones)
+   - In a batch: order by dependencies, epic contract, and commit plan
+4. **Run the necessary agents:**
+   - TRIVIAL: 1 specialist
+   - SIMPLE: 1-2 specialists
+   - MODERATE/COMPLEX: Backend + Frontend + Integrator
+5. **Persist in 4 incremental documents:**
+   - `docs/user-stories.md` - Exact user stories
+   - `docs/code-structure.md` - Code structures
+   - `docs/implementation-report.md` - Implementation results
+   - `docs/integration-report.md` - E2E validation (MODERATE/COMPLEX and full-stack batches)
 
-### 3. Estándares y Git
+### 3. Standards and Git
 
-- `@.ai-vexarq/core/engineering-standards.xml` - seguridad, secretos, quality gates, pruebas, contenedores, scripts
-- `@.ai-vexarq/core/git-workflow.xml` - develop, rama de épica, un commit por HU, push solo con todo en verde
+- `@.ai-vexarq/core/engineering-standards.xml` - security, secrets, quality gates, tests, containers, scripts
+- `@.ai-vexarq/core/git-workflow.xml` - develop, epic branch, one commit per user story, push only with everything green
 
-### 4. Templates disponibles
+### 4. Available templates
 
-En `.ai-vexarq/templates/user-story-implementation/`:
-- `full-stack.md` - Backend + Frontend + Integrador
-- `epic-full-stack.md` - Lote de HU full-stack con Git, entorno y contenedores
-- `backend-only.md` - Solo backend
-- `frontend-only.md` - Solo frontend
-- `integration-fix.md` - Corrección integración
+In `.ai-vexarq/templates/user-story-implementation/`:
+- `full-stack.md` - Backend + Frontend + Integrator
+- `epic-full-stack.md` - Full-stack user-story batch with Git, environment, and containers
+- `backend-only.md` - Backend only
+- `frontend-only.md` - Frontend only
+- `integration-fix.md` - Integration correction
 
-### 5. Estándares de calidad
+### 5. Quality standards
 
-Cargados selectivamente según complejidad y necesidad:
+Loaded selectively according to complexity and need:
 
-- **ISO/IEC 25010** - Calidad software (MODERATE/COMPLEX)
-- **WCAG 2.1 AA** - Accesibilidad (si UI pública)
-- **OWASP Top 10** - Seguridad (si datos sensibles/auth)
-- **Clean Code/SOLID** - Código (SIMPLE+)
-- **Conventional Commits** - Trazabilidad
+- **ISO/IEC 25010** - Software quality (MODERATE/COMPLEX)
+- **WCAG 2.1 AA** - Accessibility (if public UI)
+- **OWASP Top 10** - Security (if sensitive data/auth)
+- **Clean Code/SOLID** - Code (SIMPLE+)
+- **Conventional Commits** - Traceability
 
-Ver: `.ai-vexarq/standards/quality-attributes.xml`
+See: `.ai-vexarq/standards/quality-attributes.xml`
 
-### 6. Optimización de contexto
+### 6. Context optimization
 
-**NO cargar todo a todos los agentes:**
-- SI: Core policies (compacto)
-- SI: Prompt especializado del agente
-- SI: Handoff del agente previo (no toda la HU)
-- SI: Contrato compartido (si FULL_STACK y SIMPLE+)
-- SI: Archivos relevantes (no todo el proyecto)
-- NO: Toda la HU repetida, todo el historial, todo el código
+**DO NOT load everything for every agent:**
+- YES: Core policies (compact)
+- YES: The agent's specialized prompt
+- YES: Prior agent's handoff (not the entire user story)
+- YES: Shared contract (if FULL_STACK and SIMPLE+)
+- YES: Relevant files (not the entire project)
+- NO: The entire user story repeated, the entire history, the entire code
 
-**Política adaptativa:**
-- TRIVIAL: Contexto mínimo, validación ligera
-- SIMPLE: Contexto estándar, V1+V2
-- MODERATE: Contexto completo, V1+V2+Integrador
-- COMPLEX: Contexto exhaustivo, validación E2E completa
+**Adaptive policy:**
+- TRIVIAL: Minimal context, light validation
+- SIMPLE: Standard context, V1+V2
+- MODERATE: Complete context, V1+V2+Integrator
+- COMPLEX: Exhaustive context, complete E2E validation
 
-### 7. Guías y documentación
+### 7. Guides and documentation
 
-- **Guía completa:** `.ai-vexarq/guides/user-story-implementation.xml`
-- **Arquitectura sistema:** `docs/guides/architecture.md`
-- **Estándares calidad:** `docs/guides/quality-standards.md`
-- **Ejemplos:** `tests/ai-strategy/user-story-example/`
-- **README sistema:** `.ai-vexarq/README.md`
-- **CHANGELOG:** `CHANGELOG.md` (raíz)
+- **Complete guide:** `.ai-vexarq/guides/user-story-implementation.xml`
+- **System architecture:** `docs/guides/architecture.md`
+- **Quality standards:** `docs/guides/quality-standards.md`
+- **Examples:** `tests/ai-strategy/user-story-example/`
+- **System README:** `.ai-vexarq/README.md`
+- **CHANGELOG:** `CHANGELOG.md` (root)
 
-### 8. Otros workflows
+### 8. Other workflows
 
-Ver `.ai-vexarq/workflows/` para workflows disponibles (actualmente: user-story-implementation).
+See `.ai-vexarq/workflows/` for available workflows (currently: user-story-implementation).
 
-Cada workflow hereda `.ai-vexarq/core/policies.xml` y puede tener políticas específicas.
+Each workflow inherits `.ai-vexarq/core/policies.xml` and may have specific policies.
 
 ---
 
-## Balance calidad/consumo
+## Quality/consumption balance
 
-| Complejidad HU | Tokens estimados | Agentes | Validación | Vale la pena |
+| User-story complexity | Estimated tokens | Agents | Validation | Worth it |
 |---|---|---|---|---|
-| TRIVIAL | 5-10K | 1 | Ligera | Solo para cambio rápido |
-| SIMPLE | 15-30K | 1-2 | V1+V2 | Sí, para HUs simples |
-| MODERATE | 40-70K | 3 | V1+V2+E2E | Sí, calidad justifica coste |
-| COMPLEX | 80-150K | 4 | Exhaustiva | Absolutamente, crítica |
+| TRIVIAL | 5-10K | 1 | Light | Only for a quick change |
+| SIMPLE | 15-30K | 1-2 | V1+V2 | Yes, for simple user stories |
+| MODERATE | 40-70K | 3 | V1+V2+E2E | Yes, quality justifies the cost |
+| COMPLEX | 80-150K | 4 | Exhaustive | Absolutely, critical |
 
-**Recomendación:** Dejar que el Orquestador clasifique automáticamente; no forzar pipeline completa para cambios triviales.
+**Recommendation:** Let the Orchestrator classify automatically; do not force the complete pipeline for trivial changes.
 
 ---
 
-**Versión:** 2.2.0
-**Última actualización:** 2026-10-11
+**Version:** 2.2.0
+**Last update:** 2026-10-11

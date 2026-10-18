@@ -1,29 +1,35 @@
-# Recomendaciones
+# Recommendations
 
-## Control
+## State used
 
-- Fecha de cierre:
-- Fases vigentes usadas:
-- Fases que no se ejecutaron:
+Current documents and code that were read. Phases that do not exist are listed as not done.
 
-Cada recomendación usa: evidencia, impacto, nivel (obligatoria, condicional, orientativa) y si es decisión ya tomada o sugerencia.
+## Release blockers
+
+Only what prevents the requested scope from being used.
 
 ## Software
 
-Huecos entre backlog vigente e implementación.
+Behavior to add, remove, or correct, with the source requirement or story.
 
-## Técnica
+## Technical
 
-Arquitectura, datos, seguridad, pruebas y operación.
+Architecture, data, security, tests, and operation. Each item cites a file or a decision.
 
-## Documental
+## Documentary
 
-Vigentes por actualizar y supuestos que siguen abiertos.
+Missing, outdated, or contradictory documents.
 
-## Negocio
+## Business
 
-Consecuencias del modelo identificado. Sin plan comercial inventado.
+Consequences of the identified model. No market and no price invented here.
 
-## Funcionalidades futuras
+## Future capabilities
 
-Solo las dejadas fuera por el SRS, el backlog o el usuario. Motivo y dependencia.
+Capabilities deliberately left out, the reason, and what would have to exist before building them.
+
+## Priority
+
+| Recommendation | MoSCoW | Cost | Risk | Source |
+| --- | --- | --- | --- | --- |
+| | Must, Should, Could, or Won't | low, medium, or high | low, medium, or high | path or identifier |

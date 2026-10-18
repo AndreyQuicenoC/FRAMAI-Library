@@ -1,148 +1,148 @@
 # Workflow: User Story Implementation
 
-Implementación de Historias de Usuario (una o varias) mediante arquitectura multiagente con routing dinámico.
+Implementation of User Stories (one or several) through a multi-agent architecture with dynamic routing.
 
-## Descripción
+## Description
 
-Pipeline especializada que analiza una HU o una épica, determina el modo de proyecto, clasifica su alcance (frontend, backend, full-stack) y ejecuta **solo** los agentes necesarios. Prioriza cambio mínimo, trazabilidad verificable, validación con la pila real y publicación segura.
+Specialized pipeline that analyzes a user story or an epic, determines the project mode, classifies its scope (frontend, backend, full-stack), and runs **only** the necessary agents. It prioritizes minimal change, verifiable traceability, validation with the real stack, and safe publication.
 
-## Arquitectura
+## Architecture
 
 ```
-CORE (políticas globales + estándares + flujo Git + modos de proyecto)
+CORE (global policies + standards + Git flow + project modes)
     ↓
-ORQUESTADOR (análisis + modo + routing + contrato de épica + plan de commits)
+ORCHESTRATOR (analysis + mode + routing + epic contract + commit plan)
     ↓
-    ├── BACKEND (opcional según clasificación)
-    ├── FRONTEND (opcional según clasificación)
-    └── INTEGRADOR (opcional según clasificación; obligatorio en full-stack)
+    ├── BACKEND (optional according to classification)
+    ├── FRONTEND (optional according to classification)
+    └── INTEGRATOR (optional according to classification; mandatory in full-stack)
 ```
 
-## Agentes
+## Agents
 
-| Agente | Archivo | Responsabilidad | Ejecuta siempre |
+| Agent | File | Responsibility | Always runs |
 |---|---|---|---|
-| **Orquestador** | `orchestrator.xml` | Análisis, modo de proyecto, clasificación, contrato compartido, plan de lote | Sí |
-| **Backend** | `backend.xml` | Servidor: API, DB, negocio, seguridad, migraciones, entorno, contenedor | Según plan |
-| **Frontend** | `frontend.xml` | UI/UX, rutas, cliente HTTP, productización de mockup, contenedor | Según plan |
-| **Integrador** | `integrator.xml` | Pila real, E2E, contrato, correcciones cruzadas, puerta de publicación | Según plan |
+| **Orchestrator** | `orchestrator.xml` | Analysis, project mode, classification, shared contract, batch plan | Yes |
+| **Backend** | `backend.xml` | Server: API, DB, business logic, security, migrations, environment, container | Per plan |
+| **Frontend** | `frontend.xml` | UI/UX, routes, HTTP client, mockup productionization, container | Per plan |
+| **Integrator** | `integrator.xml` | Real stack, E2E, contract, cross-layer corrections, publication gate | Per plan |
 
-## Módulos core que acompañan al workflow
+## Core modules that accompany the workflow
 
-| Archivo | Cuándo se carga |
+| File | When it is loaded |
 |---|---|
-| `../../core/policies.xml` | Siempre |
-| `../../core/adaptive-policies.xml` | Clasificación de complejidad, factores de elevación, modo lote |
-| `../../core/engineering-standards.xml` | Secciones según `policies_to_load` (seguridad, calidad, pruebas, entorno) |
-| `../../core/git-workflow.xml` | Si hay ramas, commits o push |
-| `../../core/project-modes.xml` | Gate inicial (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) |
+| `../../core/policies.xml` | Always |
+| `../../core/adaptive-policies.xml` | Complexity classification, elevation factors, batch mode |
+| `../../core/engineering-standards.xml` | Sections according to `policies_to_load` (security, quality, testing, environment) |
+| `../../core/git-workflow.xml` | If there are branches, commits, or push |
+| `../../core/project-modes.xml` | Initial gate (EXTEND_EXISTING, ARCHETYPE_EXTENSION, MOCKUP_PRODUCTIONIZATION) |
 
-## Clasificaciones
+## Classifications
 
-| Tipo HU | Pipeline | Ejemplo |
+| User-story type | Pipeline | Example |
 |---|---|---|
-| `FRONTEND_ONLY` | O, F | Cambio de estilos, componente UI puro |
-| `BACKEND_ONLY` | O, B | Endpoint, exportación, cron job |
-| `FULL_STACK` | O, B, F, I | Formulario + API + persistencia |
-| `INTEGRATION_FIX` | I (+ B/F si necesario) | Contrato roto entre capas |
-| `SPECIALIST_FIX` | O, (B o F) | Bug acotado en una capa |
+| `FRONTEND_ONLY` | O, F | Style change, pure UI component |
+| `BACKEND_ONLY` | O, B | Endpoint, export, cron job |
+| `FULL_STACK` | O, B, F, I | Form + API + persistence |
+| `INTEGRATION_FIX` | I (+ B/F if necessary) | Broken contract between layers |
+| `SPECIALIST_FIX` | O, (B or F) | Bounded bug in one layer |
 
-## Uso
+## Usage
 
-### Mensaje básico (una HU)
+### Basic message (one user story)
 
 ```
 @.ai-vexarq/core/policies.xml
 @.ai-vexarq/workflows/user-story-implementation/orchestrator.xml
 
-Implementa la siguiente Historia de Usuario según el workflow de implementación.
+Implement the following User Story according to the implementation workflow.
 
-## HU-023: Registrar venta
-Como cajero quiero registrar una venta con productos para generar ticket.
+## HU-023: Register sale
+As a cashier I want to register a sale with products in order to generate a ticket.
 
-### Criterios de aceptación
-1. Formulario con productos, cantidades, precios
-2. Cálculo automático de total
-3. POST /api/sales persiste y retorna 201
-4. Mensaje éxito y redirección
-5. Errores visibles en formulario
+### Acceptance criteria
+1. Form with products, quantities, prices
+2. Automatic total calculation
+3. POST /api/sales persists and returns 201
+4. Success message and redirection
+5. Errors visible on the form
 
-## Proyecto
+## Project
 .
 
-## Alcance
+## Scope
 auto
 ```
 
-### Épica (varias HU, varios repositorios)
+### Epic (several user stories, several repositories)
 
-Usar `../../templates/user-story-implementation/epic-full-stack.md`. Añade rutas por capa, directorios intocables, flujo Git, entorno y seguridad.
+Use `../../templates/user-story-implementation/epic-full-stack.md`. It adds per-layer paths, untouchable directories, Git flow, environment, and security.
 
-### Plantillas disponibles
+### Available templates
 
 - **Full-stack:** `../../templates/user-story-implementation/full-stack.md`
-- **Épica full-stack:** `../../templates/user-story-implementation/epic-full-stack.md`
+- **Full-stack epic:** `../../templates/user-story-implementation/epic-full-stack.md`
 - **Backend-only:** `../../templates/user-story-implementation/backend-only.md`
 - **Frontend-only:** `../../templates/user-story-implementation/frontend-only.md`
-- **Fix integración:** `../../templates/user-story-implementation/integration-fix.md`
+- **Integration fix:** `../../templates/user-story-implementation/integration-fix.md`
 
-## Salida
+## Output
 
-Cada agente persiste en **`docs/`** (4 archivos incrementales). En proyectos multi-repositorio, cada repositorio mantiene los suyos:
+Each agent persists to **`docs/`** (4 incremental files). In multi-repository projects, each repository keeps its own:
 
 ```markdown
-# Historia de desarrollo
+# Development story
 
-## HU-023 - Registrar venta
-**Estado:** COMPLETED
-**Clasificación:** FULL_STACK
-**Fecha:** 2026-09-14
+## HU-023 - Register sale
+**Status:** COMPLETED
+**Classification:** FULL_STACK
+**Date:** 2026-09-14
 
-### Análisis (Orquestador)
+### Analysis (Orchestrator)
 [...]
 
 ### Backend
-[Archivos modificados, API, tests, decisiones, matriz de trazabilidad, comandos]
+[Files modified, API, tests, decisions, traceability matrix, commands]
 
 ### Frontend
-[Componentes, rutas, estados, tests]
+[Components, routes, states, tests]
 
-### Validación (Integrador)
-- Criterios cumplidos: 5/5
-- Tests E2E: aprobados
-- Evidencia: [...]
+### Validation (Integrator)
+- Criteria met: 5/5
+- E2E tests: passed
+- Evidence: [...]
 ```
 
-## Documentos generados/actualizados
+## Documents generated/updated
 
-- `docs/user-stories.md` - HUs exactas recibidas
-- `docs/code-structure.md` - Estructuras de código
-- `docs/implementation-report.md` - Resultados por HU
-- `docs/integration-report.md` - Validación E2E por HU
-- `docs/architecture.md` - Arquitectura actualizada si cambió
-- `docs/quality-standards.md` - Validaciones aplicadas
+- `docs/user-stories.md` - Exact user stories received
+- `docs/code-structure.md` - Code structures
+- `docs/implementation-report.md` - Results per user story
+- `docs/integration-report.md` - E2E validation per user story
+- `docs/architecture.md` - Architecture updated if it changed
+- `docs/quality-standards.md` - Validations applied
 
-## Flujo detallado
+## Detailed flow
 
-1. **Orquestador** analiza HU y proyecto, determina `project_mode`, ordena el lote y emite `<execution_plan>`, contrato de épica y `commit_plan`
-2. **Backend** (si aplica) implementa API, lógica, persistencia, seguridad, migraciones; ejecuta todos los gates; commit por HU
-3. **Frontend** (si aplica) productiza el mockup si corresponde, implementa UI, consumo API, UX; ejecuta todos los gates; commit por HU
-4. **Integrador** (si aplica) levanta la pila real, valida E2E, corrige en conjunto y autoriza o deniega la publicación
+1. **Orchestrator** analyzes the user story and the project, determines `project_mode`, orders the batch, and emits `<execution_plan>`, the epic contract, and `commit_plan`
+2. **Backend** (if applicable) implements API, logic, persistence, security, migrations; runs all the gates; commit per user story
+3. **Frontend** (if applicable) productionizes the mockup if that applies, implements UI, API consumption, UX; runs all the gates; commit per user story
+4. **Integrator** (if applicable) brings up the real stack, validates E2E, corrects together, and authorizes or denies publication
 
-Cada etapa ejecuta **validación en 2 rondas** (V1: requisitos, V2: gates y tests).
+Each stage runs **validation in 2 rounds** (V1: requirements, V2: gates and tests).
 
-## Métricas generadas
+## Metrics generated
 
-- Acceptance Score (% criterios cumplidos)
-- Coverage (tests ejecutados vs requeridos)
-- Trazabilidad (HU, código, test, evidencia)
-- Quality gates (comando y resultado por puerta)
-- Defect Rate (errores detectados por etapa)
+- Acceptance Score (% criteria met)
+- Coverage (tests executed vs required)
+- Traceability (user story, code, test, evidence)
+- Quality gates (command and result per gate)
+- Defect Rate (errors detected per stage)
 
-## Ejemplo completo
+## Complete example
 
-Ver `tests/ai-strategy/user-story-example/` para ejecución real documentada.
+See `tests/ai-strategy/user-story-example/` for a documented real execution.
 
-## Guía detallada
+## Detailed guide
 
-Ver `../../guides/user-story-implementation.xml`
+See `../../guides/user-story-implementation.xml`

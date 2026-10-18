@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vexarq-library version="3.0.0">
   <identity>
-    <name>VEXARG</name>
+    <name>VEXARQ</name>
     <predecessor>FRAMAI</predecessor>
     <portable-root>.ai-vexarq</portable-root>
     <entry>.ai-vexarq/workflows/lifecycle/orchestrator.xml</entry>
   </identity>
 
   <formats>
-    <rule>Los prompts de ejecución viven en XML.</rule>
-    <rule>Los contratos de salida viven en Markdown, salvo el backlog extendido, que es CSV.</rule>
-    <rule>El tablero de fase es HTML estático.</rule>
+    <rule>Execution prompts live in XML.</rule>
+    <rule>Output contracts live in Markdown, except the extended backlog, which is CSV.</rule>
+    <rule>The phase board is static HTML.</rule>
   </formats>
 
   <lineage>
     <preliminary>docs/vexarq/preliminary/</preliminary>
     <current>docs/vexarq/current/</current>
     <tracker>docs/vexarq/status.html</tracker>
-    <rule>Una fase posterior lee únicamente docs/vexarq/current/.</rule>
+    <rule>A later phase reads only docs/vexarq/current/.</rule>
   </lineage>
 
   <phases>

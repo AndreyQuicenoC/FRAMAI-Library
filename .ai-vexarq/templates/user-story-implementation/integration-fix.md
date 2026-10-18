@@ -1,28 +1,28 @@
 @.ai-vexarq/core/policies.xml
 @.ai-vexarq/workflows/user-story-implementation/integrator.xml
 
-Valida y corrige la integración de HU-XXX.
+Validate and correct the integration of HU-XXX.
 
-## Contexto
+## Context
 
-**HU:** HU-XXX — [Título]  
-**Problema detectado:** [Descripción del problema de integración]
+**User story:** HU-XXX — [Title]  
+**Problem detected:** [Description of the integration problem]
 
-## Referencias
+## References
 
-Lee análisis previo: `docs/implementation-report.md` sección HU-XXX
+Read the prior analysis: `docs/implementation-report.md` section HU-XXX
 
-## Tarea
+## Task
 
-1. Validar flujo E2E según contrato compartido
-2. Detectar incompatibilidades Backend ↔ Frontend
-3. Corregir mínimamente si es necesario
-4. Ejecutar tests de integración/E2E
-5. Actualizar docs/implementation-report.md e docs/integration-report.md
+1. Validate the E2E flow according to the shared contract
+2. Detect Backend ↔ Frontend incompatibilities
+3. Correct minimally if necessary
+4. Run integration/E2E tests
+5. Update docs/implementation-report.md and docs/integration-report.md
 
-## Output esperado
+## Expected output
 
-- Flujo E2E verificado
-- Criterios de aceptación validados con evidencia
-- Tests ejecutados
-- Estado final: COMPLETED o COMPLETED_WITH_PENDING
+- E2E flow verified
+- Acceptance criteria validated with evidence
+- Tests executed
+- Final status: COMPLETED or COMPLETED_WITH_PENDING

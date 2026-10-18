@@ -1,18 +1,18 @@
-# Fuentes de VEXARG
+# VEXARQ sources
 
 ## Canon
 
-Estos archivos se ejecutan completos. No se reescriben, no se resumen y no se adaptan dentro del archivo.
+These files are executed in full. They are not rewritten, summarized, or adapted inside the file.
 
-| Archivo | Fase |
+| File | Phase |
 |---|---|
-| `canon/backlog-hu-generator.md` | Backlog preliminar: generación y validación de historias de usuario |
-| `canon/archetype-prompt.xml` | Arquetipo: análisis del SAD vigente y generación del esqueleto |
+| `canon/backlog-hu-generator.md` | Preliminary backlog: generate and validate user stories |
+| `canon/archetype-prompt.xml` | Archetype: analyze the current SAD and generate the skeleton |
 
-El workflow de cada fase indica cómo invocarlos y dónde escribir el resultado. Esa envoltura no sustituye al canon.
+Each phase workflow says how to invoke them and where to write the result. That wrapper does not replace the canon.
 
-## Ejemplo externo
+## External example
 
-`examples/backlog-extendido-proyecto-externo.md` es el prompt que produjo el backlog extendido de un proyecto ajeno a esta biblioteca. Sirve para calibrar la generación. No es una plantilla universal: contiene siglas, sprints, roles y conteos de ese proyecto.
+`examples/backlog-extendido-proyecto-externo.md` is the prompt that produced the extended backlog of a project outside this library. It calibrates generation. It is not a universal template: it contains that project's acronym, sprints, roles, and counts.
 
-La generación que debe usarse en cualquier proyecto está en `workflows/lifecycle/backlog-extended.xml`.
+The generator to use on any project is `workflows/lifecycle/backlog-extended.xml`.

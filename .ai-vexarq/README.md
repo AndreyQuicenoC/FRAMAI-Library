@@ -1,29 +1,32 @@
 # .ai-vexarq
 
-Carpeta portable de VEXARG. Cópiala a la raíz de un proyecto y pega una plantilla de `templates/lifecycle/`.
+Portable VEXARQ folder. Copy it to a project root and paste a template from `templates/lifecycle/`.
 
-Guía: [guides/usar-vexarq.md](guides/usar-vexarq.md).
+The instructions in this folder are in English. Generated product text follows `.ai-vexarq/core/language.xml`: the user's language, or the language the user names.
 
-## Entradas
+Guide: [guides/usar-vexarq.md](guides/usar-vexarq.md).
 
-| Archivo | Uso |
+## Entry points
+
+| File | Use |
 |---|---|
-| [workflows/lifecycle/orchestrator.xml](workflows/lifecycle/orchestrator.xml) | Detecta la fase o recorre el ciclo |
-| [templates/lifecycle/ciclo.md](templates/lifecycle/ciclo.md) | Texto para pegar, modo validar |
-| [templates/lifecycle/fase.md](templates/lifecycle/fase.md) | Una sola fase |
-| [templates/lifecycle/continuo.md](templates/lifecycle/continuo.md) | De inicio a fin, con supuestos visibles |
-| [workflows/user-story-implementation/orchestrator.xml](workflows/user-story-implementation/orchestrator.xml) | Implementar una HU cuando ya hay base |
+| [workflows/lifecycle/orchestrator.xml](workflows/lifecycle/orchestrator.xml) | Detects the phase or walks the cycle |
+| [core/language.xml](core/language.xml) | Selects the language of generated text and code comments |
+| [templates/lifecycle/ciclo.md](templates/lifecycle/ciclo.md) | Text to paste, validar mode |
+| [templates/lifecycle/fase.md](templates/lifecycle/fase.md) | A single phase |
+| [templates/lifecycle/continuo.md](templates/lifecycle/continuo.md) | Start to finish, with visible assumptions |
+| [workflows/user-story-implementation/orchestrator.xml](workflows/user-story-implementation/orchestrator.xml) | Implement a user story when a base already exists |
 
-## Regla de linaje
+## Lineage rule
 
-`docs/vexarq/preliminary/` es la salida de la IA. `docs/vexarq/current/` es lo que la siguiente fase puede leer. El tablero es `docs/vexarq/status.html`, creado desde [tracker/project-status.template.html](tracker/project-status.template.html).
+`docs/vexarq/preliminary/` is the model's output. `docs/vexarq/current/` is what the next phase may read. The board is `docs/vexarq/status.html`, created from [tracker/project-status.template.html](tracker/project-status.template.html).
 
 ## Canon
 
-No editar [sources/canon/](sources/canon/). El ejemplo de otro proyecto está en [sources/examples/](sources/examples/) y no se aplica fuera de su producto.
+Do not edit [sources/canon/](sources/canon/). The example from another project is in [sources/examples/](sources/examples/) and does not apply outside that product.
 
-## Implementación de historias
+## Story implementation
 
-El motor adaptativo (orquestador, backend, frontend, integrador, perfiles de complejidad y estándares) se conserva. Su guía operativa sigue en [guides/user-story-implementation.xml](guides/user-story-implementation.xml).
+The adaptive engine (orchestrator, backend, frontend, integrator, complexity profiles, and standards) is kept. Its operating guide remains [guides/user-story-implementation.xml](guides/user-story-implementation.xml).
 
-Versión 3.0.0.
+Version 3.0.0.

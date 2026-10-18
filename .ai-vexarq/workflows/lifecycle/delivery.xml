@@ -2,29 +2,23 @@
 <prompt>
   <metadata>
     <id>lifecycle.delivery</id>
-    <name>Fase — Entrega</name>
+    <name>Phase — Delivery of the request</name>
     <version>3.0.0</version>
     <formato>formats/reports/REQUEST_REPORT.md</formato>
   </metadata>
 
-  <objetivo>Cerrar la solicitud con evidencia, changelog cuando hay versión, y estado honesto del repositorio.</objetivo>
+  <objetivo>Close the request with verifiable evidence. The report is part of the work, not an appendix.</objetivo>
 
-  <condiciones>
-    <condicion>Los criterios de aceptación del alcance están cumplidos, parcialmente cumplidos o explícitamente pendientes.</condicion>
-    <condicion>Los checks aplicables se ejecutaron, o figuran como no ejecutados con la razón.</condicion>
-    <condicion>No hay cambios ajenos al alcance mezclados.</condicion>
-    <condicion>La documentación afectada por el cambio fue actualizada en su vigente, no solo en un preliminar olvidado.</condicion>
-  </condiciones>
+  <hacer>
+    <paso>Write docs/vexarq/reports/&lt;request-id&gt;.md using the format.</paso>
+    <paso>List files created or modified and the reason.</paso>
+    <paso>Separate checks that were executed, checks that were not executed, and assumptions.</paso>
+    <paso>Update docs/vexarq/status.html. The current phase, its state, and the link to the current artifact.</paso>
+    <paso>If the change is versioned, propose the commit from the delivery format. Create it only when the user asked for it.</paso>
+  </hacer>
 
-  <git>
-    <regla>Inspeccionar git status y el diff antes de cualquier commit.</regla>
-    <regla>Un commit, una unidad. Mensaje según formats/delivery/COMMIT_CONVENTIONS.md. Sin cuerpo inventado para llegar a tres viñetas.</regla>
-    <regla>No incluir secretos, .env ni artefactos de build.</regla>
-    <regla>Push únicamente con remoto, rama y autorización claros, y con los gates aplicables en verde. Si la autenticación falla, informar y parar.</regla>
-  </git>
-
-  <changelog>
-    <regla>Actualizar CHANGELOG.md del producto solo cuando el cambio sea relevante para quien lo usa. Seguir formats/delivery/CHANGELOG.md.</regla>
-    <regla>No copiar cada commit al changelog.</regla>
-  </changelog>
+  <push>
+    <regla>Do not push, force-push, or publish without an explicit request that names the remote and the branch.</regla>
+    <regla>Before an authorized push, run the applicable checks. If one fails, there is no push.</regla>
+  </push>
 </prompt>

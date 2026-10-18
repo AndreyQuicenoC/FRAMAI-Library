@@ -1,6 +1,9 @@
-# Diccionario de datos
+# Data dictionary
 
-Complementa `DATABASE_DESIGN.md` cuando el detalle no cabe en la sección 6.
+Complements `DATABASE_DESIGN.md` when the detail does not fit in section 6.
 
-| Elemento | Descripción | Tipo | Nulo | Único | Regla | Origen (RF / RN) |
-|---|---|---|---|---|---|---|
+| Name | Kind | Type | Null | Key | Description | Source |
+| --- | --- | --- | --- | --- | --- | --- |
+| example | column or field | | no | PK | | RF-01 |
+
+The description uses the domain term. Do not repeat the physical name as the definition.

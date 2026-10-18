@@ -1,58 +1,41 @@
-# Diseño de datos
+# Data design
 
-## Control
+## 1. Decision
 
-- Versión:
-- Estado: preliminar | vigente
-- Motor: relacional | documental | mixto | pendiente
-- Insumo: SRS vigente
+Relational, document, mixed, or the engine the repository already uses. Reason, and the rejected alternative when there was a real choice.
 
-## 1. Decisiones de persistencia
+## 2. Scope
 
-Qué se guarda, qué no, y por qué este motor. Si el repositorio ya tiene motor, partir de ahí.
+Requirements and stories this model serves. What it deliberately does not persist.
 
-## 2. Modelo conceptual
+## 3. Conceptual model
 
-Entidades o agregados, atributos esenciales y relaciones, en lenguaje del dominio.
+Entities or aggregates, attributes, and relationships in domain language. A Mermaid diagram.
 
-## 3. Modelo lógico
+## 4. Logical model
 
-Relacional: tablas, claves, cardinalidad, unicidad, restricciones e integridad.
-Documental: colecciones o contenedores, claves, documentos embebidos o referenciados, y validaciones.
+Keys, cardinalities, uniqueness, and constraints. In a document model: collections, references, and embedded documents, with the reason for each embedding.
 
-## 4. Modelo físico
+## 5. Integrity and lifecycle
 
-Índices y su consulta. Particiones o réplicas solo si el perfil o el SRS lo piden.
-Política de borrado lógico o físico, retención y auditoría cuando aplique.
+Creation, update, and deletion. Logical or physical deletion, retention, and audit when they apply. Personal data is marked.
 
-## 5. Diagrama
+## 6. Physical model
 
-```mermaid
-erDiagram
-  ENTIDAD ||--o{ OTRA : relaciona
-```
+Types, nullability, defaults, and indexes with the query they serve. Partitions or replicas only when the profile or the SRS asks for them.
 
-Sustituir el ejemplo por el modelo real. Borrar el ejemplo.
+## 7. Access
 
-## 6. Diccionario
+The operations the product needs and how the model answers them. An index without a query is not added.
 
-| Nombre | Tipo | Obligatorio | Regla | Requisito |
-|---|---|---|---|---|
+## 8. Migrations
 
-Si esta tabla supera el documento, continuar en `DATA_DICTIONARY.md` junto a este archivo.
+Versioned changes from the current schema. If the project is starting, the initial migration. Do not execute it from this document.
 
-## 7. Migraciones
+## 9. Security
 
-Estrategia de versiones, reversibilidad y compatibilidad. No pegar una migración ejecutable como si ya se hubiera aplicado.
+Least privilege, sensitive data, and what must not appear in logs.
 
-## 8. Acceso y protección
+## 10. Open decisions
 
-Privilegios mínimos, datos sensibles y copias de seguridad si el perfil lo exige.
-
-## 9. Contratos
-
-Cómo se relaciona este modelo con los DTO o recursos de la API. Huecos marcados como PENDIENTE.
-
-## 10. Pendientes
-
-Decisiones que el SAD no debe dar por cerradas.
+Decisions the SAD must not treat as closed.

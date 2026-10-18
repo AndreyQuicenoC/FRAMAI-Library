@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+  <metadata>
+    <name>CORE — Output language</name>
+    <version>3.0.0</version>
+    <hereda>policies.xml</hereda>
+    <usage>Load on every request that generates text, code comments meant for people, interface copy, or documents. The library itself stays in English.</usage>
+  </metadata>
+
+  <deteccion>
+    <regla>Detect the language of the user's current request from the words they wrote.</regla>
+    <regla>Generate new documents, interface copy, user-visible messages, domain names in examples, and narrative report text in that language.</regla>
+    <regla>If the user explicitly requests a language, use that language for every generated text, even when the request is written in another language.</regla>
+    <regla>If the request mixes languages and does not name one, use the language of the instruction, not of a pasted source document.</regla>
+  </deteccion>
+
+  <proyecto_existente>
+    <regla>When editing an existing file, keep that file's language unless the user asked for a language or asked to translate it.</regla>
+    <regla>New strings added to an existing interface follow the language already used by that interface, unless the user requested another language.</regla>
+  </proyecto_existente>
+
+  <que_no_se_traduce>
+    <regla>Do not translate file paths, XML tags, phase ids, mode ids (validar, continuo), status tokens, protocol keywords, or identifiers required by a contract.</regla>
+    <regla>Conventional Commit types stay the specification keywords. The summary follows the selected language.</regla>
+    <regla>Literal messages required by an approved story stay exact, in the language of that story.</regla>
+  </que_no_se_traduce>
+
+  <codigo>
+    <regla>Comments, UI strings, validation messages, and documentation created for the product follow the selected language.</regla>
+    <regla>Programming-language keywords, library names, and existing symbols stay as they are.</regla>
+  </codigo>
+</prompt>

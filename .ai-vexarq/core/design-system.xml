@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Contratos visuales y de interacción</name>
+    <name>CORE — Visual and interaction contracts</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
-    <usage>Se carga al definir identidad frontend o al implementar interfaz. No se impone un design system completo a una tarea sin UI.</usage>
+    <usage>Load when defining a frontend identity or implementing an interface. Do not impose a full design system on a task with no UI.</usage>
   </metadata>
 
   <obligatorio_si_hay_interfaz>
-    <regla>Conservar el stack, los componentes y la identidad ya presentes en el repositorio.</regla>
-    <regla>WCAG 2.2 nivel AA es el objetivo por defecto, salvo otro nivel indicado por el usuario.</regla>
-    <regla>Texto y componentes no transmiten el estado solo con color.</regla>
-    <regla>Teclado, foco visible, nombre accesible y mensajes de error asociados al campo.</regla>
-    <regla>Respetar prefers-reduced-motion.</regla>
-    <regla>No usar emojis como iconos de interfaz. Usar la biblioteca del proyecto o, si no existe, una sola familia (Lucide o Material Symbols).</regla>
+    <regla>Keep the stack, components, and identity already present in the repository.</regla>
+    <regla>WCAG 2.2 level AA is the default target, unless the user sets another level.</regla>
+    <regla>Text and components do not communicate state by color alone.</regla>
+    <regla>Keyboard, visible focus, an accessible name, and error messages tied to the field.</regla>
+    <regla>Honor prefers-reduced-motion.</regla>
+    <regla>Do not use emoji as interface icons. Use the project's icon set or, if none exists, one family (Lucide or Material Symbols).</regla>
   </obligatorio_si_hay_interfaz>
 
   <identidad>
-    <regla>Icono identificable en vector cuando el proyecto crea marca. Legible en tamaño pequeño.</regla>
-    <regla>Nombre del proyecto junto a la marca en la cabecera, y búsqueda global solo si el producto la necesita.</regla>
-    <regla>Convención única de tamaño, trazo y estados de icono.</regla>
+    <regla>An identifiable icon in vector form when the project creates a brand. Readable at a small size.</regla>
+    <regla>The project name sits with the brand in the header, and global search only when the product needs it.</regla>
+    <regla>One convention for icon size, stroke, and states.</regla>
   </identidad>
 
   <navegacion>
-    <regla>Navbar, sidebar, footer y acceso móvil se diseñan según el producto. El footer legal no es obligatorio en cada vista autenticada.</regla>
-    <regla>Estado activo visible y agrupación por área. Sin duplicar la misma acción en dos sitios.</regla>
+    <regla>Header, sidebar, footer, and mobile access are designed for the product. A legal footer is not required on every authenticated view.</regla>
+    <regla>The active state is visible and items are grouped by area. Do not duplicate the same action in two places.</regla>
   </navegacion>
 
   <notificaciones>
-    <tipos>exito, informacion, advertencia, error</tipos>
-    <regla>Los mensajes transitorios pueden ocultarse solos. Los errores críticos, las decisiones pendientes y las acciones imprescindibles permanecen hasta que el usuario las resuelva.</regla>
-    <regla>Se pueden descartar a mano. Si hay temporizador, se pausa al interactuar cuando la implementación lo permita.</regla>
-    <regla>Región viva para lectores de pantalla. Sin duplicar el mismo aviso.</regla>
-    <regla>No tapar la acción principal ni el campo que originó el error.</regla>
+    <tipos>success, information, warning, error</tipos>
+    <regla>Transient messages may dismiss themselves. Critical errors, pending decisions, and required actions stay until the user resolves them.</regla>
+    <regla>They can be dismissed by hand. If there is a timer, pause it on interaction when the implementation allows it.</regla>
+    <regla>A live region for screen readers. Do not repeat the same notice.</regla>
+    <regla>Do not cover the primary action or the field that caused the error.</regla>
   </notificaciones>
 
   <estados_cuando_apliquen>
-    <estado>Inicial y vacío.</estado>
-    <estado>Carga, éxito, error y reintento.</estado>
-    <estado>Validación y envío único del formulario.</estado>
-    <estado>Permiso insuficiente y sesión expirada.</estado>
-    <estado>Sin resultados y filtros activos.</estado>
-    <estado>Fallo de red.</estado>
-    <estado>Confirmación proporcional al riesgo de una acción destructiva.</estado>
+    <estado>Initial and empty.</estado>
+    <estado>Loading, success, error, and retry.</estado>
+    <estado>Validation and a single form submission.</estado>
+    <estado>Insufficient permission and an expired session.</estado>
+    <estado>No results, and active filters.</estado>
+    <estado>Network failure.</estado>
+    <estado>Confirmation proportional to the risk of a destructive action.</estado>
   </estados_cuando_apliquen>
 
   <hipotesis>
-    Ley de Hick, Fitts, Jakob, Prägnanz, proximidad, Tesler, Doherty, efecto von Restorff y reconocimiento antes que recuerdo son hipótesis de diseño. Se aplican si mejoran la tarea y se descartan con una razón cuando el contexto lo pide. No son una cuota de elementos ni una obligación de copiar un dashboard de ejemplo.
+    Hick's law, Fitts's law, Jakob's law, Prägnanz, proximity, Tesler's law, Doherty's threshold, the von Restorff effect, and recognition over recall are design hypotheses. Apply one when it helps the task, and set it aside with a reason when the context asks for that. They are not a quota of elements and not an obligation to copy a sample dashboard.
   </hipotesis>
 </prompt>

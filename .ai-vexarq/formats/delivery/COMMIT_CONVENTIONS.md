@@ -1,25 +1,17 @@
-# Commits
+# Commit conventions
 
-Cabecera:
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) when the change is versioned.
 
-```text
-tipo(ambito): resumen en imperativo
-```
+## Subject
 
-Cuerpo, solo con cambios reales:
+`type(scope): summary`
 
-```text
-- cambio concreto
+Allowed types include `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, and `perf`. The scope is the affected area. The summary says why, in the selected language, and stays short.
 
-Refs: HU-000
-```
+## Body
 
-`BREAKING CHANGE:` solo cuando la compatibilidad se rompe.
+Short bullets: what changed and what evidence exists. Do not paste a diff or a secret.
 
-Tipos: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert.
+## What does not go in
 
-El número de viñetas es el número de cambios. Una sola viñeta es válida. No se inventan cambios para completar una lista.
-
-Antes de commitear: diff revisado, sin secretos, sin archivos ajenos al alcance, checks aplicables ejecutados o declarados como no ejecutados.
-
-El push no forma parte del commit. Requiere autorización aparte.
+Credentials, tokens, `.env` files, or dumps of real data.

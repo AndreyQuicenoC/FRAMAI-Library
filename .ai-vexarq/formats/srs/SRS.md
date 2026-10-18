@@ -1,87 +1,68 @@
-# Especificación de requisitos de software
+# Software requirements specification
 
-## 1. Control documental
+## 1. Introduction
 
-- Proyecto:
-- Siglas:
-- Versión:
-- Estado: preliminar | vigente
-- Fuente vigente de partida: `docs/vexarq/current/acercamiento/proyecto.md`
-- Audiencia:
+### 1.1 Purpose
+Who will use this document and what decision it supports.
 
-## 2. Introducción
+### 1.2 Scope
+Product name, what it does, and what it does not do. Reference the current project document.
 
-### 2.1 Propósito
+### 1.3 Definitions
+Terms that change meaning if left unstated. Include the acronym.
 
-### 2.2 Objetivos
+### 1.4 References
+Current documents and standards used. A standard is cited by its identifier and year.
 
-### 2.3 Convenciones
+## 2. Overall description
 
-Los identificadores usan RF-, RNF-, RN- y RES-. Cada afirmación incierta lleva una etiqueta: CONFIRMADO, REPOSITORIO, INFERENCIA, SUPUESTO_ESTANDAR, PENDIENTE o CONTRADICCION.
+### 2.1 Perspective
+The system in its context: users and external systems.
 
-## 3. Alcance
+### 2.2 Functions
+A short list. The detail lives in the numbered requirements.
 
-### 3.1 Capacidades incluidas
+### 2.3 Actors
+Name and responsibility. A role is not a persona with a biography.
 
-### 3.2 Exclusiones
+### 2.4 Constraints
+Technical, legal, and operational constraints that are already confirmed.
 
-### 3.3 Dependencias externas
+### 2.5 Assumptions and dependencies
+Each assumption says what happens if it is false.
 
-## 4. Fuentes
+## 3. Functional requirements
 
-Documentos vigentes y decisiones del usuario. No citar preliminares.
+One block per requirement:
 
-## 5. Glosario
+- Identifier: `RF-01`.
+- Statement: a testable condition.
+- Source: actor, rule, or current document.
+- Verification criterion: how to tell it is satisfied.
+- Priority: only when the user or the source set it. Otherwise, pending.
 
-Término y significado dentro de este producto.
+## 4. Business rules
 
-## 6. Actores y permisos
+`RN-01`. The rule, the condition, and the requirement it affects. A literal message stays in quotation marks and is not paraphrased.
 
-| Actor | Responsabilidad | Permiso |
-|---|---|---|
+## 5. External interface requirements
 
-## 7. Descripción por capacidad
+Users, software, and data. Omit a subsection when the product does not have that interface.
 
-Una subsección por módulo real del alcance. Sin módulos de relleno.
+## 6. Quality requirements
 
-## 8. Reglas de negocio
+Only the ISO/IEC 25010:2023 characteristics that apply. Each one has a scenario and a measurement or an acceptance condition.
 
-| Id | Regla | Fuente |
-|---|---|---|
+## 7. Data
 
-## 9. Requisitos funcionales
+Entities or documents the requirements need, without turning this section into the physical model.
 
-Para cada uno:
+## 8. Traceability
 
-- Id:
-- Enunciado:
-- Actor:
-- Fuente:
-- Verificación: condición que se puede responder con sí o no.
-- Prioridad de negocio, si el usuario la dio. Si no, PENDIENTE.
+| Rule | Requirement | Verification | Story |
+| --- | --- | --- | --- |
+| RN-01 | RF-01 | criterion | filled in the backlog phase |
 
-## 10. Requisitos no funcionales
+## 9. Open questions
 
-Solo características de ISO/IEC 25010:2023 que este producto necesita. Cada una con medida o con PENDIENTE si la medida no existe.
-
-## 11. Datos y privacidad
-
-Qué datos aparecen, para qué, cuánto tiempo y quién accede. Omitir la sección solo si el producto no trata datos de personas.
-
-## 12. Trazabilidad
-
-| Regla o necesidad | Requisito | Verificación | HU |
-|---|---|---|---|
-|  |  |  | pendiente de la fase backlog |
-
-## 13. Supuestos, contradicciones y decisiones pendientes
-
-### 13.1 Supuestos
-
-### 13.2 Contradicciones
-
-### 13.3 Decisiones pendientes
-
-## 14. Riesgos
-
-Riesgo, impacto y qué requisito depende de resolverlo.
+What prevents a requirement from being verified. Do not close them with an invention.

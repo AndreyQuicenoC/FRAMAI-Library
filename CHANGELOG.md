@@ -1,56 +1,57 @@
 # Changelog
 
-Todas las modificaciones notables a este ecosistema de prompts multiagente serán documentadas en este archivo.
+All notable changes to this multi-agent prompt ecosystem will be documented in this file.
 
-El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
-y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [3.0.0] - 2026-10-18
 
-VEXARG sustituye el nombre FRAMAI y la carpeta portable pasa de `.ai/` a `.ai-vexarq/`. El motor de historias de la 2.2.0 se conserva.
+VEXARQ replaces the name FRAMAI, and the portable folder changes from `.ai/` to `.ai-vexarq/`. The user-story engine from 2.2.0 is kept.
 
 ### Added
 
-- Ciclo de vida con orquestador general y una plantilla por fase: acercamiento, SRS, datos, backlog, backlog extendido, SAD, arquetipo, implementación, entrega y recomendaciones.
-- Modos `validar` (por defecto) y `continuo`, con linaje preliminar frente a vigente.
-- Tablero HTML estático y contrato de actualización.
-- Identificación de modelo de negocio y documento de recomendaciones de cierre.
-- Generadores canónicos de backlog y arquetipo incorporados sin modificación. El backlog extendido se generaliza a partir del ejemplo de un proyecto externo.
-- Guías de uso y plantillas listas para pegar en el agente.
-- Catálogo de estándares con nivel obligatoria, condicional u orientativa.
+- Lifecycle with a general orchestrator and one template per phase: approach, SRS, data, backlog, extended backlog, SAD, archetype, implementation, delivery, and recommendations.
+- Modes `validar` (default) and `continuo`, with preliminary lineage versus current lineage.
+- Static HTML board and update contract.
+- Business-model identification and a closing recommendations document.
+- Canonical backlog and archetype generators incorporated without modification. The extended backlog is generalized from an external project's example.
+- Usage guides and templates ready to paste into the agent.
+- Standards catalog with level obligatoria, condicional, or orientativa.
+- Output-language rule: generated documents, interface copy, and comments follow the language of the user's request, or the language the user names.
 
 ### Changed
 
-- El push exige autorización explícita de remoto y rama, además de los checks en verde.
-- La generación de un arquetipo nuevo queda reservada a su fase. El workflow de historias ya no la inicia por su cuenta.
+- Push requires explicit authorization of the remote and the branch, in addition to green checks.
+- Generation of a new archetype is reserved for its phase. The user-story workflow no longer starts it on its own.
 
 ## [2.2.0] - 2026-10-11
 
-Auditoría de capacidad full-stack. Brechas detectadas en 2.1.1: solo una HU por ejecución, sin criterios de seguridad de autenticación/sesión ni política de secretos, quality gates sin definir, validadores y pruebas orientados a JavaScript, sin protocolo para convertir un mockup o arquetipo en un sistema operable, sin flujo Git ni publicación segura, integración sin exigir la pila real, y referencias obsoletas a archivos `.md` y `.md.bak`.
+Full-stack capability audit. Gaps found in 2.1.1: only one user story per run, no authentication/session security criteria or secrets policy, quality gates undefined, validators and tests oriented to JavaScript, no protocol to turn a mockup or archetype into an operable system, no Git flow or secure publishing, integration without requiring the real stack, and obsolete references to `.md` and `.md.bak` files.
 
 ### Added
-- `.ai/core/engineering-standards.xml`: secretos y configuración, mensajes literales, seguridad de autenticación y sesión (hash con sal, cookie HttpOnly, límite de intentos, anti-enumeración, CSRF/CORS), contrato de error, quality gates, estrategia de pruebas por capa, base de datos, contenedores, scripts, accesibilidad y mapeo por stack.
-- `.ai/core/git-workflow.xml`: preparación de `develop` y rama de épica, un commit por HU, puertas previas a commit y push, ramas protegidas, escaneo de secretos.
-- `.ai/core/project-modes.xml`: modos `EXTEND_EXISTING`, `ARCHETYPE_EXTENSION`, `MOCKUP_PRODUCTIONIZATION`, protocolo de productización y política de funcionalidades fuera de alcance.
-- `.ai/templates/user-story-implementation/epic-full-stack.md`: plantilla para lotes de HU con Git, entorno y seguridad.
-- Orquestador: modo lote (orden por dependencias, contrato de épica, `commit_plan`, `epic_plan`), nuevas entradas (`git_instructions`, `untouchable_paths`, `environment_instructions`), `project_mode` y `integrator_handoff`.
-- Adaptativo: factores de elevación (autenticación, datos personales, contrato nuevo, migración, mockup, entrega operable) y `modo_lote`.
+- `.ai/core/engineering-standards.xml`: secrets and configuration, literal messages, authentication and session security (salted hash, HttpOnly cookie, attempt limit, anti-enumeration, CSRF/CORS), error contract, quality gates, test strategy by layer, database, containers, scripts, accessibility, and mapping by stack.
+- `.ai/core/git-workflow.xml`: preparation of `develop` and the epic branch, one commit per user story, pre-commit and pre-push gates, protected branches, secret scanning.
+- `.ai/core/project-modes.xml`: modes `EXTEND_EXISTING`, `ARCHETYPE_EXTENSION`, `MOCKUP_PRODUCTIONIZATION`, productionization protocol, and policy for out-of-scope features.
+- `.ai/templates/user-story-implementation/epic-full-stack.md`: template for user-story batches with Git, environment, and security.
+- Orchestrator: batch mode (order by dependencies, epic contract, `commit_plan`, `epic_plan`), new entries (`git_instructions`, `untouchable_paths`, `environment_instructions`), `project_mode`, and `integrator_handoff`.
+- Adaptive: elevation factors (authentication, personal data, new contract, migration, mockup, operable delivery) and `modo_lote`.
 
 ### Changed
-- Backend, Frontend e Integrador reescritos con línea base previa, todos los gates en V2, entregables operativos (`.env.example`, contenedor, `scripts/`), protocolo de ejecución real y puerta de publicación.
-- `policies.xml`: nuevas prohibiciones (secretos, ramas protegidas, rutas intocables), reglas de documentación multi-repositorio y aclaración de que una herramienta ausente no es bloqueo.
-- `quality-attributes.xml`: métricas de secretos, quality gates e integración real; cobertura independiente de JavaScript.
+- Backend, Frontend, and Integrator rewritten with a prior baseline, all gates in V2, operational deliverables (`.env.example`, container, `scripts/`), real execution protocol, and publication gate.
+- `policies.xml`: new prohibitions (secrets, protected branches, untouchable paths), multi-repository documentation rules, and clarification that a missing tool is not a blocker.
+- `quality-attributes.xml`: metrics for secrets, quality gates, and real integration; coverage independent of JavaScript.
 
 ### Fixed
-- `orchestrator.xml`: etiqueta de cierre mal formada (`</descrip>`) que invalidaba el XML.
-- Referencias obsoletas a `.md` y `.md.bak` en `.ai/README.md`, README del workflow, regla de Cursor, guías, ejemplo de prueba y README principal.
+- `orchestrator.xml`: malformed closing tag (`</descrip>`) that invalidated the XML.
+- Obsolete references to `.md` and `.md.bak` in `.ai/README.md`, the workflow README, the Cursor rule, the guides, the test example, and the main README.
 
 ---
 
 ## [2.1.1] - 2026-09-14
 
-### 🏗️ Restructured (Reestructurado)
-- **Conversión a XML estructurado:** Todos los prompts principales (`.ai/core/`, `.ai/workflows/`, `.ai/guides/`, `.ai/standards/`) convertidos de `.md` a `.xml` con formato jerárquico usando etiquetas `<prompt>`, mejorando parseo y claridad estructural.
+### 🏗️ Restructured
+- **Conversion to structured XML:** All main prompts (`.ai/core/`, `.ai/workflows/`, `.ai/guides/`, `.ai/standards/`) converted from `.md` to `.xml` with a hierarchical format using `<prompt>` tags, improving parsing and structural clarity.
   - `policies.md` → `policies.xml`
   - `adaptive-policies.md` → `adaptive-policies.xml`
   - `orchestrator.md` → `orchestrator.xml`
@@ -59,237 +60,237 @@ Auditoría de capacidad full-stack. Brechas detectadas en 2.1.1: solo una HU por
   - `integrator.md` → `integrator.xml`
   - `quality-attributes.md` → `quality-attributes.xml`
   - `user-story-implementation.md` → `user-story-implementation.xml`
-- **Templates actualizados:** Referencias en templates (`full-stack.md`, `backend-only.md`, `frontend-only.md`, `integration-fix.md`) actualizadas para referenciar archivos `.xml`
-- **Backups automáticos:** Archivos `.md.bak` creados durante conversión como respaldo
+- **Templates updated:** References in templates (`full-stack.md`, `backend-only.md`, `frontend-only.md`, `integration-fix.md`) updated to reference `.xml` files
+- **Automatic backups:** `.md.bak` files created during conversion as a backup
 
-### 📦 Added (Agregado)
-- **`EXPOSICION.md`:** Documento conciso (no extenso) para exposiciones académicas con:
-  - Arquitectura del sistema (diagrama textual)
-  - Flujos típicos por complejidad (TRIVIAL→SIMPLE→MODERATE→COMPLEX)
-  - Niveles de complejidad con ejemplos concretos
-  - Guía de uso (instalación, uso básico, proyectos con microservicios)
-  - Estimaciones de consumo por escenario
-  - Instrucciones para afinar el sistema (aumentar/reducir consumo)
-  - Ventajas y desventajas objetivas
-  - Aplicabilidad (ideal para / no ideal para)
-  - Estructura del repositorio
-- **Sección de portabilidad en README:** Nueva subsección "🚢 Portabilidad: Uso en Diferentes Estructuras de Proyecto" con:
-  - Escenario 1: Proyecto con directorio único
-  - Escenario 2: Monorepo con múltiples microservicios
-  - Escenario 3: Microservicios independientes
-  - Uso de `project_path` y `additional_constraints`
-  - Claridad sobre no requerir configuración adicional
-- **`docs/updates/`:** Nuevo subdirectorio para documentos de actualización
-- **`docs/updates/v2.1.0-adaptive-strategy.md`:** `IMPLEMENTATION-SUMMARY.md` renombrado y movido desde raíz
+### 📦 Added
+- **`EXPOSICION.md`:** Concise document (not lengthy) for academic presentations with:
+  - System architecture (textual diagram)
+  - Typical flows by complexity (TRIVIAL→SIMPLE→MODERATE→COMPLEX)
+  - Complexity levels with concrete examples
+  - Usage guide (installation, basic use, projects with microservices)
+  - Consumption estimates by scenario
+  - Instructions for tuning the system (increase/reduce consumption)
+  - Objective advantages and disadvantages
+  - Applicability (ideal for / not ideal for)
+  - Repository structure
+- **Portability section in the README:** New subsection "🚢 Portability: Use in Different Project Structures" with:
+  - Scenario 1: Project with a single directory
+  - Scenario 2: Monorepo with multiple microservices
+  - Scenario 3: Independent microservices
+  - Use of `project_path` and `additional_constraints`
+  - Clarity that no additional configuration is required
+- **`docs/updates/`:** New subdirectory for update documents
+- **`docs/updates/v2.1.0-adaptive-strategy.md`:** `IMPLEMENTATION-SUMMARY.md` renamed and moved from the root
 
-### 🔄 Changed (Cambiado)
+### 🔄 Changed
 - **README.md:** 
-  - Versión actualizada a `2.1.1`
-  - Cabecera con nota de portabilidad destacada
-  - Estructura de archivos actualizada con extensiones `.xml`
-  - Referencias de `.md` a `.xml` en todas las secciones
-- **Raíz limpia:** Solo `README.md`, `CHANGELOG.md` y `EXPOSICION.md` en raíz (documentos operativos eliminados)
+  - Version updated to `2.1.1`
+  - Header with a highlighted portability note
+  - File structure updated with `.xml` extensions
+  - References from `.md` to `.xml` in every section
+- **Clean root:** Only `README.md`, `CHANGELOG.md`, and `EXPOSICION.md` at the root (operational documents removed)
 
-### 🗑️ Removed (Eliminado)
-- **Archivos `.md` originales:** Eliminados tras conversión a `.xml` (respaldados como `.md.bak`)
-- **`IMPLEMENTATION-SUMMARY.md` de raíz:** Movido a `docs/updates/v2.1.0-adaptive-strategy.md`
+### 🗑️ Removed
+- **Original `.md` files:** Removed after conversion to `.xml` (backed up as `.md.bak`)
+- **`IMPLEMENTATION-SUMMARY.md` from the root:** Moved to `docs/updates/v2.1.0-adaptive-strategy.md`
 
-### 📚 Documentation (Documentación)
-- **Claridad de formato XML:** Mejor organización jerárquica con etiquetas XML (`<metadata>`, `<flujo>`, `<output>`, etc.)
-- **Portabilidad documentada:** Instrucciones claras para usar `.ai/` en cualquier estructura de proyecto
-- **Exposición académica:** Documento completo pero conciso (`EXPOSICION.md`) con toda la información relevante para presentaciones
+### 📚 Documentation
+- **XML format clarity:** Better hierarchical organization with XML tags (`<metadata>`, `<flujo>`, `<output>`, etc.)
+- **Portability documented:** Clear instructions for using `.ai/` in any project structure
+- **Academic presentation:** Complete but concise document (`EXPOSICION.md`) with all information relevant to presentations
 
-### 🎯 Portability (Portabilidad)
-- **`.ai/` completamente autónomo:** Confirmado y documentado que solo copiando `.ai/` el ecosistema funciona
-- **Sin dependencias externas:** No requiere `docs/`, `tests/` ni configuración adicional
-- **Flexible:** Funciona en proyecto único, monorepo o microservicios independientes
+### 🎯 Portability
+- **`.ai/` fully autonomous:** Confirmed and documented that the ecosystem works by copying only `.ai/`
+- **No external dependencies:** Does not require `docs/`, `tests/`, or additional configuration
+- **Flexible:** Works in a single project, a monorepo, or independent microservices
 
-### ⚡ Performance (Rendimiento)
-- **Sin cambios en consumo:** Las optimizaciones de v2.1.0 se mantienen; la conversión a XML es puramente estructural
+### ⚡ Performance
+- **No change in consumption:** The v2.1.0 optimizations are kept; the conversion to XML is purely structural
 
 ---
 
 ## [2.1.0] - 2026-09-14
 
-### 🚀 Added (Agregado)
-- **Estrategia adaptativa:** Sistema de ejecución proporcional a complejidad de HU
-  - Clasificación de complejidad: TRIVIAL, SIMPLE, MODERATE, COMPLEX
-  - Carga selectiva de políticas según necesidad
-  - Routing condicional de agentes
-  - Optimización de contexto (no enviar todo a todos)
-- **`.ai/core/adaptive-policies.md`:** Documento completo de estrategia adaptativa con:
-  - Criterios de clasificación de complejidad
-  - Matriz de decisión por nivel
-  - Carga selectiva de políticas
-  - Optimización de contexto
-  - Métricas de éxito
-  - Balance calidad/consumo
+### 🚀 Added
+- **Adaptive strategy:** Execution system proportional to user-story complexity
+  - Complexity classification: TRIVIAL, SIMPLE, MODERATE, COMPLEX
+  - Selective loading of policies according to need
+  - Conditional agent routing
+  - Context optimization (do not send everything to everyone)
+- **`.ai/core/adaptive-policies.md`:** Complete adaptive-strategy document with:
+  - Complexity classification criteria
+  - Decision matrix by level
+  - Selective policy loading
+  - Context optimization
+  - Success metrics
+  - Quality/consumption balance
 
-### 🔄 Changed (Cambiado)
+### 🔄 Changed
 - **Orchestrator (`orchestrator.md`):**
-  - Nuevo paso 5: Clasificación de complejidad (antes de routing)
-  - Output adaptativo según complejidad
-  - Handoffs optimizados (no repetir contexto)
-  - Contrato compartido condicional (según complejidad + routing)
-  - Matriz de responsabilidades solo si MODERATE/COMPLEX
-- **`.cursor/rules/hu-framework.mdc`:** Actualizado para reflejar estrategia adaptativa y 4 documentos
+  - New step 5: Complexity classification (before routing)
+  - Adaptive output according to complexity
+  - Optimized handoffs (do not repeat context)
+  - Conditional shared contract (according to complexity + routing)
+  - Responsibility matrix only if MODERATE/COMPLEX
+- **`.cursor/rules/hu-framework.mdc`:** Updated to reflect the adaptive strategy and 4 documents
 
-### ⚡ Performance (Rendimiento)
-- **Optimización de tokens:**
-  - TRIVIAL: ~5-10K tokens (vs ~40K en v2.0.0)
-  - SIMPLE: ~15-30K tokens (vs ~50K en v2.0.0)
-  - MODERATE: ~40-70K tokens (igual, justificado)
-  - COMPLEX: ~80-150K tokens (igual, necesario)
-- **Reducción de latencia:** Menos agentes ejecutados para HUs simples
-- **Carga selectiva:** Solo políticas aplicables a cada HU
+### ⚡ Performance
+- **Token optimization:**
+  - TRIVIAL: ~5-10K tokens (vs ~40K in v2.0.0)
+  - SIMPLE: ~15-30K tokens (vs ~50K in v2.0.0)
+  - MODERATE: ~40-70K tokens (same, justified)
+  - COMPLEX: ~80-150K tokens (same, necessary)
+- **Latency reduction:** Fewer agents executed for simple user stories
+- **Selective loading:** Only policies applicable to each user story
 
-### 📚 Documentation (Documentación)
-- **Balance calidad/consumo:** Análisis detallado en `adaptive-policies.md`
-- **Fórmula de decisión:** Cálculo de complejidad basado en factores cuantificables
+### 📚 Documentation
+- **Quality/consumption balance:** Detailed analysis in `adaptive-policies.md`
+- **Decision formula:** Complexity calculation based on quantifiable factors
 
 ---
 
 ## [2.0.0] - 2026-09-14
 
-### 🚀 Added (Agregado)
-- **Documentación incremental de 4 archivos:** Sistema robusto de documentación con `user-stories.md`, `code-structure.md`, `implementation-report.md`, e `integration-report.md`.
-- **Prompt Backend ampliado:** Secciones detalladas sobre:
-  - Transacciones y concurrencia
-  - Error handling exhaustivo con códigos HTTP específicos
-  - Logging estructurado y observabilidad
-  - Performance (índices, paginación, caché, N+1 queries)
+### 🚀 Added
+- **Incremental documentation of 4 files:** Robust documentation system with `user-stories.md`, `code-structure.md`, `implementation-report.md`, and `integration-report.md`.
+- **Expanded Backend prompt:** Detailed sections on:
+  - Transactions and concurrency
+  - Exhaustive error handling with specific HTTP codes
+  - Structured logging and observability
+  - Performance (indexes, pagination, cache, N+1 queries)
   - External integrations (timeout, retry, circuit breaker)
-  - Files and uploads (validación, storage, seguridad)
+  - Files and uploads (validation, storage, security)
   - Dependency policy
   - Code quality (Clean Code, SOLID)
   - Backward compatibility
-  - Test quality (cobertura 80%+, tipos de tests)
-- **Prompt Frontend ampliado:** Secciones detalladas sobre:
-  - Component architecture (composición, naming, jerarquía)
+  - Test quality (80%+ coverage, test types)
+- **Expanded Frontend prompt:** Detailed sections on:
+  - Component architecture (composition, naming, hierarchy)
   - Modern frontend practices (hooks, TypeScript, linting)
-  - UX/Usability (5 estados obligatorios, feedback inmediato)
-  - Notifications (tipos y uso apropiado)
-  - Forms (validación cliente, errores específicos)
+  - UX/Usability (5 mandatory states, immediate feedback)
+  - Notifications (types and appropriate use)
+  - Forms (client validation, specific errors)
   - State management (local, context, global)
-  - Routing (rutas claras, protected routes, 404)
-  - API error handling (mapeo HTTP codes a UI)
-  - Accessibility detallada (teclado, screen readers, contraste, WCAG 2.1 AA)
+  - Routing (clear routes, protected routes, 404)
+  - API error handling (mapping HTTP codes to the UI)
+  - Detailed accessibility (keyboard, screen readers, contrast, WCAG 2.1 AA)
   - Responsive design (breakpoints, mobile-first, touch targets)
   - SEO (meta tags, semantic HTML, Core Web Vitals)
-  - Performance (lazy loading, memoización, virtualización, bundle size)
-  - Security (no secretos, sanitización, CSP)
-- **Prompt Integrator ampliado:** Persistencia de `integration-report.md` con validación exhaustiva E2E.
-- **`docs/guides/` directory:** Subdirectorio para documentación de referencia.
-- **`docs/integration-report.md`:** Cuarto documento obligatorio para validación E2E completa.
-- **CHANGELOG.md:** Control de versiones del ecosistema.
+  - Performance (lazy loading, memoization, virtualization, bundle size)
+  - Security (no secrets, sanitization, CSP)
+- **Expanded Integrator prompt:** Persistence of `integration-report.md` with exhaustive E2E validation.
+- **`docs/guides/` directory:** Subdirectory for reference documentation.
+- **`docs/integration-report.md`:** Fourth mandatory document for complete E2E validation.
+- **CHANGELOG.md:** Version control for the ecosystem.
 
-### 🔄 Changed (Cambiado)
-- **`core/policies.md`:** Actualizado para reflejar 4 documentos incrementales en lugar de 3.
-- **Estructura de `docs/`:** 
+### 🔄 Changed
+- **`core/policies.md`:** Updated to reflect 4 incremental documents instead of 3.
+- **`docs/` structure:** 
   - `quality-standards.md` → `docs/guides/quality-standards.md`
   - `architecture.md` → `docs/guides/architecture.md`
-  - Mantiene en raíz solo los 4 documentos incrementales principales.
-- **Backend persistence:** Actualizado para documentar en `code-structure.md` e `implementation-report.md`.
-- **Frontend persistence:** Actualizado para documentar en `code-structure.md` e `implementation-report.md`.
-- **Integrator persistence:** Actualizado para documentar en `user-stories.md`, `implementation-report.md` e `integration-report.md`.
+  - Keeps only the 4 main incremental documents at the root.
+- **Backend persistence:** Updated to document in `code-structure.md` and `implementation-report.md`.
+- **Frontend persistence:** Updated to document in `code-structure.md` and `implementation-report.md`.
+- **Integrator persistence:** Updated to document in `user-stories.md`, `implementation-report.md`, and `integration-report.md`.
 
-### 🗑️ Removed (Eliminado)
-- **`docs/ai-strategy/`:** Directorio completo eliminado (incluye `/archive/` con prompts originales verbose).
-  - **Razón:** Los prompts originales cumplieron su propósito académico; el sistema actual (`.ai/`) es la referencia operacional.
-  - **Impacto:** Reduce confusión entre sistema viejo y nuevo; favorece adopción del framework modular.
+### 🗑️ Removed
+- **`docs/ai-strategy/`:** Entire directory removed (includes `/archive/` with the original verbose prompts).
+  - **Reason:** The original prompts served their academic purpose; the current system (`.ai/`) is the operational reference.
+  - **Impact:** Reduces confusion between the old system and the new one; favors adoption of the modular framework.
 
-### 📚 Documentation (Documentación)
-- **README.md (raíz):** Único archivo de documentación en raíz; completamente actualizado para reflejar el sistema de 4 documentos incrementales.
-- **`docs/reports/README.md`:** Convenciones para reportes numerados futuros.
+### 📚 Documentation
+- **README.md (root):** The only documentation file at the root; fully updated to reflect the system of 4 incremental documents.
+- **`docs/reports/README.md`:** Conventions for future numbered reports.
 
-### 🔐 Security (Seguridad)
-- Estándares de seguridad (OWASP Top 10) integrados explícitamente en prompts Backend, Frontend e Integrator.
-- Validación de entrada exhaustiva, manejo de secretos, y AuthN/AuthZ documentados en detalle.
+### 🔐 Security
+- Security standards (OWASP Top 10) explicitly integrated into the Backend, Frontend, and Integrator prompts.
+- Exhaustive input validation, secrets handling, and AuthN/AuthZ documented in detail.
 
-### ♿ Accessibility (Accesibilidad)
-- Guías WCAG 2.1 AA integradas en Frontend con checklists detallados (keyboard navigation, screen readers, contraste, focus visible).
+### ♿ Accessibility
+- WCAG 2.1 AA guides integrated into Frontend with detailed checklists (keyboard navigation, screen readers, contrast, visible focus).
 
-### ⚡ Performance (Rendimiento)
-- Optimización de prompts para reducir tokens (compactación vs prompts originales de 110 páginas).
-- Guías de performance para Backend (queries, índices, paginación) y Frontend (lazy loading, memoización, bundle size).
+### ⚡ Performance
+- Prompt optimization to reduce tokens (compaction versus the original 110-page prompts).
+- Performance guides for Backend (queries, indexes, pagination) and Frontend (lazy loading, memoization, bundle size).
 
 ---
 
 ## [1.0.0] - 2026-09-13
 
 ### 🎉 Initial Release
-- **Framework multiagente modular:** Orquestador → Backend → Frontend → Integrador.
-- **Context engineering:** Carga dinámica de políticas, estándares y contratos según etapa.
-- **Prompt chaining:** Ejecución secuencial de especialistas con handoffs explícitos.
-- **Dynamic routing:** Clasificación de HUs en `FRONTEND_ONLY`, `BACKEND_ONLY`, `FULL_STACK`, `INTEGRATION_FIX`, `SPECIALIST_FIX`.
-- **Shared contract:** Contrato centralizado de API, datos, estado, errores y seguridad.
-- **Two-round validation (V1/V2):** Validación iterativa por especialistas.
-- **Quality attributes:** Estándares ISO/IEC 25010, WCAG 2.1, OWASP Top 10 integrados.
-- **Conventional Commits:** Trazabilidad de cambios.
-- **Directorio `.ai/`:** 
-  - `core/policies.md` (políticas globales)
+- **Modular multi-agent framework:** Orchestrator → Backend → Frontend → Integrator.
+- **Context engineering:** Dynamic loading of policies, standards, and contracts according to the stage.
+- **Prompt chaining:** Sequential execution of specialists with explicit handoffs.
+- **Dynamic routing:** Classification of user stories into `FRONTEND_ONLY`, `BACKEND_ONLY`, `FULL_STACK`, `INTEGRATION_FIX`, `SPECIALIST_FIX`.
+- **Shared contract:** Centralized contract for API, data, state, errors, and security.
+- **Two-round validation (V1/V2):** Iterative validation by specialists.
+- **Quality attributes:** ISO/IEC 25010, WCAG 2.1, and OWASP Top 10 standards integrated.
+- **Conventional Commits:** Change traceability.
+- **`.ai/` directory:** 
+  - `core/policies.md` (global policies)
   - `workflows/user-story-implementation/` (orchestrator, backend, frontend, integrator)
   - `standards/quality-attributes.md` (ISO 25010, WCAG, OWASP)
   - `contracts/shared-contract-template.md`
-  - `templates/` (plantillas full-stack, frontend-only, backend-only, integration-fix, specialist-fix)
+  - `templates/` (full-stack, frontend-only, backend-only, integration-fix, and specialist-fix templates)
   - `guides/user-story-implementation.md`
-- **Directorio `docs/`:** 
-  - `dev-history.md` (concepto inicial de documentación incremental, reemplazado en 2.0.0)
+- **`docs/` directory:** 
+  - `dev-history.md` (initial concept of incremental documentation, replaced in 2.0.0)
   - `quality-standards.md`
   - `architecture.md`
-- **Directorio `tests/ai-strategy/`:** Ejemplos de entrada para la IA.
+- **`tests/ai-strategy/` directory:** Input examples for the AI.
 
 ---
 
-## Guía de versionado
+## Versioning guide
 
 ### Major (X.0.0)
-- Cambios incompatibles en estructura de prompts o flujo de agentes.
-- Eliminación de documentos/directorios críticos.
-- Cambios en formato de entrada/salida de agentes.
+- Incompatible changes in prompt structure or agent flow.
+- Removal of critical documents/directories.
+- Changes in agent input/output format.
 
 ### Minor (x.Y.0)
-- Nuevas funcionalidades o secciones en prompts.
-- Nuevos agentes o workflows.
-- Mejoras significativas en profundidad técnica.
-- Nuevos estándares integrados.
+- New features or sections in prompts.
+- New agents or workflows.
+- Significant improvements in technical depth.
+- New integrated standards.
 
 ### Patch (x.y.Z)
-- Correcciones de errores.
-- Mejoras de claridad en prompts existentes.
-- Actualizaciones de documentación sin cambios funcionales.
-- Typos y formato.
+- Bug fixes.
+- Clarity improvements in existing prompts.
+- Documentation updates without functional changes.
+- Typos and formatting.
 
 ---
 
-## Notas de migración
+## Migration notes
 
-### De 1.0.0 a 2.0.0
+### From 1.0.0 to 2.0.0
 
-**Acción requerida:**
-1. **Documentación incremental:**
-   - Si usabas `docs/dev-history.md`, migra contenido a:
-     - `docs/user-stories.md` (HUs exactas)
-     - `docs/code-structure.md` (estructuras código)
-     - `docs/implementation-report.md` (resultados implementación)
-     - `docs/integration-report.md` (validación E2E)
+**Required action:**
+1. **Incremental documentation:**
+   - If you used `docs/dev-history.md`, migrate the content to:
+     - `docs/user-stories.md` (exact user stories)
+     - `docs/code-structure.md` (code structures)
+     - `docs/implementation-report.md` (implementation results)
+     - `docs/integration-report.md` (E2E validation)
    
-2. **Prompts originales:**
-   - Si referenciabas `docs/ai-strategy/archive/`, actualiza referencias o mantén copia local si necesario.
-   - Sistema actual (`.ai/`) es la referencia operacional.
+2. **Original prompts:**
+   - If you referenced `docs/ai-strategy/archive/`, update the references or keep a local copy if needed.
+   - The current system (`.ai/`) is the operational reference.
 
-3. **Guías y plantillas:**
-   - Revisa `.ai/guides/user-story-implementation.md` para flujo actualizado.
-   - Usa plantillas en `.ai/templates/` con 4 documentos incrementales.
+3. **Guides and templates:**
+   - Review `.ai/guides/user-story-implementation.md` for the updated flow.
+   - Use the templates in `.ai/templates/` with the 4 incremental documents.
 
-**Beneficios:**
-- ✅ Prompts 5-10x más detallados que versión 1.0.0
-- ✅ Validación E2E exhaustiva con `integration-report.md`
-- ✅ Estándares integrados directamente en instrucciones de agentes
-- ✅ Documentación estructurada en 4 archivos incrementales (vs 1 archivo `dev-history.md`)
-- ✅ Trazabilidad completa: HU → implementación → integración
+**Benefits:**
+- ✅ Prompts 5-10x more detailed than version 1.0.0
+- ✅ Exhaustive E2E validation with `integration-report.md`
+- ✅ Standards integrated directly into agent instructions
+- ✅ Structured documentation in 4 incremental files (vs 1 `dev-history.md` file)
+- ✅ Complete traceability: user story → implementation → integration
 
 ---
 
-**Responsable:** Sistema de IA multiagente  
-**Última actualización:** 2026-09-14
+**Responsible:** Multi-agent AI system  
+**Last updated:** 2026-09-14

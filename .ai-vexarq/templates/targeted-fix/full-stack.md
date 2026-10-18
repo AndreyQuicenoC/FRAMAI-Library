@@ -1,30 +1,30 @@
-# Plantilla — Corrección puntual (front / back / full-stack)
+# Template — Targeted correction (front / back / full-stack)
 
-## Metadatos
+## Metadata
 
-| Campo | Valor |
+| Field | Value |
 |-------|--------|
-| **Tipo** | `targeted-fix` |
-| **Alcance** | `frontend-only` \| `backend-only` \| `full-stack` |
-| **Complejidad** | `auto` (inferida) o `TRIVIAL` … `COMPLEX` |
+| **Type** | `targeted-fix` |
+| **Scope** | `frontend-only` \| `backend-only` \| `full-stack` |
+| **Complexity** | `auto` (inferred) or `TRIVIAL` … `COMPLEX` |
 
-## Entrada esperada
+## Expected input
 
-- Lista de correcciones UX, bugs o mejoras (no necesariamente HU).
-- Repositorios afectados y rama base (`feature/ep-XX-…` o `develop`).
-- Referencia visual opcional (p. ej. demo en `DashNode-Demo/`).
-- Restricciones: no romper CI, migraciones seguras, mensajes literales de dominio.
+- List of UX corrections, bugs, or improvements (not necessarily a user story).
+- Affected repositories and base branch (`feature/ep-XX-…` or `develop`).
+- Optional visual reference (e.g. demo in `DashNode-Demo/`).
+- Constraints: do not break CI, safe migrations, literal domain messages.
 
-## Flujo recomendado
+## Recommended flow
 
-1. **Orquestador** con `requested_scope` y modo lote si hay >10 ítems.
-2. Clasificar complejidad (`auto`: contar archivos, auth, migraciones, contratos API).
-3. **Backend** primero si hay contratos nuevos o reglas de seguridad.
-4. **Frontend** alineado a demo (iconos Lucide, sin emojis en UI productiva).
-5. **Integrador**: `make check` / `npm run check`, migración `alembic upgrade head`.
-6. Commits separados por capa o por tema (`fix(ui): …`, `feat(auth): …`).
+1. **Orchestrator** with `requested_scope` and batch mode if there are >10 items.
+2. Classify complexity (`auto`: count files, auth, migrations, API contracts).
+3. **Backend** first if there are new contracts or security rules.
+4. **Frontend** aligned to the demo (Lucide icons, no emojis in production UI).
+5. **Integrator**: `make check` / `npm run check`, migration `alembic upgrade head`.
+6. Separate commits per layer or per theme (`fix(ui): …`, `feat(auth): …`).
 
-## Salida
+## Output
 
-- Resumen de ítems cerrados vs pendientes.
-- Evidencia de pruebas y push a la rama acordada.
+- Summary of closed items vs pending.
+- Test evidence and push to the agreed branch.

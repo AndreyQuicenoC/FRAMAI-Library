@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Puertas de aprobación</name>
+    <name>CORE — Approval gates</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
   </metadata>
 
   <puertas>
-    <puerta id="G1" despues="acercamiento y SRS">El usuario acepta el problema, el alcance y los requisitos vigentes antes de diseñar datos o backlog.</puerta>
-    <puerta id="G2" despues="base de datos y backlog">El usuario acepta el modelo de datos y las historias antes de extender el backlog o cerrar arquitectura.</puerta>
-    <puerta id="G3" despues="backlog extendido y SAD">El usuario acepta tareas, prioridades y arquitectura antes de proponer el arquetipo.</puerta>
-    <puerta id="G4" despues="propuesta de arquetipo">El canon del arquetipo exige confirmación del blueprint. En modo validar se espera. En modo continuo se promueve solo si el informe previo no tiene bloqueos.</puerta>
-    <puerta id="G5" antes="push">Remoto, rama y autorización explícitos, con checks aplicables en verde. Ningún modo la abre por defecto.</puerta>
+    <puerta id="G1" despues="discovery and SRS">The user accepts the problem, the scope, and the current requirements before data or the backlog are designed.</puerta>
+    <puerta id="G2" despues="database and backlog">The user accepts the data model and the stories before the backlog is extended or the architecture is closed.</puerta>
+    <puerta id="G3" despues="extended backlog and SAD">The user accepts tasks, priorities, and architecture before an archetype is proposed.</puerta>
+    <puerta id="G4" despues="archetype proposal">The archetype canon requires confirmation of the blueprint. validar mode waits. continuo mode promotes it only when the pre-generation report has no blockers.</puerta>
+    <puerta id="G5" antes="push">The remote, the branch, and explicit authorization are required, with the applicable checks green. No mode opens this gate by default.</puerta>
   </puertas>
 
-  <modo_validar>Cada puerta detiene el ciclo. El tablero queda en preliminar para las fases recién generadas.</modo_validar>
-  <modo_continuo>G1 a G4 se consideran concedidas solo para continuar dentro del repositorio, con supuestos visibles. G5 permanece cerrada.</modo_continuo>
+  <modo_validar>Each gate stops the cycle. The board stays preliminary for the phases just generated.</modo_validar>
+  <modo_continuo>G1 through G4 count as granted only to continue inside the repository, with assumptions visible. G5 stays closed.</modo_continuo>
 
   <acciones_que_siempre_piden_autorizacion>
-    <accion>Push, force push, rebase publicado o borrado de rama.</accion>
-    <accion>Migración destructiva, borrado de datos o rotación de secretos.</accion>
-    <accion>Cambio de una estructura crítica fuera del alcance pedido.</accion>
-    <accion>Reemplazar un documento vigente ya editado por el usuario.</accion>
+    <accion>Push, force push, rewriting published history, or deleting a branch.</accion>
+    <accion>A destructive migration, deleting data, or rotating secrets.</accion>
+    <accion>Changing a critical structure outside the requested scope.</accion>
+    <accion>Replacing a current document the user already edited.</accion>
   </acciones_que_siempre_piden_autorizacion>
 </prompt>

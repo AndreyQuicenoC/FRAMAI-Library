@@ -1,35 +1,35 @@
-# Historias de Usuario
+# User Stories
 
-Este documento contiene todas las HU **exactamente** como fueron recibidas, sin modificaciones.
+This document contains every user story **exactly** as it was received, without modifications.
 
-**Reglas:**
-- NO modificar, resumir ni reinterpretar las HUs
-- Agregar nuevas HUs al final (orden cronológico)
-- Mantener HUs anteriores
-- Actualizar estado cuando corresponda
+**Rules:**
+- DO NOT modify, summarize, or reinterpret the user stories
+- Add new user stories at the end (chronological order)
+- Keep previous user stories
+- Update the status when appropriate
 
 ---
 
-## Plantilla para nueva HU
+## Template for a new user story
 
 ```markdown
-## HU-XXX — [Título]
+## HU-XXX — [Title]
 
-**Como** [actor]  
-**Quiero** [acción]  
-**Para** [beneficio]
+**As** [actor]  
+**I want** [action]  
+**So that** [benefit]
 
-### Criterios de aceptación
-1. [Criterio verificable]
-2. [Criterio verificable]
+### Acceptance criteria
+1. [Verifiable criterion]
+2. [Verifiable criterion]
 3. ...
 
-**Fecha recepción:** YYYY-MM-DD  
-**Estado:** IN_PROGRESS
+**Received date:** YYYY-MM-DD  
+**Status:** IN_PROGRESS
 
 ---
 ```
 
 ---
 
-_Las Historias de Usuario se agregarán conforme se reciban._
+_User stories will be added as they are received._

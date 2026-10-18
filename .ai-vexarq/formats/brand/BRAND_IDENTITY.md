@@ -1,12 +1,23 @@
-# Identidad de marca
+# Brand identity
 
-Usar solo si el producto tiene interfaz o comunicación visible.
+Use this only when the product has a visible interface or public communication.
 
-- Nombre:
-- Siglas:
-- Icono: ruta del vector, o PENDIENTE.
-- Variantes claro y oscuro: sí, no, o no necesario.
-- Tipografía:
-- Color de acción, color de superficie y color de peligro. El color no es el único indicador de estado.
-- Tono de los textos: trato, longitud y palabras que no se usan.
-- Biblioteca de iconos: una sola. Sin emojis como iconos.
+## Name
+
+The spelling of the name and the acronym. Do not redesign the name.
+
+## Brand icon
+
+One identifiable vector icon, readable at a small size. Describe its shape. Do not generate a binary image from this document.
+
+## Color
+
+Action color, surface color, and danger color. Color is not the only state indicator.
+
+## Voice
+
+Person and tone of the interface, in the language selected for the product. Literal error messages defined by the requirements are not rewritten here.
+
+## Application
+
+Where the icon and the name appear. Global search only when the product needs it.

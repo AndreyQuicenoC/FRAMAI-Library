@@ -1,18 +1,19 @@
 ---
-description: Reglas de VEXARG al trabajar en un proyecto que incluye esta biblioteca
+description: VEXARQ rules when working in a project that includes this library
 globs:
 alwaysApply: true
 ---
 
-# VEXARG
+# VEXARQ
 
-El sistema portable está en `.ai-vexarq/`. Evoluciona FRAMAI; no borres el workflow de historias de usuario.
+The portable system lives in `.ai-vexarq/`. It evolves FRAMAI; do not delete the user-story workflow.
 
-- Punto de entrada del ciclo: `.ai-vexarq/workflows/lifecycle/orchestrator.xml`.
-- Modo por defecto: `validar`. `continuo` solo si el usuario lo pide.
-- Escribe artefactos de fase en `docs/vexarq/preliminary/`. La fase siguiente lee solo `docs/vexarq/current/`.
-- No modifiques `.ai-vexarq/sources/canon/`.
-- No hagas push sin remoto, rama y autorización explícitos.
-- No edites archivos ajenos al alcance ni rompas lógica existente para completar una tarea.
-- Al cerrar una solicitud de ciclo, actualiza `docs/vexarq/status.html` desde la plantilla del tracker si aún no existe. Poco texto: fase, estado y enlace.
-- Una corrección o una HU sobre código existente usa `.ai-vexarq/workflows/user-story-implementation/`, no todo el ciclo.
+- Lifecycle entry point: `.ai-vexarq/workflows/lifecycle/orchestrator.xml`.
+- Language: follow `.ai-vexarq/core/language.xml`. Detect the user's language. If the user names a language, use that language for generated code, text, and other artifacts.
+- Default mode: `validar`. Use `continuo` only when the user asks for it.
+- Write phase artifacts to `docs/vexarq/preliminary/`. The next phase reads only `docs/vexarq/current/`.
+- Do not modify `.ai-vexarq/sources/canon/`.
+- Do not push without a remote, a branch, and explicit authorization.
+- Do not edit files outside the scope or break existing behavior to finish a task.
+- When a lifecycle request ends, update `docs/vexarq/status.html` from the tracker template if it does not exist yet. Little text: phase, state, and link.
+- A correction or a user story on existing code uses `.ai-vexarq/workflows/user-story-implementation/`, not the whole cycle.

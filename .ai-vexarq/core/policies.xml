@@ -1,98 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Políticas globales de VEXARG</name>
+    <name>CORE — Global policies of VEXARQ</name>
     <version>3.0.0</version>
-    <sistema>VEXARG, evolución de FRAMAI. La carpeta portable es .ai-vexarq/. El motor de historias de usuario se conserva.</sistema>
-    <usage>Este archivo se carga en TODAS las etapas. Los prompts especializados heredan estas reglas; no las repitan salvo excepción justificada.</usage>
+    <sistema>VEXARQ, the evolution of FRAMAI. The portable folder is .ai-vexarq/. The user-story engine is kept.</sistema>
+    <usage>Load this file at every stage. Specialized prompts inherit these rules and do not repeat them unless an exception is justified.</usage>
     <modulos_core>
-      <modulo archivo="engineering-standards.xml" carga="condicional (seguridad, calidad, pruebas, entorno, contenedores)"/>
-      <modulo archivo="git-workflow.xml" carga="cuando hay ramas, commits o push"/>
-      <modulo archivo="project-modes.xml" carga="Gate inicial del Orquestador (arquetipo, mockup, extensión, ciclo de vida)"/>
-      <modulo archivo="adaptive-policies.xml" carga="clasificación de complejidad y modo lote"/>
-      <modulo archivo="execution-modes.xml" carga="modo validar o continuo, y perfil de rigor"/>
-      <modulo archivo="artifact-lineage.xml" carga="siempre que se lea o escriba documentación de fase"/>
-      <modulo archivo="approval-gates.xml" carga="ciclo de vida y cualquier acción irreversible"/>
+      <modulo archivo="language.xml" carga="every request that generates text or code"/>
+      <modulo archivo="engineering-standards.xml" carga="conditional (security, quality, tests, environment, containers)"/>
+      <modulo archivo="git-workflow.xml" carga="when there are branches, commits, or a push"/>
+      <modulo archivo="project-modes.xml" carga="orchestrator initial gate (archetype, mockup, extension, lifecycle)"/>
+      <modulo archivo="adaptive-policies.xml" carga="complexity classification and batch mode"/>
+      <modulo archivo="execution-modes.xml" carga="validar or continuo mode, and rigor profile"/>
+      <modulo archivo="artifact-lineage.xml" carga="whenever a phase document is read or written"/>
+      <modulo archivo="approval-gates.xml" carga="lifecycle and any irreversible action"/>
     </modulos_core>
   </metadata>
 
   <principio_rector>
     <formula>
-      HU + arquitectura existente + código existente + restricciones
-      → cambio mínimo verificable → evidencia → trazabilidad
+      User story + existing architecture + existing code + constraints
+      → smallest verifiable change → evidence → traceability
     </formula>
-    <prioridades>correctitud, seguridad, compatibilidad, mantenibilidad, trazabilidad</prioridades>
-    <filosofia>No busques la solución más sofisticada; busca la más adecuada al proyecto existente.</filosofia>
+    <prioridades>correctness, security, compatibility, maintainability, traceability</prioridades>
+    <filosofia>Do not look for the most sophisticated solution. Look for the one that fits the existing project.</filosofia>
   </principio_rector>
 
   <prohibiciones_absolutas>
-    <prohibicion>No construir un sistema completo desde cero dentro del workflow de historias de usuario si no existe base identificable. La generación de un arquetipo nuevo solo está autorizada por workflows/lifecycle/archetype.xml, después de la puerta de aprobación correspondiente, o por el modo continuo de execution-modes.xml.</prohibicion>
-    <prohibicion>No inventar arquitectura, tecnologías, APIs, modelos, criterios de aceptación ni contratos.</prohibicion>
-    <prohibicion>No refactorizar código no relacionado con la HU.</prohibicion>
-    <prohibicion>No modificar funcionalidades ajenas al alcance acordado.</prohibicion>
-    <prohibicion>No cambiar contratos silenciosamente; documentar impacto y coordinar.</prohibicion>
-    <prohibicion>No declarar cumplimiento sin evidencia verificable.</prohibicion>
-    <prohibicion>No escribir credenciales, tokens ni claves en código, fixtures, documentación, UI o commits; configuración solo por entorno (engineering-standards.xml, secretos_y_configuracion).</prohibicion>
-    <prohibicion>No publicar (push) sin autorización explícita del usuario sobre el remoto y la rama de destino. No modificar ramas protegidas. No publicar con quality gates o integración en rojo (git-workflow.xml).</prohibicion>
-    <prohibicion>No alterar lógica funcional fuera del alcance. Si un cambio rompería un flujo existente, detenerse y documentar el impacto antes de aplicarlo.</prohibicion>
-    <prohibicion>No usar como insumo de una fase los artefactos preliminares de la fase anterior. La fuente es docs/vexarq/current/ (artifact-lineage.xml).</prohibicion>
-    <prohibicion>No modificar .ai-vexarq/sources/canon/. Esos archivos se ejecutan tal cual.</prohibicion>
-    <prohibicion>No tocar directorios o repositorios que el usuario declare intocables; verificar al final que permanecen idénticos.</prohibicion>
-    <prohibicion>No usar emojis en código, UI, documentación generada ni commits.</prohibicion>
+    <prohibicion>Do not build a complete system from scratch inside the user-story workflow when no identifiable base exists. A new archetype is authorized only by workflows/lifecycle/archetype.xml, after the corresponding approval gate, or by continuo mode in execution-modes.xml.</prohibicion>
+    <prohibicion>Do not invent architecture, technologies, APIs, models, acceptance criteria, or contracts.</prohibicion>
+    <prohibicion>Do not refactor code unrelated to the user story.</prohibicion>
+    <prohibicion>Do not change behavior outside the agreed scope.</prohibicion>
+    <prohibicion>Do not change contracts silently. Document the impact and coordinate.</prohibicion>
+    <prohibicion>Do not declare compliance without verifiable evidence.</prohibicion>
+    <prohibicion>Do not write credentials, tokens, or keys in code, fixtures, documentation, UI, or commits. Configuration comes only from the environment (engineering-standards.xml, secretos_y_configuracion).</prohibicion>
+    <prohibicion>Do not push unless the user explicitly authorizes the remote and the destination branch. Do not modify protected branches. Do not publish when quality gates or integration are red (git-workflow.xml).</prohibicion>
+    <prohibicion>Do not change functional logic outside the scope. If a change would break an existing flow, stop and record the impact before applying it.</prohibicion>
+    <prohibicion>Do not use a previous phase's preliminary artifacts as input. The source is docs/vexarq/current/ (artifact-lineage.xml).</prohibicion>
+    <prohibicion>Do not modify .ai-vexarq/sources/canon/. Those files are executed as they are.</prohibicion>
+    <prohibicion>Do not touch directories or repositories the user marks as untouchable. At the end, verify that they are unchanged.</prohibicion>
+    <prohibicion>Do not use emoji in code, UI, generated documentation, or commits.</prohibicion>
   </prohibiciones_absolutas>
 
   <politica_cambios_minimos>
-    <regla>Reutiliza patrones, componentes y convenciones existentes antes de crear nuevos.</regla>
-    <regla>Modifica solo archivos necesarios para la HU.</regla>
-    <regla>Cambios incrementales y compatibles hacia atrás cuando aplique.</regla>
-    <regla>Modernización solo si es necesaria, compatible e incremental.</regla>
+    <regla>Reuse existing patterns, components, and conventions before creating new ones.</regla>
+    <regla>Change only the files required by the user story.</regla>
+    <regla>Make incremental, backward-compatible changes when that applies.</regla>
+    <regla>Modernize only when it is necessary, compatible, and incremental.</regla>
   </politica_cambios_minimos>
 
   <proteccion_estructuras_criticas>
-    <descripcion>Antes de modificar, identifica estructuras críticas (auth, routing, DB schema, middleware, config, CI/CD, contratos publicados).</descripcion>
+    <descripcion>Before editing, identify critical structures (auth, routing, database schema, middleware, config, CI/CD, published contracts).</descripcion>
     <registro_requerido>
-      <campo name="path">Ruta o identificador</campo>
-      <campo name="reason">Por qué proteger</campo>
-      <campo name="allowed">Cambios permitidos</campo>
-      <campo name="forbidden">Cambios prohibidos</campo>
+      <campo name="path">Path or identifier</campo>
+      <campo name="reason">Why it is protected</campo>
+      <campo name="allowed">Allowed changes</campo>
+      <campo name="forbidden">Forbidden changes</campo>
     </registro_requerido>
-    <regla>Si una estructura crítica debe tocarse, justifica el cambio mínimo.</regla>
+    <regla>If a critical structure must be touched, justify the smallest change.</regla>
   </proteccion_estructuras_criticas>
 
   <jerarquia_fuentes_verdad>
-    <descripcion>En caso de contradicción:</descripcion>
-    <nivel priority="1">HU y criterios de aceptación (texto original)</nivel>
-    <nivel priority="2">Restricciones obligatorias del Orquestador</nivel>
-    <nivel priority="3">Arquitectura aprobada / SAD</nivel>
-    <nivel priority="4">Contrato compartido aprobado</nivel>
-    <nivel priority="5">Código existente</nivel>
-    <nivel priority="6">Informes de etapas anteriores</nivel>
-    <nivel priority="7">Preferencias técnicas</nivel>
+    <descripcion>When sources conflict:</descripcion>
+    <nivel priority="1">User story and acceptance criteria (original text)</nivel>
+    <nivel priority="2">Mandatory orchestrator constraints</nivel>
+    <nivel priority="3">Approved architecture / SAD</nivel>
+    <nivel priority="4">Approved shared contract</nivel>
+    <nivel priority="5">Existing code</nivel>
+    <nivel priority="6">Reports from earlier stages</nivel>
+    <nivel priority="7">Technical preferences</nivel>
   </jerarquia_fuentes_verdad>
 
   <trazabilidad_obligatoria>
-    <cadena>HU → criterio → responsabilidad → implementación → test → evidencia → estado</cadena>
+    <cadena>user story → criterion → responsibility → implementation → test → evidence → state</cadena>
     <estados_evidencia>
-      <estado>IMPLEMENTADO</estado>
-      <estado>PROBADO</estado>
-      <estado>VALIDADO</estado>
-      <estado>NO VERIFICADO</estado>
-      <estado>NO VERIFICABLE</estado>
-      <estado>NO EJECUTADA</estado>
+      <estado>IMPLEMENTED</estado>
+      <estado>TESTED</estado>
+      <estado>VALIDATED</estado>
+      <estado>NOT_VERIFIED</estado>
+      <estado>NOT_VERIFIABLE</estado>
+      <estado>NOT_RUN</estado>
     </estados_evidencia>
   </trazabilidad_obligatoria>
 
   <validacion_dos_rondas>
-    <descripcion>Optimizada para eficiencia</descripcion>
+    <descripcion>Tuned for efficiency</descripcion>
     <ronda name="V1">
-      <objetivo>Requisitos vs HU</objetivo>
-      <metodo>Revisión dirigida contra criterios de aceptación</metodo>
+      <objetivo>Requirements against the user story</objetivo>
+      <metodo>Directed review against the acceptance criteria</metodo>
     </ronda>
     <ronda name="V2">
-      <objetivo>Estado final</objetivo>
-      <metodo>Tests ejecutados + revisión de incumplimientos V1 corregidos</metodo>
+      <objetivo>Final state</objetivo>
+      <metodo>Executed tests plus review of the V1 gaps that were fixed</metodo>
     </ronda>
-    <nota>No re-analices todo el repositorio en V2 si V1 ya mapeó los criterios. Prioriza ejecutar tests y verificar solo lo que falló o cambió.</nota>
+    <nota>Do not re-analyze the whole repository in V2 if V1 already mapped the criteria. Run the tests and check only what failed or changed.</nota>
     <clasificacion_criterio>
       <opcion>FULFILLED</opcion>
       <opcion>PARTIALLY_FULFILLED</opcion>
@@ -103,74 +104,74 @@
   </validacion_dos_rondas>
 
   <seguridad_minimo_comun>
-    <regla>Validar y sanitizar entradas en backend; nunca confiar solo en frontend.</regla>
-    <regla>Autenticación/autorización según roles del proyecto existente.</regla>
-    <regla>No exponer secretos, tokens ni datos sensibles en logs, respuestas ni frontend.</regla>
-    <regla>Usar consultas parametrizadas / ORM; evitar SQL injection.</regla>
-    <regla>Manejo de errores sin filtrar stack traces al cliente en producción.</regla>
-    <regla>Si la HU toca autenticación, sesión, roles o datos personales, cargar la sección seguridad_aplicacion de engineering-standards.xml (obligatorio, sin excepción por complejidad).</regla>
-    <regla>Mensajes de usuario definidos por la HU se usan literalmente (engineering-standards.xml, mensajes_literales).</regla>
+    <regla>Validate and sanitize input on the backend. Never trust the frontend alone.</regla>
+    <regla>Authenticate and authorize according to the roles of the existing project.</regla>
+    <regla>Do not expose secrets, tokens, or sensitive data in logs, responses, or the frontend.</regla>
+    <regla>Use parameterized queries or an ORM. Do not concatenate SQL.</regla>
+    <regla>Do not leak stack traces to the client in production.</regla>
+    <regla>If the story touches authentication, session, roles, or personal data, load seguridad_aplicacion from engineering-standards.xml. This is mandatory at every complexity level.</regla>
+    <regla>User-facing messages defined by the story are used literally (engineering-standards.xml, mensajes_literales).</regla>
   </seguridad_minimo_comun>
 
   <documentacion_incremental>
-    <descripcion>Los agentes mantienen 4 documentos que SE ACTUALIZAN incrementalmente (no se sobrescriben)</descripcion>
-    
+    <descripcion>Agents keep 4 documents that are updated incrementally. They are not overwritten.</descripcion>
+
     <documento name="user-stories.md">
       <ubicacion>docs/user-stories.md</ubicacion>
-      <proposito>HU exactas como fueron recibidas. NO modificar, resumir ni reinterpretar.</proposito>
+      <proposito>Stories exactly as received. Do not modify, summarize, or reinterpret them.</proposito>
       <formato><![CDATA[
-# Historias de Usuario
+# User stories
 
-## HU-001 — [Título]
-**Como** [actor]  
-**Quiero** [acción]  
-**Para** [beneficio]
+## HU-001 — [Title]
+**As** [actor]
+**I want** [action]
+**So that** [benefit]
 
-### Criterios de aceptación
-1. [Criterio]
-2. [Criterio]
+### Acceptance criteria
+1. [Criterion]
+2. [Criterion]
 
-**Fecha recepción:** YYYY-MM-DD  
-**Estado:** IN_PROGRESS | COMPLETED | BLOCKED
+**Received:** YYYY-MM-DD
+**Status:** IN_PROGRESS | COMPLETED | BLOCKED
 
 ---
 
-## HU-002 — [Título]
+## HU-002 — [Title]
 ...
 ]]></formato>
     </documento>
 
     <documento name="code-structure.md">
       <ubicacion>docs/code-structure.md</ubicacion>
-      <proposito>Estructuras de código analizadas/modificadas. Actualizar incrementalmente, NO sobrescribir.</proposito>
+      <proposito>Code structures analyzed or changed. Update incrementally. Do not overwrite.</proposito>
       <formato><![CDATA[
-# Estructura del código
+# Code structure
 
 ## Backend
 
-### API Endpoints
-- POST /api/sales (HU-001) — Crear venta
-- GET /api/sales/:id (HU-003) — Obtener venta
+### API endpoints
+- POST /api/sales (HU-001) — Create a sale
+- GET /api/sales/:id (HU-003) — Get a sale
 
-### Servicios
+### Services
 - SaleService (HU-001, HU-005)
 - ProductService (HU-002)
 
-### Modelos
+### Models
 - Sale (HU-001) — { id, userId, items, total, createdAt }
 - Product (HU-002)
 
 ### Middleware
-- auth.js — AuthN/AuthZ
-- validate.js — Validación requests
+- auth.js — authentication and authorization
+- validate.js — request validation
 
 ## Frontend
 
-### Páginas
-- /sales/new (HU-001) — Registro de ventas
-- /sales (HU-003) — Listado
+### Pages
+- /sales/new (HU-001) — Sale registration
+- /sales (HU-003) — List
 
-### Componentes
+### Components
 - SaleForm (HU-001)
 - ProductSelector (HU-001, HU-002)
 
@@ -178,115 +179,115 @@
 - useSales (HU-001)
 - useProducts (HU-002)
 
-## Estructuras críticas
-- backend/src/middleware/auth.js — NO modificar lógica AuthN
-- frontend/src/services/api.js — Cliente HTTP configurado
+## Critical structures
+- backend/src/middleware/auth.js — do not change authentication logic
+- frontend/src/services/api.js — configured HTTP client
 ]]></formato>
     </documento>
 
     <documento name="implementation-report.md">
       <ubicacion>docs/implementation-report.md</ubicacion>
-      <proposito>Resultados por HU durante implementación Backend/Frontend. Registrar cambios, tests, validación V1/V2. NO sobrescribir.</proposito>
+      <proposito>Results per story during backend and frontend implementation. Record changes, tests, and V1/V2. Do not overwrite.</proposito>
       <formato><![CDATA[
-# Reporte de implementación
+# Implementation report
 
-## HU-001 — Registrar venta
-**Estado:** IN_PROGRESS | COMPLETED  
-**Fecha:** 2026-09-14
+## HU-001 — Register a sale
+**Status:** IN_PROGRESS | COMPLETED
+**Date:** 2026-09-14
 
-### Análisis (Orquestador)
-- Clasificación: FULL_STACK
-- Alcance Backend: [resumen]
-- Alcance Frontend: [resumen]
+### Analysis (orchestrator)
+- Classification: FULL_STACK
+- Backend scope: [summary]
+- Frontend scope: [summary]
 
-### Cambios Backend
-- Archivos: routes/sales.js, services/SaleService.js
+### Backend changes
+- Files: routes/sales.js, services/SaleService.js
 - API: POST /api/sales
 - Tests: 7 passing
-- Validación V1: 4/4 criterios backend
-- Validación V2: PASSED
+- V1: 4/4 backend criteria
+- V2: PASSED
 
-### Cambios Frontend
-- Archivos: pages/NewSale.jsx, components/SaleForm.jsx
+### Frontend changes
+- Files: pages/NewSale.jsx, components/SaleForm.jsx
 - Tests: 6 passing
-- Validación V1: 2/2 criterios frontend
-- Validación V2: PASSED
+- V1: 2/2 frontend criteria
+- V2: PASSED
 
 ---
 
-## HU-002 — [Siguiente]
+## HU-002 — [Next]
 ...
 ]]></formato>
     </documento>
 
     <documento name="integration-report.md">
       <ubicacion>docs/integration-report.md</ubicacion>
-      <proposito>Validación E2E por el Integrador. Contrato, flujo, seguridad, UX, accesibilidad, performance. NO sobrescribir.</proposito>
+      <proposito>End-to-end validation by the integrator. Contract, flow, security, UX, accessibility, and performance. Do not overwrite.</proposito>
       <formato><![CDATA[
-# Reporte de integración
+# Integration report
 
-## HU-001 — Registrar venta
-**Fecha validación:** 2026-09-14
+## HU-001 — Register a sale
+**Validated:** 2026-09-14
 
-### Contrato de integración
+### Integration contract
 - Endpoints: POST /api/sales
-- Estado: Sale list cache
+- State: sale list cache
 
-### Flujo E2E
-1. Usuario completa formulario
-2. POST /api/sales con validación
-3. Response 201 + redirect /sales
-4. Lista actualizada
+### End-to-end flow
+1. The user completes the form
+2. POST /api/sales with validation
+3. Response 201 and redirect to /sales
+4. The list is updated
 
-### Validación funcional
-| Criterio | Estado | Evidencia |
+### Functional validation
+| Criterion | Status | Evidence |
 |---|---|---|
-| Venta registrada | ✓ PASS | Test E2E |
-| Total calculado | ✓ PASS | Test unit |
+| Sale recorded | PASS | End-to-end test |
+| Total calculated | PASS | Unit test |
 
-### Validación seguridad
-- ✓ AuthN/AuthZ
-- ✓ Validación entrada
-- ✓ No expone secretos
+### Security validation
+- Authentication and authorization
+- Input validation
+- No secrets exposed
 
-### Validación UX
-- ✓ Loading, success, error states
-- ✓ Errores específicos por campo
+### UX validation
+- Loading, success, and error states
+- Field-specific errors
 
-### Validación accesibilidad
-- ✓ Keyboard navigation
-- ✓ Labels + ARIA
+### Accessibility validation
+- Keyboard navigation
+- Labels and ARIA
 
-### Acceptance Score
-- **Resultado:** 100% (6/6)
-- **Estado:** ✓ APROBADO
+### Acceptance score
+- Result: 100% (6/6)
+- Status: APPROVED
 
 ---
 
-## HU-002 — [Siguiente]
+## HU-002 — [Next]
 ...
 ]]></formato>
     </documento>
 
     <reglas_generales>
-      <regla>Leer archivos antes de escribir</regla>
-      <regla>Actualizar incrementalmente (append)</regla>
-      <regla>Preservar registros anteriores</regla>
-      <regla>NO sobrescribir destructivamente</regla>
-      <regla>Mantener orden cronológico por HU</regla>
-      <regla>Proyectos con varios repositorios (backend, frontend): cada repositorio mantiene sus 4 documentos en su propio docs/; user-stories.md es idéntico en todos, code-structure.md e implementation-report.md describen la capa propia, e integration-report.md se publica idéntico en cada repositorio.</regla>
-      <regla>El directorio docs/ preexistente del proyecto se conserva; los 4 documentos se añaden o se anexan sin borrar contenido ajeno.</regla>
-      <regla>Cada HU del implementation-report incluye: Decisiones técnicas, Matriz de trazabilidad (criterio, implementación, test, evidencia, estado) y Comandos de validación ejecutados con resultado.</regla>
+      <regla>Read files before writing them.</regla>
+      <regla>Update incrementally (append).</regla>
+      <regla>Preserve earlier records.</regla>
+      <regla>Do not overwrite destructively.</regla>
+      <regla>Keep chronological order by story.</regla>
+      <regla>Projects with several repositories (backend, frontend): each repository keeps its own 4 documents. user-stories.md is identical in all of them. code-structure.md and implementation-report.md describe that repository's layer. integration-report.md is published identically in each repository.</regla>
+      <regla>An existing docs/ directory is kept. The 4 documents are added or appended without deleting unrelated content.</regla>
+      <regla>Each story in the implementation report includes technical decisions, a traceability matrix (criterion, implementation, test, evidence, state), and the validation commands that were run, with their results.</regla>
     </reglas_generales>
   </documentacion_incremental>
 
   <comportamiento_ante_bloqueos>
-    <regla>Si falta proyecto base, backend, frontend o información crítica: emitir &lt;status&gt;BLOCKED&lt;/status&gt;. Un arquetipo o mockup identificable SÍ es base válida (ver project-modes.xml).</regla>
-    <regla>Una herramienta, dependencia o servicio ausente en el entorno local NO es bloqueo: se instala o se levanta en contenedor. Solo bloquean credenciales de terceros que el usuario debe aportar o decisiones HIGH de negocio.</regla>
-    <regla>Indica qué falta exactamente. No improvises para evitar el bloqueo.</regla>
+    <regla>If the project base, backend, frontend, or critical information is missing, emit &lt;status&gt;BLOCKED&lt;/status&gt;. An identifiable archetype or mockup is a valid base (see project-modes.xml).</regla>
+    <regla>A missing local tool, dependency, or service is not a blocker: install it or start it in a container. Only third-party credentials the user must supply, or high-impact business decisions, block the work.</regla>
+    <regla>State exactly what is missing. Do not improvise in order to avoid the block.</regla>
   </comportamiento_ante_bloqueos>
 
   <formato_salida>
-    <descripcion>Usa secciones XML-like o markdown estructurado según indique el prompt del rol. Sé conciso: máxima densidad de información útil por token.</descripcion>
+    <descripcion>Use the XML-like or structured Markdown sections required by the role prompt. Be concise: the highest density of useful information per token. Follow language.xml for the language of generated text.</descripcion>
   </formato_salida>
 </prompt>

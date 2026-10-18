@@ -1,8 +1,8 @@
-# Identidad backend
+# Backend identity
 
-- Stack real:
-- Límite entre entrada, aplicación y persistencia:
-- Contrato de error: código, mensaje de usuario y correlación.
-- Autenticación y autorización vigentes.
-- Configuración por entorno. Ningún secreto en el documento.
-- Observación mínima: qué se registra y qué no se registra.
+- Actual stack:
+- Boundary between input, application, and persistence:
+- Error contract: code, user-facing message, and correlation.
+- Authentication and authorization currently in force.
+- Configuration by environment. No secret in the document.
+- Minimum observation: what is logged and what is not logged.

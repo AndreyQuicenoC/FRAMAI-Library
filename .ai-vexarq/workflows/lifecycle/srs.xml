@@ -2,27 +2,27 @@
 <prompt>
   <metadata>
     <id>lifecycle.srs</id>
-    <name>Fase — Especificación de requisitos</name>
+    <name>Phase — Software requirements specification</name>
     <version>3.0.0</version>
     <formato>formats/srs/SRS.md</formato>
     <salida>docs/vexarq/preliminary/srs/SRS.md</salida>
     <insumo>docs/vexarq/current/acercamiento/proyecto.md</insumo>
   </metadata>
 
-  <objetivo>Producir un SRS verificable a partir del proyecto vigente. Las decisiones abiertas permanecen abiertas.</objetivo>
+  <objetivo>Produce a verifiable SRS from the current project document. Open decisions stay open.</objetivo>
 
   <hacer>
-    <paso>Leer solo el documento de proyecto vigente y lo que el usuario añada en la solicitud. Si el vigente contradice al usuario, registrar CONTRADICCION y preguntar en modo validar.</paso>
-    <paso>Seguir el índice de formats/srs/SRS.md. Cada requisito funcional tiene identificador, enunciado, fuente y criterio de verificación.</paso>
-    <paso>Separar reglas de negocio, restricciones, supuestos y requisitos no funcionales. Los no funcionales salen de ISO/IEC 25010 solo en las características que el producto necesita.</paso>
-    <paso>Nombrar actores reales. No duplicar el mismo comportamiento una vez por rol.</paso>
-    <paso>Cuando falte un mensaje, un límite o una regla, escribir PENDIENTE. En modo continuo, rellenar con SUPUESTO_ESTANDAR explícito y conservador.</paso>
-    <paso>Cerrar con matriz de trazabilidad inicial: regla, requisito, verificación. Las historias aún no existen; la columna HU queda vacía.</paso>
+    <paso>Read only the current project document and what the user adds in the request. If the current document contradicts the user, record CONTRADICTION and ask in validar mode.</paso>
+    <paso>Follow the index in formats/srs/SRS.md. Each functional requirement has an identifier, a statement, a source, and a verification criterion.</paso>
+    <paso>Separate business rules, constraints, assumptions, and non-functional requirements. Non-functional requirements come from ISO/IEC 25010:2023 only for the characteristics this product needs.</paso>
+    <paso>Name real actors. Do not duplicate the same behavior once per role.</paso>
+    <paso>When a message, a limit, or a rule is missing, write PENDING. In continuo mode, fill it with an explicit and conservative STANDARD_ASSUMPTION.</paso>
+    <paso>Close with an initial traceability matrix: rule, requirement, verification. Stories do not exist yet, so the story column stays empty.</paso>
   </hacer>
 
   <calidad>
-    <regla>Un requisito se puede probar con sí o no.</regla>
-    <regla>No ocultar una decisión de diseño dentro de un requisito funcional.</regla>
-    <regla>No afirmar que el usuario aprobó un supuesto.</regla>
+    <regla>A requirement can be tested with yes or no.</regla>
+    <regla>Do not hide a design decision inside a functional requirement.</regla>
+    <regla>Do not claim that the user approved an assumption.</regla>
   </calidad>
 </prompt>

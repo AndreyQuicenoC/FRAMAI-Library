@@ -1,49 +1,31 @@
-# Reporte de solicitud
+# Request report
 
-## Metadatos
+## Request
 
-- Id de solicitud:
-- Fecha:
-- Workflow:
-- Proyecto:
-- Modo:
-- Perfil:
-- Fase:
-- Estado: en curso | preliminar listo | vigente | bloqueado | cerrado
+Identifier, date, mode, and profile.
 
-## Alcance
+## Phase
 
-- Objetivo:
-- Incluido:
-- Excluido:
+The phase that was worked on and the current inputs that were read.
 
-## Fuentes
+## Result
 
-- Confirmado:
-- Vigentes leídos:
-- Supuestos:
-- Pendientes:
+Artifact path and state: preliminary or current. In continuo mode, the assumptions that were promoted.
 
-## Cambios
+## Changes
 
-- Creados:
-- Modificados:
-- No tocados a propósito:
+Files and the reason for each one. No file outside the scope.
 
-## Validación
+## Evidence
 
-- Ejecutado y resultado:
-- No ejecutado y razón:
-- Defectos que siguen:
+| Check | Result | Evidence |
+| --- | --- | --- |
+| name | executed and passed, executed and failed, or not executed | command, file, or reason |
 
-## Git
+## Decisions
 
-- Rama:
-- Commits:
-- Push: no realizado | realizado hacia rama autorizada
+What the user still has to accept. What blocks the next phase.
 
-## Cierre
+## Next action
 
-- Criterios:
-- Trabajo que queda:
-- Siguiente acción:
+One concrete action.

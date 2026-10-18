@@ -1,4 +1,4 @@
-# Contributing to VEXARG
+# Contributing to VEXARQ
 
 Thank you for your interest in contributing.
 

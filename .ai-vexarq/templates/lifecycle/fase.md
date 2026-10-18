@@ -1,12 +1,13 @@
-# Una fase de VEXARG
+# One VEXARQ phase
 
-Carga y obedece `.ai-vexarq/workflows/lifecycle/orchestrator.xml` y `.ai-vexarq/core/policies.xml`.
+Load and follow `.ai-vexarq/workflows/lifecycle/orchestrator.xml` and `.ai-vexarq/core/policies.xml`.
 
-Fase: [acercamiento | srs | base-de-datos | backlog | extendido | sad | arquetipo | implementacion | entrega | recomendaciones]
-Modo: validar.
+Phase: [acercamiento | srs | base-de-datos | backlog | extendido | sad | arquetipo | implementacion | entrega | recomendaciones]
+Mode: validar.
+Language: the language of this request, unless I name another language.
 
-Usa solo documentos vigentes como insumo. Escribe el preliminar de esta fase y detente. No abras la fase siguiente. No hagas push.
+Use only current documents as input. Write this phase's preliminary and stop. Do not open the next phase. Do not push.
 
-Pedido:
+Request:
 
-[Contexto adicional.]
+[Additional context.]

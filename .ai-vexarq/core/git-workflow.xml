@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Flujo Git, ramas, commits y publicación segura</name>
+    <name>CORE — Git flow, branches, commits, and safe publication</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
-    <usage>Se carga cuando la solicitud incluye control de versiones (ramas, commits, push) o cuando el modo de proyecto lo exige. Si el usuario fija un flujo propio, el del usuario prevalece sobre este archivo.</usage>
+    <usage>Loaded when the request includes version control (branches, commits, push) or when the project mode requires it. If the user sets their own flow, the user's flow prevails over this file.</usage>
   </metadata>
 
   <principios>
-    <regla>Ningún push sin autorización explícita del usuario que nombre el remoto y la rama de destino. El modo continuo autoriza generar y, si el usuario pidió control de versiones, commitear en la rama de trabajo. No autoriza push, force push ni borrado de ramas.</regla>
-    <regla>Publicar solo lo que funciona: ningún push con quality gates en rojo ni con la integración sin validar.</regla>
-    <regla>Las ramas protegidas (main, develop y cualquier otra que el usuario declare) NO se modifican por el agente después de su preparación inicial; los merges hacia ellas los hace el usuario mediante PR.</regla>
-    <regla>Un commit = una unidad verificable (una HU, una fundación, un cambio transversal). Nunca mezclar HU distintas en un commit.</regla>
-    <regla>Jamás forzar (force push), reescribir historia publicada ni borrar ramas remotas sin pedido expreso.</regla>
-    <regla>Ninguna credencial, archivo .env real, volcado de BD, clave privada ni token entra a un commit. Ver S7 en engineering-standards.xml.</regla>
+    <regla>No push without explicit authorization from the user naming the remote and the destination branch. The continuo mode authorizes generating and, if the user requested version control, committing on the working branch. It does not authorize push, force push, or branch deletion.</regla>
+    <regla>Publish only what works: no push with quality gates in the red or with the integration unvalidated.</regla>
+    <regla>Protected branches (main, develop, and any other the user declares) are NOT modified by the agent after their initial preparation; merges into them are done by the user through a PR.</regla>
+    <regla>One commit = one verifiable unit (one user story, one foundation, one cross-cutting change). Never mix different user stories in one commit.</regla>
+    <regla>Never force (force push), rewrite published history, or delete remote branches without an express request.</regla>
+    <regla>No credential, real .env file, database dump, private key, or token enters a commit. See S7 in engineering-standards.xml.</regla>
   </principios>
 
   <preparacion_de_ramas>
-    <paso numero="1">Inspeccionar estado: ramas locales/remotas, commits existentes, remotos, cambios sin confirmar. No tocar trabajo ajeno.</paso>
-    <paso numero="2">Si la rama base de integración (develop) no existe: crearla desde la rama principal actual (main) y publicarla. Si existe: verificar que contiene main (git merge-base --is-ancestor main develop); si no, informar al usuario en lugar de fusionar sobre ella.</paso>
-    <paso numero="3">Crear UNA rama de trabajo por épica desde develop con nombre semántico: feature/ep-XX-descripcion-corta (ej. feature/ep-01-auth-sessions). Si el repositorio no tiene commits, crear primero el commit inicial en main con el estado recibido (sin secretos) y luego develop.</paso>
-    <paso numero="4">Trabajar exclusivamente en la rama de la épica. No hacer merge hacia develop ni main.</paso>
-    <paso numero="5">Repositorios múltiples (backend, frontend, framework): aplicar el flujo en cada uno de forma independiente y registrar en el informe qué rama se usó en cada repositorio.</paso>
+    <paso numero="1">Inspect state: local/remote branches, existing commits, remotes, uncommitted changes. Do not touch others' work.</paso>
+    <paso numero="2">If the integration base branch (develop) does not exist: create it from the current main branch (main) and publish it. If it exists: verify that it contains main (git merge-base --is-ancestor main develop); if not, inform the user instead of merging onto it.</paso>
+    <paso numero="3">Create ONE working branch per epic from develop with a semantic name: feature/ep-XX-short-description (e.g. feature/ep-01-auth-sessions). If the repository has no commits, first create the initial commit on main with the received state (without secrets) and then develop.</paso>
+    <paso numero="4">Work exclusively on the epic branch. Do not merge into develop or main.</paso>
+    <paso numero="5">Multiple repositories (backend, frontend, framework): apply the flow in each one independently and record in the report which branch was used in each repository.</paso>
   </preparacion_de_ramas>
 
   <commits>
-    <formato>Conventional Commits con ID de HU: tipo(HU_ID): resumen imperativo en minúsculas (máx. 72 caracteres)</formato>
+    <formato>Conventional Commits with user-story ID: type(HU_ID): imperative summary in lowercase (max. 72 characters)</formato>
     <cuerpo>
-      Qué cambió (archivos/módulos clave), criterios cubiertos, pruebas ejecutadas con resultado y decisiones relevantes. Sin secretos, sin emojis.
+      What changed (key files/modules), criteria covered, tests run with their result, and relevant decisions. No secrets, no emojis.
     </cuerpo>
     <tipos>feat, fix, test, docs, refactor, chore, ci, build</tipos>
     <plan_por_lote>
-      <regla>Commit de fundación (configuración, contrato de error, entorno, tooling) antes de las HU, si no pertenece a una HU concreta.</regla>
-      <regla>Un commit por HU completada con éxito (código + tests + documentación de esa HU), en el orden de dependencias definido por el Orquestador.</regla>
-      <regla>Cambios transversales pedidos por separado (ej. marcar funcionalidades fuera de alcance, contenerización) van en commits aparte con su propio mensaje.</regla>
-      <regla>Una HU que no impacta una capa (ej. página estática sin backend) puede no tener commit en ese repositorio; se documenta en el plan.</regla>
+      <regla>Foundation commit (configuration, error contract, environment, tooling) before the user stories, if it does not belong to a specific user story.</regla>
+      <regla>One commit per successfully completed user story (code + tests + that user story's documentation), in the dependency order defined by the Orchestrator.</regla>
+      <regla>Cross-cutting changes requested separately (e.g. marking out-of-scope functionality, containerization) go in separate commits with their own message.</regla>
+      <regla>A user story that does not affect a layer (e.g. a static page with no backend) may have no commit in that repository; it is documented in the plan.</regla>
     </plan_por_lote>
   </commits>
 
   <puertas_previas_a_commit>
-    <paso>Ejecutar los quality gates aplicables a los archivos cambiados (format_lint, typecheck, architecture, tests relevantes).</paso>
-    <paso>Ejecutar escaneo de secretos sobre lo staged y revisar `git status` y `git diff --cached --stat` en busca de .env, binarios, .venv, node_modules, dumps.</paso>
-    <paso>Confirmar que .gitignore cubre .env*, caches, entornos virtuales, artefactos de build y datos locales.</paso>
+    <paso>Run the quality gates applicable to the changed files (format_lint, typecheck, architecture, relevant tests).</paso>
+    <paso>Run secret scanning on what is staged and review `git status` and `git diff --cached --stat` for .env, binaries, .venv, node_modules, dumps.</paso>
+    <paso>Confirm that .gitignore covers .env*, caches, virtual environments, build artifacts, and local data.</paso>
   </puertas_previas_a_commit>
 
   <puertas_previas_a_push>
-    <paso>Confirmar que el usuario autorizó el push y nombró el remoto y la rama. Si esa autorización no está, detenerse aquí.</paso>
-    <paso>Suite completa de la capa en verde (no solo los tests de la última HU).</paso>
-    <paso>Si el lote es full-stack: integración real BE-FE validada por el Integrador; correcciones cruzadas ya aplicadas y re-validadas.</paso>
-    <paso>Revisión final del historial a publicar: `git log --stat` de la rama de la épica; sin secretos en ningún commit.</paso>
-    <paso>Push solo de la rama de la épica con upstream (git push -u origin rama). Si la autenticación falla, detenerse e informar; nunca pedir ni escribir credenciales en el repo.</paso>
+    <paso>Confirm that the user authorized the push and named the remote and the branch. If that authorization is not present, stop here.</paso>
+    <paso>Full layer suite green (not only the tests of the last user story).</paso>
+    <paso>If the batch is full-stack: real BE-FE integration validated by the Integrator; cross corrections already applied and re-validated.</paso>
+    <paso>Final review of the history to publish: `git log --stat` of the epic branch; no secrets in any commit.</paso>
+    <paso>Push only the epic branch with upstream (git push -u origin branch). If authentication fails, stop and report; never ask for or write credentials in the repo.</paso>
   </puertas_previas_a_push>
 
   <fallos_y_recuperacion>
-    <regla>Si un gate falla tras un commit, corregir con un commit nuevo (o amend solo si no se ha publicado y el cambio pertenece al mismo commit).</regla>
-    <regla>Si se detecta un secreto ya commiteado localmente y no publicado: reescribir ese commit y rotar el secreto; si ya se publicó: avisar al usuario de inmediato para rotación.</regla>
+    <regla>If a gate fails after a commit, correct it with a new commit (or amend only if it has not been published and the change belongs to the same commit).</regla>
+    <regla>If a secret already committed locally and not published is detected: rewrite that commit and rotate the secret; if it was already published: notify the user immediately for rotation.</regla>
   </fallos_y_recuperacion>
 </prompt>

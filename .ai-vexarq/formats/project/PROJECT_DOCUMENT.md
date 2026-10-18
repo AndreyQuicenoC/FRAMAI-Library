@@ -1,53 +1,41 @@
-# Documento de proyecto
+# Project document
 
-## Control
+## 1. Identity
 
-- Identificador:
-- Versión:
-- Estado: preliminar | vigente
-- Fecha:
-- Modelo de negocio:
-- Modelo secundario:
-- Perfil VEXARG:
+Name, acronym, and a one-sentence description. If the acronym is missing, mark it pending: the backlog needs it.
 
-## 1. Problema y resultado
+## 2. Problem and outcome
 
-Qué duele, a quién y qué cambia si el producto funciona. Marcar CONFIRMADO, REPOSITORIO, INFERENCIA, SUPUESTO_ESTANDAR o PENDIENTE en cada afirmación que no sea obvia.
+The problem as it was stated, who suffers it, and what observable outcome would count as an improvement. Separate CONFIRMED from INFERENCE.
 
-## 2. Usuarios y actores
+## 3. Actors
 
-Actor, objetivo y relación con el producto. Sin departamentos genéricos.
+Name, goal, and relationship to the product. Do not duplicate the same person under two roles.
 
-## 3. Modelo de negocio
+## 4. Business model
 
-Modelo principal, evidencia y lo que aún no se sabe. Quién obtiene valor y, si está confirmado, quién paga o quién opera.
+Primary model, secondary model when there is one, evidence, and what is still unknown. Use the identifiers in `core/business-model.xml`.
 
-## 4. Alcance de esta etapa
+## 5. Initial scope
 
-Incluido. Excluido. Lo que no se decidirá todavía.
+Included now. Explicitly out. Later, only when the user named it.
 
-## 5. MVP
+## 6. MVP
 
-Si el usuario definió un MVP: objetivo, incluido, excluido, dependencia y condición de cierre. Si no existe, escribir: no se definió MVP y no se inventa uno.
+If the user defined an MVP: goal, included, excluded, dependency, and closing condition. If none exists, write that no MVP was defined and none is invented.
 
-## 6. Restricciones
+## 7. Context and constraints
 
-Tiempo, tecnología ya elegida, normativa, datos, operación e integraciones.
+Deadline, regulation, platform, existing data, and integrations the user mentioned. Do not add a stack as a closed decision.
 
-## 7. Criterios de éxito
+## 8. Options that affect the product
 
-Condiciones observables de que esta etapa sirvió. Sin métricas inventadas.
+Each option has a consequence. The recommended option is marked as a recommendation, not as an approved decision, until the user accepts it.
 
-## 8. Decisiones
+## 9. Open decisions
 
-| Id | Decisión | Estado | Fuente |
-|---|---|---|---|
-| D-01 |  | confirmada / pendiente |  |
+What blocks the SRS and what can wait. The owner of the decision is the user, unless the project already assigned one.
 
-## 9. Riesgos de seguir
+## 10. Provenance
 
-Qué impediría redactar el SRS con honestidad.
-
-## 10. Proveniencia
-
-Lista corta de fuentes usadas: pedido del usuario, archivos del repositorio, documentos vigentes.
+A short list of the sources used: the user's request, repository files, and current documents.

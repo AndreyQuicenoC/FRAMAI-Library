@@ -1,19 +1,11 @@
-# Changelog del producto
+# Product changelog
 
-El changelog del producto que se construye sigue Keep a Changelog y Semantic Versioning.
+The changelog of the product being built follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [version] - fecha
+## Sections
 
-### Añadido
+`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, and `Security`, only for the sections that have entries.
 
-### Modificado
+## Rule
 
-### Corregido
-
-### Eliminado
-
-### Seguridad
-
-### Obsoleto
-
-Se documenta el cambio relevante para quien usa el producto, no la transcripción de los commits.
+Document the change that matters to the person using the product, not a transcript of the commits.

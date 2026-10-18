@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
   <metadata>
-    <name>CORE — Identificación del modelo de negocio</name>
+    <name>CORE — Business model identification</name>
     <version>3.0.0</version>
     <hereda>policies.xml</hereda>
-    <usage>Se usa en acercamiento y se relee, sin recalcular en silencio, cuando una fase posterior toma decisiones de alcance.</usage>
+    <usage>Used in discovery and reread, without a silent recalculation, when a later phase makes scope decisions.</usage>
   </metadata>
 
   <catalogo>
-    <modelo id="saas">Suscripción o uso recurrente de un software alojado.</modelo>
-    <modelo id="marketplace">La plataforma intermedia entre dos o más lados que intercambian valor.</modelo>
-    <modelo id="comercio">Venta de bienes o servicios con catálogo, pedido y pago.</modelo>
-    <modelo id="interno">Herramienta para la operación de una organización, sin cliente externo como usuario principal.</modelo>
-    <modelo id="api">El producto principal es un contrato consumido por otros sistemas.</modelo>
-    <modelo id="contenido">Publicación, medios o comunidad donde el contenido es el valor.</modelo>
-    <modelo id="on-premise">El cliente opera el software en su infraestructura.</modelo>
-    <modelo id="institucional">Proceso académico, público o regulado, con actores y evidencia formal.</modelo>
-    <modelo id="otro">Ninguno anterior encaja. Describirlo en una frase, sin forzarlo a SaaS.</modelo>
+    <modelo id="saas">Recurring use of hosted software.</modelo>
+    <modelo id="marketplace">The platform sits between two or more sides that exchange value.</modelo>
+    <modelo id="comercio">Sale of goods or services with a catalog, an order, and payment.</modelo>
+    <modelo id="interno">A tool for an organization's own operation, without an external customer as the main user.</modelo>
+    <modelo id="api">The main product is a contract consumed by other systems.</modelo>
+    <modelo id="contenido">Publishing, media, or a community where content is the value.</modelo>
+    <modelo id="on-premise">The customer runs the software on their own infrastructure.</modelo>
+    <modelo id="institucional">An academic, public, or regulated process, with formal actors and evidence.</modelo>
+    <modelo id="otro">None of the above fits. Describe it in one sentence. Do not force it into SaaS.</modelo>
   </catalogo>
 
   <metodo>
-    <paso>Buscar evidencia en el pedido del usuario y en documentos vigentes: quién paga, quién opera, qué se repite, qué se intercambia.</paso>
-    <paso>Elegir un modelo principal y, si hace falta, uno secundario.</paso>
-    <paso>Escribir la evidencia y lo que no se sabe. Si hay dos modelos compatibles con el texto, dejar PENDIENTE en modo validar.</paso>
-    <paso>En modo continuo, elegir el modelo con más evidencia y marcarlo SUPUESTO_ESTANDAR.</paso>
-    <paso>No derivar un plan de precios, una sociedad ni una estrategia de mercado que el usuario no pidió. El modelo solo orienta requisitos, riesgos y recomendaciones.</paso>
+    <paso>Look for evidence in the user's request and in current documents: who pays, who operates, what repeats, and what is exchanged.</paso>
+    <paso>Choose one primary model and, if needed, one secondary model.</paso>
+    <paso>Write the evidence and what is still unknown. If two models fit the text, leave PENDING in validar mode.</paso>
+    <paso>In continuo mode, choose the model with the most evidence and mark it STANDARD_ASSUMPTION.</paso>
+    <paso>Do not derive a pricing plan, a company, or a market strategy the user did not ask for. The model only guides requirements, risks, and recommendations.</paso>
   </metodo>
 
   <consecuencias>
-    <regla>SaaS y comercio activan tenant o cuenta, facturación solo si el alcance la menciona, y cuidado con datos de clientes.</regla>
-    <regla>Marketplace exige distinguir los lados y las reglas de la transacción. No modelar un lado único.</regla>
-    <regla>Interno e institucional priorizan roles, auditoría y trazabilidad sobre adquisición de usuarios.</regla>
-    <regla>API prioriza contrato, versión y compatibilidad. La interfaz humana es secundaria salvo que el SRS la pida.</regla>
+    <regla>SaaS and commerce activate a tenant or account, billing only when the scope mentions it, and care with customer data.</regla>
+    <regla>A marketplace must distinguish the sides and the rules of the transaction. Do not model a single side.</regla>
+    <regla>Internal and institutional products prioritize roles, audit, and traceability over user acquisition.</regla>
+    <regla>An API prioritizes the contract, versioning, and compatibility. A human interface is secondary unless the SRS asks for it.</regla>
   </consecuencias>
 </prompt>

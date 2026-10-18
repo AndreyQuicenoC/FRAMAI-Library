@@ -1,75 +1,77 @@
-# VEXARG
+# VEXARQ
 
-Sistema modular de ingeniería de software asistida por IA. Se copia la carpeta `.ai-vexarq` a un proyecto y el agente ya tiene cómo interpretar una solicitud, qué artefacto producir, qué debe validar una persona y qué evidencia cierra el trabajo.
+A modular system for AI-assisted software engineering. Copy the `.ai-vexarq` folder into a project and the agent has a way to interpret a request, decide which artifact to produce, decide what a person must validate, and decide which evidence closes the work.
 
-VEXARG continúa FRAMAI. El motor multiagente de historias de usuario, los estándares de ingeniería y el flujo Git de la versión 2.2.0 siguen en la biblioteca. El cambio de la 3.0.0 es el ciclo de vida alrededor de ese motor.
+VEXARQ continues FRAMAI. The multi-agent user-story engine, the engineering standards, and the Git flow from version 2.2.0 remain in the library. Version 3.0.0 puts a product lifecycle around that engine.
 
-## Qué problema resuelve
+The library is written in English. Code, documents, and other generated text follow the language the user is using. An explicit language request overrides that detection. See `.ai-vexarq/core/language.xml`.
 
-Un paquete de prompts sueltos genera documentos que no se hablan entre sí. VEXARG separa el motor, las plantillas, los contratos de salida, el contexto vigente y la comprobación. La fase siguiente no puede tomar un borrador de la IA si todavía no es el documento vigente.
+## The problem it addresses
 
-## En qué se diferencia
+A bundle of loose prompts produces documents that do not talk to each other. VEXARQ separates the engine, the templates, the output contracts, the current context, and the check. The next phase cannot take a model draft that is not yet the current document.
 
-| | Spec Kit | BMAD | VEXARG |
+## How it differs
+
+| | Spec Kit | BMAD | VEXARQ |
 |---|---|---|---|
-| Unidad de trabajo | Especificación de una funcionalidad, con comandos por fase | Equipo de agentes y entregas entre archivos | Ciclo de producto y, dentro de él, el motor de historias ya probado en FRAMAI |
-| Autoridad del requisito | Constitución y especificación del kit | Handoff del agente anterior | Documento vigente editado por la persona. El preliminar de la IA no alimenta la fase siguiente |
-| Backlog e arquetipo | Tareas derivadas de la spec | Planificación por roles | Generadores canónicos propios, ejecutados sin reescribirlos, más un backlog extendido CSV agnóstico del proyecto |
-| Cierre | Convergencia de la funcionalidad | Revisión del agente de calidad | Tablero HTML de una página, reporte de solicitud y recomendaciones de producto, técnica, documentación, negocio y trabajo futuro |
-| Publicación | Depende del agente anfitrión | Depende del agente anfitrión | Push prohibido salvo remoto, rama y autorización explícitos, con checks en verde |
+| Unit of work | A feature specification, with a command per phase | A team of agents and handoffs between files | A product cycle and, inside it, the user-story engine already proven in FRAMAI |
+| Authority of a requirement | The kit's constitution and specification | The previous agent's handoff | The current document a person edited. The model's preliminary does not feed the next phase |
+| Backlog and archetype | Tasks derived from the spec | Planning by role | Canonical generators of its own, executed without rewriting them, plus a project-agnostic extended backlog in CSV |
+| Close | Convergence of the feature | Review by the quality agent | A one-page HTML board, a request report, and recommendations for the product, the technical work, the documentation, the business, and future work |
+| Publishing | Depends on the host agent | Depends on the host agent | Push is forbidden unless the remote, the branch, and explicit authorization are present, with checks green |
 
-Spec Kit y BMAD son referencias de desarrollo dirigido por especificación. VEXARG no los envuelve: fija preliminares y vigentes, conserva los generadores que ya funcionaban y exige evidencia antes de dar una fase por cerrada.
+Spec Kit and BMAD are references for specification-driven development. VEXARQ does not wrap them. It fixes preliminary and current documents, keeps the generators that already worked, and requires evidence before a phase is called done.
 
-## Cómo se usa
+## How to use it
 
-1. Copia `.ai-vexarq/` a la raíz del proyecto.
-2. Abre `.ai-vexarq/templates/lifecycle/ciclo.md`, `fase.md` o `continuo.md`.
-3. Pega la plantilla en el agente y escribe el pedido.
+1. Copy `.ai-vexarq/` to the project root.
+2. Open `.ai-vexarq/templates/lifecycle/ciclo.md`, `fase.md`, or `continuo.md`.
+3. Paste the template into the agent and write the request, in the language you want the product artifacts to use.
 
-Guía completa: [`.ai-vexarq/guides/usar-vexarq.md`](.ai-vexarq/guides/usar-vexarq.md).
+Full guide: [`.ai-vexarq/guides/usar-vexarq.md`](.ai-vexarq/guides/usar-vexarq.md).
 
-`validar` es el modo por defecto: la IA deja el resultado en `docs/vexarq/preliminary/` y espera. `continuo` rellena huecos con supuestos visibles y puede recorrer documentación, frontend, backend y pruebas. Ninguno de los dos hace push por su cuenta.
+`validar` is the default mode: the model leaves the result in `docs/vexarq/preliminary/` and waits. `continuo` fills gaps with visible assumptions and can walk documentation, frontend, backend, and tests. Neither mode pushes on its own.
 
-## Fases
+## Phases
 
-Acercamiento, SRS, base de datos, backlog, backlog extendido, SAD, arquetipo, implementación, entrega y recomendaciones. El tablero `docs/vexarq/status.html` muestra en qué fase está el proyecto, qué falta y el enlace al documento. La plantilla vacía está en `.ai-vexarq/tracker/project-status.template.html`.
+Discovery, SRS, database, backlog, extended backlog, SAD, archetype, implementation, delivery, and recommendations. The board `docs/vexarq/status.html` shows which phase the project is in, what is missing, and the link to the document. The empty template is `.ai-vexarq/tracker/project-status.template.html`.
 
-El acercamiento identifica el modelo de negocio (SaaS, marketplace, comercio, herramienta interna, API, contenido, on-premise, institucional u otro). No asume SaaS.
+Discovery identifies the business model (SaaS, marketplace, commerce, internal tool, API, content, on-premise, institutional, or other). It does not assume SaaS.
 
-## Qué vive en cada formato
+## What each format holds
 
-- XML: prompts, políticas y registros.
-- Markdown: contratos de documentos.
-- CSV: backlog extendido.
-- HTML estático: tablero de fase, reescrito en cada solicitud sin convertirla en un informe.
+- XML: prompts, policies, and registries.
+- Markdown: document contracts.
+- CSV: the extended backlog.
+- Static HTML: the phase board, rewritten on each request without turning it into a report.
 
-Los generadores de backlog y de arquetipo están en `.ai-vexarq/sources/canon/` y se ejecutan completos. El prompt de backlog extendido de un proyecto externo queda en `sources/examples/` como calibración; la generación universal es `workflows/lifecycle/backlog-extended.xml`.
+The backlog and archetype generators live in `.ai-vexarq/sources/canon/` and are executed in full. An extended-backlog prompt from an external project stays in `sources/examples/` as calibration. The universal generator is `workflows/lifecycle/backlog-extended.xml`.
 
-## Seguridad de trabajo
+## Working rules
 
-- No editar archivos ajenos al alcance.
-- No cambiar lógica funcional que el pedido no pidió cambiar.
-- No commitear secretos.
-- No hacer push sin autorización explícita del destino.
-- No declarar una prueba como pasada si no se ejecutó.
+- Do not edit files outside the scope.
+- Do not change functional behavior the request did not ask to change.
+- Do not commit secrets.
+- Do not push without explicit authorization of the destination.
+- Do not report a test as passed if it was not run.
 
-Detalle: [SECURITY.md](SECURITY.md) y `.ai-vexarq/core/git-workflow.xml`.
+Detail: [SECURITY.md](SECURITY.md) and `.ai-vexarq/core/git-workflow.xml`.
 
-## Mapa de la carpeta
+## Folder map
 
 ```text
 .ai-vexarq/
-  workflows/lifecycle/          una plantilla de fase y el orquestador general
-  workflows/user-story-implementation/   motor FRAMAI de historias
-  sources/canon/                backlog y arquetipo, sin modificar
-  sources/examples/             ejemplo externo de backlog extendido
-  formats/                      contratos Markdown
-  tracker/                      HTML base del estado
-  core/                         políticas, modos, linaje, git, diseño
-  guides/usar-vexarq.md         guía de uso
-  templates/lifecycle/          textos listos para pegar
+  workflows/lifecycle/          one phase template and the general orchestrator
+  workflows/user-story-implementation/   FRAMAI user-story engine
+  sources/canon/                backlog and archetype, executed as written
+  sources/examples/             external extended-backlog example
+  formats/                      Markdown contracts
+  tracker/                      base HTML for project status
+  core/                         policies, modes, lineage, language, git, design
+  guides/usar-vexarq.md         usage guide
+  templates/lifecycle/          text ready to paste
 ```
 
-## Licencia
+## License
 
-MIT. Ver [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

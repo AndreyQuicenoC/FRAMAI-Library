@@ -2,27 +2,27 @@
 <prompt>
   <metadata>
     <id>lifecycle.database</id>
-    <name>Fase — Diseño de datos</name>
+    <name>Phase — Data design</name>
     <version>3.0.0</version>
     <formato>formats/database/DATABASE_DESIGN.md</formato>
     <salida>docs/vexarq/preliminary/base-de-datos/DATABASE_DESIGN.md</salida>
     <insumo>docs/vexarq/current/srs/SRS.md</insumo>
   </metadata>
 
-  <objetivo>Diseñar la persistencia que el SRS vigente necesita. Relacional o documental, según el problema y el stack ya decidido.</objetivo>
+  <objetivo>Design the persistence the current SRS needs. Relational or document, according to the problem and the stack already chosen.</objetivo>
 
   <hacer>
-    <paso>Extraer entidades, documentos o eventos desde los requisitos vigentes. No añadir agregados que ningún requisito usa.</paso>
-    <paso>Si el proyecto ya tiene esquema, partir de ese esquema y marcar cambios. No reemplazarlo por un modelo ideal desconectado.</paso>
-    <paso>Entregar modelo conceptual, lógico y físico. En relacional: claves, cardinalidades, unicidad, integridad, índices justificados y política de borrado. En documental: colecciones, claves, índices, validaciones y patrones de acceso.</paso>
-    <paso>Incluir un diagrama Mermaid y un diccionario breve en el mismo documento, con enlace a formats/database/DATA_DICTIONARY.md si el diccionario crece.</paso>
-    <paso>Proponer migraciones versionadas solo como diseño. No ejecutarlas en esta fase.</paso>
-    <paso>Datos personales, retención y acceso mínimo quedan explícitos cuando el SRS los implica.</paso>
+    <paso>Extract entities, documents, or events from the current requirements. Do not add aggregates that no requirement uses.</paso>
+    <paso>If the project already has a schema, start from that schema and mark the changes. Do not replace it with an ideal model disconnected from it.</paso>
+    <paso>Deliver a conceptual, logical, and physical model. Relational: keys, cardinalities, uniqueness, integrity, justified indexes, and a deletion policy. Document: collections, keys, indexes, validations, and access patterns.</paso>
+    <paso>Include a Mermaid diagram and a short dictionary in the same document, with a link to formats/database/DATA_DICTIONARY.md if the dictionary grows.</paso>
+    <paso>Propose versioned migrations only as a design. Do not execute them in this phase.</paso>
+    <paso>Personal data, retention, and least privilege are explicit when the SRS implies them.</paso>
   </hacer>
 
   <no_hacer>
-    <regla>No forzar PostgreSQL, ni forzar MongoDB, si el vigente ya eligió motor.</regla>
-    <regla>No normalizar o desnormalizar sin decir qué consulta o qué integridad lo justifica.</regla>
-    <regla>No inventar tablas de facturación, auditoría o multi-tenant si el modelo de negocio vigente no las requiere.</regla>
+    <regla>Do not force PostgreSQL, and do not force MongoDB, if the current document already chose an engine.</regla>
+    <regla>Do not normalize or denormalize without saying which query or which integrity rule justifies it.</regla>
+    <regla>Do not invent billing, audit, or multi-tenant tables if the current business model does not require them.</regla>
   </no_hacer>
 </prompt>
